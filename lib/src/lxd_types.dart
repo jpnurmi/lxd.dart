@@ -201,7 +201,7 @@ class LxdResourcesStorageDisk {
   int get hashCode => Object.hash(id, model, serial, size, type);
 }
 
-class LxdUsbDevice {
+class LxdResourcesUsbDevice {
   final int busAddress;
   final int deviceAddress;
   final String product;
@@ -210,7 +210,7 @@ class LxdUsbDevice {
   final String vendor;
   final String vendorId;
 
-  LxdUsbDevice(
+  LxdResourcesUsbDevice(
       {required this.busAddress,
       required this.deviceAddress,
       required this.product,
@@ -221,13 +221,13 @@ class LxdUsbDevice {
 
   @override
   String toString() =>
-      'LxdUsbDevice(busAddress: $busAddress, deviceAddress: $deviceAddress, product: $product, productId: $productId, speed: $speed, vendor: $vendor, vendorId: $vendorId)';
+      'LxdResourcesUsbDevice(busAddress: $busAddress, deviceAddress: $deviceAddress, product: $product, productId: $productId, speed: $speed, vendor: $vendor, vendorId: $vendorId)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LxdUsbDevice &&
+    return other is LxdResourcesUsbDevice &&
         other.busAddress == busAddress &&
         other.deviceAddress == deviceAddress &&
         other.product == product &&
@@ -461,7 +461,7 @@ class LxdResources {
   final List<LxdResourcesGpuCard> gpuCards;
   final List<LxdResourcesNetworkCard> networkCards;
   final List<LxdResourcesStorageDisk> storageDisks;
-  final List<LxdUsbDevice> usbDevices;
+  final List<LxdResourcesUsbDevice> usbDevices;
   final List<LxdPciDevice> pciDevices;
   final LxdSystemResources system;
 

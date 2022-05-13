@@ -182,9 +182,9 @@ class LxdClient {
           size: disk['size'],
           type: disk['type']));
     }
-    var usbDevices = <LxdUsbDevice>[];
+    var usbDevices = <LxdResourcesUsbDevice>[];
     for (var device in usb['devices']) {
-      usbDevices.add(LxdUsbDevice(
+      usbDevices.add(LxdResourcesUsbDevice(
           busAddress: device['bus_address'],
           deviceAddress: device['device_address'],
           product: device['product'],
