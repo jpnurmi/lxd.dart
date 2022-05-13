@@ -59,22 +59,22 @@ class LxdOperation {
   }
 }
 
-class LxdCpuResources {
+class LxdResourcesCpu {
   final String architecture;
   final List<String> sockets;
 
-  LxdCpuResources({required this.architecture, required this.sockets});
+  LxdResourcesCpu({required this.architecture, required this.sockets});
 
   @override
   String toString() =>
-      'LxdCpuResources(architecture: $architecture, sockets: $sockets)';
+      'LxdResourcesCpu(architecture: $architecture, sockets: $sockets)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
 
-    return other is LxdCpuResources &&
+    return other is LxdResourcesCpu &&
         other.architecture == architecture &&
         listEquals(other.sockets, sockets);
   }
@@ -456,7 +456,7 @@ class LxdSystemResources {
 }
 
 class LxdResources {
-  final LxdCpuResources cpu;
+  final LxdResourcesCpu cpu;
   final LxdMemoryResources memory;
   final List<LxdGpuCard> gpuCards;
   final List<LxdNetworkCard> networkCards;

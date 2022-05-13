@@ -194,7 +194,7 @@ class LxdClient {
           vendorId: device['vendor_id']));
     }
     return LxdResources(
-        cpu: LxdCpuResources(
+        cpu: LxdResourcesCpu(
             architecture: cpuData['architecture'], sockets: []), // FIXME
         memory: LxdMemoryResources(
             used: memoryData['used'], total: memoryData['total']),
