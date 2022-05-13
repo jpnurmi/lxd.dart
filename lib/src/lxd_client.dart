@@ -162,9 +162,9 @@ class LxdClient {
           vendor: card['vendor'],
           vendorId: card['vendor_id']));
     }
-    var pciDevices = <LxdPciDevice>[];
+    var pciDevices = <LxdResourcesPciDevice>[];
     for (var device in pci['devices']) {
-      pciDevices.add(LxdPciDevice(
+      pciDevices.add(LxdResourcesPciDevice(
           driver: device['driver'],
           driverVersion: device['driver_version'],
           pciAddress: device['pci_address'],

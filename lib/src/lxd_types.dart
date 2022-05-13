@@ -251,7 +251,7 @@ class LxdResourcesUsbDevice {
   }
 }
 
-class LxdPciDevice {
+class LxdResourcesPciDevice {
   final String driver;
   final String driverVersion;
   final String pciAddress;
@@ -260,7 +260,7 @@ class LxdPciDevice {
   final String vendor;
   final String vendorId;
 
-  LxdPciDevice(
+  LxdResourcesPciDevice(
       {required this.driver,
       required this.driverVersion,
       required this.pciAddress,
@@ -271,13 +271,13 @@ class LxdPciDevice {
 
   @override
   String toString() =>
-      'LxdPciDevice(driver: $driver, driverVersion: $driverVersion, pciAddress: $pciAddress, product: $product, productId: $productId, vendor: $vendor, vendorId: $vendorId)';
+      'LxdResourcesPciDevice(driver: $driver, driverVersion: $driverVersion, pciAddress: $pciAddress, product: $product, productId: $productId, vendor: $vendor, vendorId: $vendorId)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LxdPciDevice &&
+    return other is LxdResourcesPciDevice &&
         other.driver == driver &&
         other.driverVersion == driverVersion &&
         other.pciAddress == pciAddress &&
@@ -462,7 +462,7 @@ class LxdResources {
   final List<LxdResourcesNetworkCard> networkCards;
   final List<LxdResourcesStorageDisk> storageDisks;
   final List<LxdResourcesUsbDevice> usbDevices;
-  final List<LxdPciDevice> pciDevices;
+  final List<LxdResourcesPciDevice> pciDevices;
   final LxdSystemResources system;
 
   LxdResources(
