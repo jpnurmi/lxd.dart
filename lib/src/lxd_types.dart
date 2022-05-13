@@ -83,20 +83,20 @@ class LxdResourcesCpu {
   int get hashCode => Object.hash(architecture, sockets);
 }
 
-class LxdMemoryResources {
+class LxdResourcesMemory {
   final int used;
   final int total;
 
-  LxdMemoryResources({required this.used, required this.total});
+  LxdResourcesMemory({required this.used, required this.total});
 
   @override
-  String toString() => 'LxdMemoryResources(used: $used, total: $total)';
+  String toString() => 'LxdResourcesMemory(used: $used, total: $total)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LxdMemoryResources &&
+    return other is LxdResourcesMemory &&
         other.used == used &&
         other.total == total;
   }
@@ -457,7 +457,7 @@ class LxdSystemResources {
 
 class LxdResources {
   final LxdResourcesCpu cpu;
-  final LxdMemoryResources memory;
+  final LxdResourcesMemory memory;
   final List<LxdGpuCard> gpuCards;
   final List<LxdNetworkCard> networkCards;
   final List<LxdStorageDisk> storageDisks;

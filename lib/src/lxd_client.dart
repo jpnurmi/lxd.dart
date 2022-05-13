@@ -196,7 +196,7 @@ class LxdClient {
     return LxdResources(
         cpu: LxdResourcesCpu(
             architecture: cpuData['architecture'], sockets: []), // FIXME
-        memory: LxdMemoryResources(
+        memory: LxdResourcesMemory(
             used: memoryData['used'], total: memoryData['total']),
         gpuCards: gpuCards,
         networkCards: networkCards,
