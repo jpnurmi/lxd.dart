@@ -146,9 +146,9 @@ class LxdClient {
     var firmwareData = systemData['firmware'];
     var chassisData = systemData['chassis'];
     var motherboardData = systemData['motherboard'];
-    var gpuCards = <LxdGpuCard>[];
+    var gpuCards = <LxdResourcesGpuCard>[];
     for (var card in gpu['cards']) {
-      gpuCards.add(LxdGpuCard(
+      gpuCards.add(LxdResourcesGpuCard(
           driver: card['driver'],
           driverVersion: card['driver_version'],
           vendor: card['vendor'],
