@@ -173,9 +173,9 @@ class LxdClient {
           vendor: device['vendor'],
           vendorId: device['vendor_id']));
     }
-    var storageDisks = <LxdStorageDisk>[];
+    var storageDisks = <LxdResourcesStorageDisk>[];
     for (var disk in storage['disks']) {
-      storageDisks.add(LxdStorageDisk(
+      storageDisks.add(LxdResourcesStorageDisk(
           id: disk['id'],
           model: disk['model'],
           serial: disk['serial'],

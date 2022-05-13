@@ -167,14 +167,14 @@ class LxdResourcesNetworkCard {
   int get hashCode => Object.hash(driver, driverVersion, vendor, vendorId);
 }
 
-class LxdStorageDisk {
+class LxdResourcesStorageDisk {
   final String id;
   final String model;
   final String serial;
   final int size;
   final String type;
 
-  LxdStorageDisk(
+  LxdResourcesStorageDisk(
       {required this.id,
       required this.model,
       required this.serial,
@@ -183,13 +183,13 @@ class LxdStorageDisk {
 
   @override
   String toString() =>
-      'LxdStorageDisk(id: $id, model: $model, serial: $serial, size: $size, type: $type)';
+      'LxdResourcesStorageDisk(id: $id, model: $model, serial: $serial, size: $size, type: $type)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LxdStorageDisk &&
+    return other is LxdResourcesStorageDisk &&
         other.id == id &&
         other.model == model &&
         other.serial == serial &&
@@ -460,7 +460,7 @@ class LxdResources {
   final LxdResourcesMemory memory;
   final List<LxdResourcesGpuCard> gpuCards;
   final List<LxdResourcesNetworkCard> networkCards;
-  final List<LxdStorageDisk> storageDisks;
+  final List<LxdResourcesStorageDisk> storageDisks;
   final List<LxdUsbDevice> usbDevices;
   final List<LxdPciDevice> pciDevices;
   final LxdSystemResources system;
