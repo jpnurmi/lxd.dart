@@ -136,13 +136,13 @@ class LxdResourcesGpuCard {
   int get hashCode => Object.hash(driver, driverVersion, vendor, vendorId);
 }
 
-class LxdNetworkCard {
+class LxdResourcesNetworkCard {
   final String driver;
   final String driverVersion;
   final String vendor;
   final String vendorId;
 
-  LxdNetworkCard(
+  LxdResourcesNetworkCard(
       {required this.driver,
       required this.driverVersion,
       required this.vendor,
@@ -150,13 +150,13 @@ class LxdNetworkCard {
 
   @override
   String toString() =>
-      'LxdNetworkCard(driver: $driver, driverVersion: $driverVersion, vendor: $vendor, vendorId: $vendorId)';
+      'LxdResourcesNetworkCard(driver: $driver, driverVersion: $driverVersion, vendor: $vendor, vendorId: $vendorId)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is LxdNetworkCard &&
+    return other is LxdResourcesNetworkCard &&
         other.driver == driver &&
         other.driverVersion == driverVersion &&
         other.vendor == vendor &&
@@ -459,7 +459,7 @@ class LxdResources {
   final LxdResourcesCpu cpu;
   final LxdResourcesMemory memory;
   final List<LxdResourcesGpuCard> gpuCards;
-  final List<LxdNetworkCard> networkCards;
+  final List<LxdResourcesNetworkCard> networkCards;
   final List<LxdStorageDisk> storageDisks;
   final List<LxdUsbDevice> usbDevices;
   final List<LxdPciDevice> pciDevices;

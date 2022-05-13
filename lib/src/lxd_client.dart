@@ -154,9 +154,9 @@ class LxdClient {
           vendor: card['vendor'],
           vendorId: card['vendor_id']));
     }
-    var networkCards = <LxdNetworkCard>[];
+    var networkCards = <LxdResourcesNetworkCard>[];
     for (var card in network['cards']) {
-      networkCards.add(LxdNetworkCard(
+      networkCards.add(LxdResourcesNetworkCard(
           driver: card['driver'],
           driverVersion: card['driver_version'],
           vendor: card['vendor'],
