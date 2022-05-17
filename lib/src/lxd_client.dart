@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:meta/meta.dart';
+
 import 'lxd_image.dart';
 import 'lxd_types.dart';
 import 'simplestream_client.dart';
@@ -88,10 +90,17 @@ class LxdClient {
 
   dynamic _hostInfo;
 
-  LxdClient({String userAgent = 'lxd.dart', String? socketPath})
-      : _client = HttpClient(),
-        _userAgent = userAgent {
-    _client.connectionFactory =
+  LxdClient(
+      {String userAgent = 'lxd.dart',
+      String? socketPath,
+      @visibleForTesting HttpClient? client})
+      : assert(socketPath == null || client == null),
+        _client = client ?? _createClient(socketPath),
+        _userAgent = userAgent;
+
+  static HttpClient _createClient(String? socketPath) {
+    final client = HttpClient();
+    client.connectionFactory =
         (Uri uri, String? proxyHost, int? proxyPort) async {
       if (socketPath == null) {
         var lxdDir = Platform.environment['LXD_DIR'];
@@ -108,6 +117,7 @@ class LxdClient {
           InternetAddress(socketPath!, type: InternetAddressType.unix);
       return Socket.startConnect(address, 0);
     };
+    return client;
   }
 
   /// Sets the user agent sent in requests to lxd.
