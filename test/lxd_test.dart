@@ -5,39 +5,6 @@ import 'dart:io';
 import 'package:lxd/lxd.dart';
 import 'package:test/test.dart';
 
-class MockImage {
-  final bool autoUpdate;
-  final Map<String, String> properties;
-  final bool public;
-  final String expiresAt;
-  final List<String> profiles;
-  final List<String> aliases;
-  final String architecture;
-  final bool cached;
-  final String filename;
-  final int size;
-  final String type;
-  final String createdAt;
-  final String lastUsedAt;
-  final String uploadedAt;
-
-  MockImage(
-      {this.autoUpdate = false,
-      this.properties = const {},
-      this.public = false,
-      this.expiresAt = '1970-01-01',
-      this.profiles = const [],
-      this.aliases = const [],
-      this.architecture = '',
-      this.cached = false,
-      this.filename = '',
-      this.size = 0,
-      this.type = '',
-      this.createdAt = '1970-01-01',
-      this.lastUsedAt = '1970-01-01',
-      this.uploadedAt = '1970-01-01'});
-}
-
 class MockInstance {
   final String architecture;
   final Map<String, dynamic> config;
@@ -236,7 +203,6 @@ class MockLxdServer {
   StreamSubscription<HttpRequest>? _requestSubscription;
   final _tcpSockets = <Socket, Socket>{};
 
-  final Map<String, MockImage> images;
   final Map<String, MockInstance> instances;
   final Map<String, MockNetwork> networks;
   final Map<String, MockNetworkAcl> networkAcls;
@@ -248,8 +214,7 @@ class MockLxdServer {
   String get socketPath => _socketPath!;
 
   MockLxdServer(
-      {this.images = const {},
-      this.instances = const {},
+      {this.instances = const {},
       this.networks = const {},
       this.networkAcls = const {},
       this.profiles = const {},
@@ -283,17 +248,6 @@ class MockLxdServer {
         : [];
     if (request.method == 'GET' && path.length == 1 && path[0] == '1.0') {
       _getHostInfo(response);
-    } else if (request.method == 'GET' &&
-        path.length == 2 &&
-        path[0] == '1.0' &&
-        path[1] == 'images') {
-      _getImages(response);
-    } else if (request.method == 'GET' &&
-        path.length == 3 &&
-        path[0] == '1.0' &&
-        path[1] == 'images') {
-      var fingerprint = path[2];
-      _getImage(response, fingerprint);
     } else if (request.method == 'GET' &&
         path.length == 2 &&
         path[0] == '1.0' &&
@@ -440,32 +394,6 @@ class MockLxdServer {
       'public': false,
       'auth_methods': ['tls'],
       'environment': {}
-    });
-  }
-
-  void _getImages(HttpResponse response) {
-    _writeSyncResponse(response,
-        images.keys.map((fingerprint) => '/1.0/images/$fingerprint').toList());
-  }
-
-  void _getImage(HttpResponse response, String fingerprint) {
-    var image = images[fingerprint]!;
-    _writeSyncResponse(response, {
-      'auto_update': image.autoUpdate,
-      'properties': image.properties,
-      'public': image.public,
-      'expires_at': image.expiresAt,
-      'profiles': image.profiles,
-      'aliases': image.aliases,
-      'architecture': image.architecture,
-      'cached': image.cached,
-      'filename': image.filename,
-      'fingerprint': fingerprint,
-      'size': image.size,
-      'type': image.type,
-      'created_at': image.createdAt,
-      'last_used_at': image.lastUsedAt,
-      'uploaded_at': image.uploadedAt
     });
   }
 
@@ -718,77 +646,6 @@ class MockLxdServer {
 }
 
 void main() {
-  test('get images', () async {
-    var lxd = MockLxdServer(images: {
-      '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb':
-          MockImage(),
-      '084dd79dd1360fd25a2479eb46674c2a5ef3022a40fe03c91ab3603e3402b8e1':
-          MockImage()
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var fingerprints = await client.getImages();
-    expect(
-        fingerprints,
-        equals([
-          '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb',
-          '084dd79dd1360fd25a2479eb46674c2a5ef3022a40fe03c91ab3603e3402b8e1'
-        ]));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get image', () async {
-    var lxd = MockLxdServer(images: {
-      '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb': MockImage(
-          architecture: 'x86_64',
-          autoUpdate: true,
-          cached: true,
-          createdAt: '2021-03-23T20:00:00-04:00',
-          expiresAt: '2025-03-23T20:00:00-04:00',
-          filename:
-              '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb.rootfs',
-          lastUsedAt: '2021-03-22T20:39:00.575185384-04:00',
-          public: false,
-          size: 272237676,
-          type: 'container',
-          uploadedAt: '2021-03-24T14:18:15.115036787-04:00')
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var image = await client.getImage(
-        '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb');
-    expect(image.architecture, equals('x86_64'));
-    expect(image.autoUpdate, isTrue);
-    expect(image.cached, isTrue);
-    expect(
-        image.createdAt, equals(DateTime.parse('2021-03-23T20:00:00-04:00')));
-    expect(
-        image.expiresAt, equals(DateTime.parse('2025-03-23T20:00:00-04:00')));
-    expect(
-        image.filename,
-        equals(
-            '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb.rootfs'));
-    expect(
-        image.fingerprint,
-        equals(
-            '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb'));
-    expect(image.lastUsedAt,
-        equals(DateTime.parse('2021-03-22T20:39:00.575185384-04:00')));
-    expect(image.profiles, equals([]));
-    expect(image.public, isFalse);
-    expect(image.size, equals(272237676));
-    expect(image.type, equals(LxdImageType.container));
-    expect(image.uploadedAt,
-        equals(DateTime.parse('2021-03-24T14:18:15.115036787-04:00')));
-
-    client.close();
-    await lxd.close();
-  });
-
   test('get instances', () async {
     var lxd = MockLxdServer(
         instances: {'foo': MockInstance(), 'bar': MockInstance()});
