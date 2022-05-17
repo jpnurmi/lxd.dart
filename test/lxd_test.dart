@@ -5,40 +5,6 @@ import 'dart:io';
 import 'package:lxd/lxd.dart';
 import 'package:test/test.dart';
 
-class MockInstance {
-  final String architecture;
-  final Map<String, dynamic> config;
-  final String createdAt;
-  final String description;
-  final bool ephemeral;
-  final String lastUsedAt;
-  final String location;
-  final List<String> profiles;
-  final bool stateful;
-  final String status;
-  final int statusCode;
-  final String type;
-
-  final Map<String, MockNetworkState> network;
-  final int pid;
-
-  MockInstance(
-      {this.architecture = '',
-      this.config = const {},
-      this.createdAt = '1970-01-01',
-      this.description = '',
-      this.ephemeral = false,
-      this.lastUsedAt = '1970-01-01',
-      this.location = '',
-      this.profiles = const [],
-      this.stateful = false,
-      this.status = '',
-      this.statusCode = 0,
-      this.type = '',
-      this.network = const {},
-      this.pid = 0});
-}
-
 class MockNetworkAddress {
   final String address;
   final String family;
@@ -203,7 +169,6 @@ class MockLxdServer {
   StreamSubscription<HttpRequest>? _requestSubscription;
   final _tcpSockets = <Socket, Socket>{};
 
-  final Map<String, MockInstance> instances;
   final Map<String, MockNetwork> networks;
   final Map<String, MockNetworkAcl> networkAcls;
   final operations = <String, MockOperation>{};
@@ -214,8 +179,7 @@ class MockLxdServer {
   String get socketPath => _socketPath!;
 
   MockLxdServer(
-      {this.instances = const {},
-      this.networks = const {},
+      {this.networks = const {},
       this.networkAcls = const {},
       this.profiles = const {},
       this.projects = const {},
@@ -248,42 +212,6 @@ class MockLxdServer {
         : [];
     if (request.method == 'GET' && path.length == 1 && path[0] == '1.0') {
       _getHostInfo(response);
-    } else if (request.method == 'GET' &&
-        path.length == 2 &&
-        path[0] == '1.0' &&
-        path[1] == 'instances') {
-      _getInstances(response);
-    } else if (request.method == 'GET' &&
-        path.length == 3 &&
-        path[0] == '1.0' &&
-        path[1] == 'instances') {
-      var name = path[2];
-      _getInstance(response, name);
-    } else if (request.method == 'GET' &&
-        path.length == 4 &&
-        path[0] == '1.0' &&
-        path[1] == 'instances' &&
-        path[3] == 'state') {
-      var name = path[2];
-      _getInstanceState(response, name);
-    } else if (request.method == 'PUT' &&
-        path.length == 4 &&
-        path[0] == '1.0' &&
-        path[1] == 'instances' &&
-        path[3] == 'state') {
-      var name = path[2];
-      _putInstanceState(response, name);
-    } else if (request.method == 'POST' &&
-        path.length == 2 &&
-        path[0] == '1.0' &&
-        path[1] == 'instances') {
-      _createInstance(response);
-    } else if (request.method == 'DELETE' &&
-        path.length == 3 &&
-        path[0] == '1.0' &&
-        path[1] == 'instances') {
-      var name = path[2];
-      _deleteInstance(response, name);
     } else if (request.method == 'GET' &&
         path.length == 2 &&
         path[0] == '1.0' &&
@@ -395,74 +323,6 @@ class MockLxdServer {
       'auth_methods': ['tls'],
       'environment': {}
     });
-  }
-
-  void _getInstances(HttpResponse response) {
-    _writeSyncResponse(response,
-        instances.keys.map((name) => '/1.0/instances/$name').toList());
-  }
-
-  void _getInstance(HttpResponse response, String name) {
-    var instance = instances[name]!;
-    _writeSyncResponse(response, {
-      'architecture': instance.architecture,
-      'config': instance.config,
-      'created_at': instance.createdAt,
-      'description': instance.description,
-      'ephemeral': instance.ephemeral,
-      'last_used_at': instance.lastUsedAt,
-      'location': instance.location,
-      'name': name,
-      'profiles': instance.profiles,
-      'stateful': instance.stateful,
-      'status': instance.status,
-      'status_code': instance.statusCode,
-      'type': instance.type
-    });
-  }
-
-  void _getInstanceState(HttpResponse response, String name) {
-    var instance = instances[name]!;
-    _writeSyncResponse(response, {
-      'network': instance.network.map((name, state) => MapEntry(name, {
-            'addresses': state.addresses
-                .map((address) => {
-                      'address': address.address,
-                      'family': address.family,
-                      'netmask': address.netmask,
-                      'scope': address.scope
-                    })
-                .toList(),
-            'counters': {
-              'bytes_received': state.counters.bytesReceived,
-              'bytes_sent': state.counters.bytesSent,
-              'packets_received': state.counters.packetsReceived,
-              'packets_sent': state.counters.packetsSent
-            },
-            'hwaddr': state.hwaddr,
-            'mtu': state.mtu,
-            'state': state.state,
-            'type': state.type
-          })),
-      'pid': instance.pid,
-      'status': instance.status,
-      'status_code': instance.statusCode
-    });
-  }
-
-  void _putInstanceState(HttpResponse response, String name) {
-    var operation = _addOperation();
-    _writeAsyncResponse(response, operation.toJson());
-  }
-
-  void _createInstance(HttpResponse response) {
-    var operation = _addOperation();
-    _writeAsyncResponse(response, operation.toJson());
-  }
-
-  void _deleteInstance(HttpResponse response, String name) {
-    var operation = _addOperation();
-    _writeAsyncResponse(response, operation.toJson());
   }
 
   void _getOperations(HttpResponse response) {
@@ -646,185 +506,6 @@ class MockLxdServer {
 }
 
 void main() {
-  test('get instances', () async {
-    var lxd = MockLxdServer(
-        instances: {'foo': MockInstance(), 'bar': MockInstance()});
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var instanceNames = await client.getInstances();
-    expect(instanceNames, equals(['foo', 'bar']));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get instance', () async {
-    var lxd = MockLxdServer(instances: {
-      'foo': MockInstance(
-          architecture: 'x86_64',
-          config: {'security.nesting': 'true'},
-          createdAt: '2021-03-23T20:00:00-04:00',
-          description: 'My test instance',
-          ephemeral: false,
-          lastUsedAt: '2021-03-23T20:00:00-04:00',
-          location: 'lxd01',
-          profiles: ['default'],
-          stateful: false,
-          status: 'Running',
-          statusCode: 0,
-          type: 'container')
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var instance = await client.getInstance('foo');
-    expect(instance.architecture, equals('x86_64'));
-    expect(instance.config, equals({'security.nesting': 'true'}));
-    expect(instance.createdAt,
-        equals(DateTime.parse('2021-03-23T20:00:00-04:00')));
-    expect(instance.description, equals('My test instance'));
-    expect(instance.ephemeral, isFalse);
-    expect(instance.lastUsedAt,
-        equals(DateTime.parse('2021-03-23T20:00:00-04:00')));
-    expect(instance.location, equals('lxd01'));
-    expect(instance.name, equals('foo'));
-    expect(instance.profiles, equals(['default']));
-    expect(instance.stateful, isFalse);
-    expect(instance.status, equals('Running'));
-    expect(instance.statusCode, equals(0));
-    expect(instance.type, equals('container'));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get instance state', () async {
-    var lxd = MockLxdServer(instances: {
-      'foo': MockInstance(
-          status: 'Running',
-          statusCode: 0,
-          network: {
-            'eth0': MockNetworkState(
-                addresses: [
-                  MockNetworkAddress(
-                      address: 'fd42:4c81:5770:1eaf:216:3eff:fe0c:eedd',
-                      family: 'inet6',
-                      netmask: '64',
-                      scope: 'global')
-                ],
-                counters: MockNetworkCounters(
-                    bytesReceived: 192021,
-                    bytesSent: 10888579,
-                    packetsReceived: 1748,
-                    packetsSent: 964),
-                hwaddr: '00:16:3e:0c:ee:dd',
-                mtu: 1500,
-                state: 'up',
-                type: 'broadcast')
-          },
-          pid: 7281)
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var state = await client.getInstanceState('foo');
-    expect(state.network.keys, equals(['eth0']));
-    var s = state.network['eth0']!;
-    expect(
-        s.addresses,
-        equals([
-          LxdNetworkAddress(
-              address: 'fd42:4c81:5770:1eaf:216:3eff:fe0c:eedd',
-              family: 'inet6',
-              netmask: '64',
-              scope: 'global')
-        ]));
-    expect(s.counters.bytesReceived, equals(192021));
-    expect(s.counters.bytesSent, equals(10888579));
-    expect(s.counters.packetsReceived, equals(1748));
-    expect(s.counters.packetsSent, equals(964));
-    expect(s.hwaddr, equals('00:16:3e:0c:ee:dd'));
-    expect(s.mtu, equals(1500));
-    expect(s.state, equals('up'));
-    expect(s.type, equals('broadcast'));
-    expect(state.pid, equals(7281));
-    expect(state.status, equals('Running'));
-    expect(state.statusCode, equals(0));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('create instance', () async {
-    var lxd = MockLxdServer();
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var operation = await client.createInstance(
-        image: LxdRemoteImage(
-            architecture: 'amd64',
-            aliases: {},
-            description: 'Test Image',
-            fingerprint:
-                '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb',
-            size: 272237676,
-            type: LxdRemoteImageType.container,
-            url: 'https://example.com'));
-    operation = await client.waitOperation(operation.id);
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('start instance', () async {
-    var lxd = MockLxdServer();
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var operation = await client.startInstance('test-instance');
-    operation = await client.waitOperation(operation.id);
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('stop instance', () async {
-    var lxd = MockLxdServer();
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var operation = await client.stopInstance('test-instance');
-    operation = await client.waitOperation(operation.id);
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('restart instance', () async {
-    var lxd = MockLxdServer();
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var operation = await client.restartInstance('test-instance');
-    operation = await client.waitOperation(operation.id);
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('delete instance', () async {
-    var lxd = MockLxdServer();
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var operation = await client.deleteInstance('test-instance');
-    operation = await client.waitOperation(operation.id);
-
-    client.close();
-    await lxd.close();
-  });
-
   test('get networks', () async {
     var lxd = MockLxdServer(networks: {'lxdbr0': MockNetwork()});
     await lxd.start();
