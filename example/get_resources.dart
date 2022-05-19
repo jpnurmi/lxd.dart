@@ -10,24 +10,24 @@ void main() async {
   print(' - used: ${resources.memory.used} bytes');
   print(' - total: ${resources.memory.total} bytes');
   print('gpu:');
-  for (var card in resources.gpuCards) {
+  for (var card in resources.gpu.cards) {
     print(' - ${card.vendor != '' ? card.vendor : card.vendorId}');
   }
   print('network:');
-  for (var card in resources.networkCards) {
+  for (var card in resources.network.cards) {
     print(' - ${card.vendor != '' ? card.vendor : card.vendorId}');
   }
   print('pci:');
-  for (var device in resources.pciDevices) {
+  for (var device in resources.pci.devices) {
     print(' - ${device.product != '' ? device.product : device.productId}');
   }
   print('storage:');
-  for (var disk in resources.storageDisks) {
+  for (var disk in resources.storage.disks) {
     print(' - ${disk.model}');
     print('   - size: ${disk.size} bytes');
   }
   print('usb:');
-  for (var device in resources.usbDevices) {
+  for (var device in resources.usb.devices) {
     print(' - ${device.product != '' ? device.product : device.productId}');
   }
 

@@ -12,6 +12,7 @@ import 'api/network_acl.dart';
 import 'api/operation.dart';
 import 'api/profile.dart';
 import 'api/project.dart';
+import 'api/resource.dart';
 import 'api/storage_pool.dart';
 import 'lxd_types.dart';
 import 'simplestream_client.dart';
@@ -169,97 +170,7 @@ class LxdClient {
   /// Gets system resources information.
   Future<LxdResources> getResources() async {
     var data = await _requestSync('GET', '/1.0/resources');
-    var cpuData = data['cpu'];
-    var memoryData = data['memory'];
-    var gpu = data['gpu'];
-    var network = data['network'];
-    var pci = data['pci'];
-    var storage = data['storage'];
-    var usb = data['usb'];
-    var systemData = data['system'];
-    var firmwareData = systemData['firmware'];
-    var chassisData = systemData['chassis'];
-    var motherboardData = systemData['motherboard'];
-    var gpuCards = <LxdGpuCard>[];
-    for (var card in gpu['cards']) {
-      gpuCards.add(LxdGpuCard(
-          driver: card['driver'],
-          driverVersion: card['driver_version'],
-          vendor: card['vendor'],
-          vendorId: card['vendor_id']));
-    }
-    var networkCards = <LxdNetworkCard>[];
-    for (var card in network['cards']) {
-      networkCards.add(LxdNetworkCard(
-          driver: card['driver'],
-          driverVersion: card['driver_version'],
-          vendor: card['vendor'],
-          vendorId: card['vendor_id']));
-    }
-    var pciDevices = <LxdPciDevice>[];
-    for (var device in pci['devices']) {
-      pciDevices.add(LxdPciDevice(
-          driver: device['driver'],
-          driverVersion: device['driver_version'],
-          pciAddress: device['pci_address'],
-          product: device['product'],
-          productId: device['product_id'],
-          vendor: device['vendor'],
-          vendorId: device['vendor_id']));
-    }
-    var storageDisks = <LxdStorageDisk>[];
-    for (var disk in storage['disks']) {
-      storageDisks.add(LxdStorageDisk(
-          id: disk['id'],
-          model: disk['model'],
-          serial: disk['serial'],
-          size: disk['size'],
-          type: disk['type']));
-    }
-    var usbDevices = <LxdUsbDevice>[];
-    for (var device in usb['devices']) {
-      usbDevices.add(LxdUsbDevice(
-          busAddress: device['bus_address'],
-          deviceAddress: device['device_address'],
-          product: device['product'],
-          productId: device['product_id'],
-          speed: device['speed'].toDouble(),
-          vendor: device['vendor'],
-          vendorId: device['vendor_id']));
-    }
-    return LxdResources(
-        cpu: LxdCpuResources(
-            architecture: cpuData['architecture'], sockets: []), // FIXME
-        memory: LxdMemoryResources(
-            used: memoryData['used'], total: memoryData['total']),
-        gpuCards: gpuCards,
-        networkCards: networkCards,
-        pciDevices: pciDevices,
-        storageDisks: storageDisks,
-        usbDevices: usbDevices,
-        system: LxdSystemResources(
-            uuid: systemData['uuid'],
-            vendor: systemData['vendor'],
-            product: systemData['product'],
-            family: systemData['family'],
-            version: systemData['version'],
-            sku: systemData['sku'],
-            serial: systemData['serial'],
-            type: systemData['type'],
-            firmware: LxdFirmware(
-                date: firmwareData['date'],
-                vendor: firmwareData['vendor'],
-                version: firmwareData['version']),
-            chassis: LxdChassis(
-                serial: chassisData['serial'],
-                type: chassisData['type'],
-                vendor: chassisData['vendor'],
-                version: chassisData['version']),
-            motherboard: LxdMotherboard(
-                product: motherboardData['product'],
-                serial: motherboardData['serial'],
-                vendor: motherboardData['vendor'],
-                version: motherboardData['version'])));
+    return LxdResources.fromJson(data);
   }
 
   /// Gets the fingerprints of the certificates provided by the LXD server.
