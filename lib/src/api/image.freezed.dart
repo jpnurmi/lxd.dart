@@ -34,11 +34,15 @@ mixin _$LxdImage {
   bool get public => throw _privateConstructorUsedError;
 
   /// When the image becomes obsolete
+  ///
+  /// API extension: images_expiry
   DateTime get expiresAt => throw _privateConstructorUsedError;
 
   /// List of profiles to use when creating from this image (if none provided by user)
   ///
   /// Example: ["default"]
+  ///
+  /// API extension: image_profiles
   List<String> get profiles => throw _privateConstructorUsedError;
 
   /// List of aliases
@@ -69,7 +73,9 @@ mixin _$LxdImage {
   /// Where the image came from
   LxdImageSource? get updateSource => throw _privateConstructorUsedError;
 
-  /// Type of image (container or virtual-machine)
+  /// Type of image
+  ///
+  /// API extension: image_types
   LxdImageType get type => throw _privateConstructorUsedError;
 
   /// When the image was originally created
@@ -400,17 +406,23 @@ class _$_LxdImage implements _LxdImage {
   final bool public;
 
   /// When the image becomes obsolete
+  ///
+  /// API extension: images_expiry
   @override
   final DateTime expiresAt;
 
   /// List of profiles to use when creating from this image (if none provided by user)
   ///
   /// Example: ["default"]
+  ///
+  /// API extension: image_profiles
   final List<String> _profiles;
 
   /// List of profiles to use when creating from this image (if none provided by user)
   ///
   /// Example: ["default"]
+  ///
+  /// API extension: image_profiles
   @override
   List<String> get profiles {
     // ignore: implicit_dynamic_type
@@ -458,7 +470,9 @@ class _$_LxdImage implements _LxdImage {
   @override
   final LxdImageSource? updateSource;
 
-  /// Type of image (container or virtual-machine)
+  /// Type of image
+  ///
+  /// API extension: image_types
   @override
   final LxdImageType type;
 
@@ -581,12 +595,16 @@ abstract class _LxdImage implements LxdImage {
   @override
 
   /// When the image becomes obsolete
+  ///
+  /// API extension: images_expiry
   DateTime get expiresAt => throw _privateConstructorUsedError;
   @override
 
   /// List of profiles to use when creating from this image (if none provided by user)
   ///
   /// Example: ["default"]
+  ///
+  /// API extension: image_profiles
   List<String> get profiles => throw _privateConstructorUsedError;
   @override
 
@@ -625,7 +643,9 @@ abstract class _LxdImage implements LxdImage {
   LxdImageSource? get updateSource => throw _privateConstructorUsedError;
   @override
 
-  /// Type of image (container or virtual-machine)
+  /// Type of image
+  ///
+  /// API extension: image_types
   LxdImageType get type => throw _privateConstructorUsedError;
   @override
 
@@ -845,11 +865,11 @@ mixin _$LxdImageSource {
   /// URL of the source server
   ///
   /// Example: https://images.linuxcontainers.org
-  String get server =>
-      throw _privateConstructorUsedError; // Type of image (container or virtual-machine)
-// Example: container
-//
-// API extension: image_types
+  String get server => throw _privateConstructorUsedError;
+
+  /// Type of image
+  ///
+  /// API extension: image_types
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   LxdImageType? get imageType => throw _privateConstructorUsedError;
 
@@ -1013,10 +1033,10 @@ class _$_LxdImageSource implements _LxdImageSource {
   /// Example: https://images.linuxcontainers.org
   @override
   final String server;
-// Type of image (container or virtual-machine)
-// Example: container
-//
-// API extension: image_types
+
+  /// Type of image
+  ///
+  /// API extension: image_types
   @override
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   final LxdImageType? imageType;
@@ -1096,10 +1116,11 @@ abstract class _LxdImageSource implements LxdImageSource {
   ///
   /// Example: https://images.linuxcontainers.org
   String get server => throw _privateConstructorUsedError;
-  @override // Type of image (container or virtual-machine)
-// Example: container
-//
-// API extension: image_types
+  @override
+
+  /// Type of image
+  ///
+  /// API extension: image_types
   @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
   LxdImageType? get imageType => throw _privateConstructorUsedError;
   @override

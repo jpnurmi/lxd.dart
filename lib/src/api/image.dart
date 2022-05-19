@@ -5,9 +5,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'image.freezed.dart';
 part 'image.g.dart';
 
+/// Represents an LXD certificate type
 @JsonEnum(fieldRename: FieldRename.kebab)
 enum LxdImageType { container, virtualMachine }
 
+/// Represents an LXD image
 @freezed
 class LxdImage with _$LxdImage {
   @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
@@ -26,11 +28,15 @@ class LxdImage with _$LxdImage {
     required bool public,
 
     /// When the image becomes obsolete
+    ///
+    /// API extension: images_expiry
     required DateTime expiresAt,
 
     /// List of profiles to use when creating from this image (if none provided by user)
     ///
     /// Example: ["default"]
+    ///
+    /// API extension: image_profiles
     required List<String> profiles,
 
     /// List of aliases
@@ -61,7 +67,9 @@ class LxdImage with _$LxdImage {
     /// Where the image came from
     LxdImageSource? updateSource,
 
-    /// Type of image (container or virtual-machine)
+    /// Type of image
+    ///
+    /// API extension: image_types
     required LxdImageType type,
 
     /// When the image was originally created
@@ -78,6 +86,7 @@ class LxdImage with _$LxdImage {
       _$LxdImageFromJson(json);
 }
 
+/// Represents an alias from the alias list of an LXD image
 @freezed
 class LxdImageAlias with _$LxdImageAlias {
   @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
@@ -97,6 +106,7 @@ class LxdImageAlias with _$LxdImageAlias {
       _$LxdImageAliasFromJson(json);
 }
 
+/// Represents the source of an LXD image
 @freezed
 class LxdImageSource with _$LxdImageSource {
   @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
@@ -121,10 +131,9 @@ class LxdImageSource with _$LxdImageSource {
     /// Example: https://images.linuxcontainers.org
     required String server,
 
-    // Type of image (container or virtual-machine)
-    // Example: container
-    //
-    // API extension: image_types
+    /// Type of image
+    ///
+    /// API extension: image_types
     @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
         LxdImageType? imageType,
   }) = _LxdImageSource;
@@ -133,6 +142,7 @@ class LxdImageSource with _$LxdImageSource {
       _$LxdImageSourceFromJson(json);
 }
 
+/// Represents LXD image metadata (used in image tarball)
 @freezed
 class LxdImageMetadata with _$LxdImageMetadata {
   @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
@@ -165,6 +175,7 @@ class LxdImageMetadata with _$LxdImageMetadata {
       _$LxdImageMetadataFromJson(json);
 }
 
+/// Represents a template entry in image metadata (used in image tarball)
 @freezed
 class LxdImageMetadataTemplate with _$LxdImageMetadataTemplate {
   @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
