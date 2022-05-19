@@ -75,7 +75,7 @@ void main() {
     expect(eth.state, equals('up'));
     expect(eth.type, equals('broadcast'));
     expect(state.pid, equals(7281));
-    expect(state.status, equals('Running'));
+    expect(state.status, equals(LxdInstanceStatus.running));
     expect(state.statusCode, equals(0));
   });
 }
