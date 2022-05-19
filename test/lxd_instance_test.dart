@@ -27,10 +27,12 @@ void main() {
       'config': {'security.nesting': 'true'},
       'created_at': '2021-03-23T20:00:00-04:00',
       'description': 'My test instance',
+      'devices': {},
       'ephemeral': false,
       'last_used_at': '2021-03-23T20:00:00-04:00',
       'location': 'lxd01',
       'name': 'foo',
+      'project': 'default',
       'profiles': ['default'],
       'stateful': false,
       'status': 'Running',
@@ -62,7 +64,7 @@ void main() {
     expect(instance.stateful, isFalse);
     expect(instance.status, equals('Running'));
     expect(instance.statusCode, equals(0));
-    expect(instance.type, equals('container'));
+    expect(instance.type, LxdInstanceType.container);
   });
 
   test('create instance', () async {

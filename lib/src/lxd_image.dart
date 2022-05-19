@@ -1,252 +1,134 @@
-import 'package:collection/collection.dart';
-import 'package:json_annotation/json_annotation.dart';
+// ignore_for_file: invalid_annotation_target
 
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'lxd_image.freezed.dart';
 part 'lxd_image.g.dart';
 
 @JsonEnum(fieldRename: FieldRename.kebab)
 enum LxdImageType { container, virtualMachine }
 
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
-class LxdImage {
-  /// Whether the image should auto-update when a new build is available
-  final bool autoUpdate;
+@freezed
+class LxdImage with _$LxdImage {
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+  const factory LxdImage({
+    /// Whether the image should auto-update when a new build is available
+    required bool autoUpdate,
 
-  /// Descriptive properties
-  ///
-  /// Example:
-  /// ```json
-  /// {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
-  final Map<String, String> properties;
+    /// Descriptive properties
+    ///
+    /// Example:
+    /// ```json
+    /// {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
+    required Map<String, String> properties,
 
-  /// Whether the image is available to unauthenticated users
-  final bool public;
+    /// Whether the image is available to unauthenticated users
+    required bool public,
 
-  /// When the image becomes obsolete
-  final DateTime expiresAt;
+    /// When the image becomes obsolete
+    required DateTime expiresAt,
 
-  /// List of profiles to use when creating from this image (if none provided by user)
-  ///
-  /// Example: ["default"]
-  final List<String> profiles;
+    /// List of profiles to use when creating from this image (if none provided by user)
+    ///
+    /// Example: ["default"]
+    required List<String> profiles,
 
-  /// List of aliases
-  final List<LxdImageAlias> aliases;
+    /// List of aliases
+    required List<LxdImageAlias> aliases,
 
-  /// Architecture
-  /// Example: x86_64
-  final String architecture;
+    /// Architecture
+    /// Example: x86_64
+    required String architecture,
 
-  /// Whether the image is an automatically cached remote image
-  final bool cached;
+    /// Whether the image is an automatically cached remote image
+    required bool cached,
 
-  /// Original filename
-  ///
-  /// Example: 06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb.rootfs
-  final String filename;
+    /// Original filename
+    ///
+    /// Example: 06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb.rootfs
+    required String filename,
 
-  /// Full SHA-256 fingerprint
-  ///
-  /// Example: 06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb
-  final String fingerprint;
+    /// Full SHA-256 fingerprint
+    ///
+    /// Example: 06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb
+    required String fingerprint,
 
-  /// Size of the image in bytes
-  ///
-  /// Example: 272237676
-  final int size;
+    /// Size of the image in bytes
+    ///
+    /// Example: 272237676
+    required int size,
 
-  /// Where the image came from
-  final LxdImageSource? updateSource;
+    /// Where the image came from
+    LxdImageSource? updateSource,
 
-  /// Type of image (container or virtual-machine)
-  final LxdImageType type;
+    /// Type of image (container or virtual-machine)
+    required LxdImageType type,
 
-  /// When the image was originally created
-  final DateTime createdAt;
+    /// When the image was originally created
+    required DateTime createdAt,
 
-  /// Last time the image was used
-  final DateTime lastUsedAt;
+    /// Last time the image was used
+    required DateTime lastUsedAt,
 
-  /// When the image was added to this LXD server
-  final DateTime uploadedAt;
-
-  const LxdImage({
-    required this.autoUpdate,
-    required this.properties,
-    required this.public,
-    required this.expiresAt,
-    required this.profiles,
-    required this.aliases,
-    required this.architecture,
-    required this.cached,
-    required this.filename,
-    required this.fingerprint,
-    required this.size,
-    this.updateSource,
-    required this.type,
-    required this.createdAt,
-    required this.lastUsedAt,
-    required this.uploadedAt,
-  });
+    /// When the image was added to this LXD server
+    required DateTime uploadedAt,
+  }) = _LxdImage;
 
   factory LxdImage.fromJson(Map<String, dynamic> json) =>
       _$LxdImageFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LxdImageToJson(this);
-
-  @override
-  String toString() =>
-      'LxdImage(architecture: $architecture, autoUpdate: $autoUpdate, cached: $cached, createdAt: $createdAt, expiresAt: $expiresAt, filename: $filename, fingerprint: $fingerprint, lastUsedAt: $lastUsedAt, profiles: $profiles, properties: $properties, public: $public, size: $size, type: $type, uploadedAt: $uploadedAt)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    final collectionEquals = const DeepCollectionEquality().equals;
-
-    return other is LxdImage &&
-        other.autoUpdate == autoUpdate &&
-        collectionEquals(other.properties, properties) &&
-        other.public == public &&
-        other.expiresAt == expiresAt &&
-        collectionEquals(other.profiles, profiles) &&
-        collectionEquals(other.aliases, aliases) &&
-        other.architecture == architecture &&
-        other.cached == cached &&
-        other.filename == filename &&
-        other.fingerprint == fingerprint &&
-        other.size == size &&
-        other.updateSource == updateSource &&
-        other.type == type &&
-        other.createdAt == createdAt &&
-        other.lastUsedAt == lastUsedAt &&
-        other.uploadedAt == uploadedAt;
-  }
-
-  @override
-  int get hashCode {
-    final mapHash = const DeepCollectionEquality().hash;
-
-    return Object.hash(
-      autoUpdate,
-      mapHash(properties),
-      public,
-      expiresAt,
-      Object.hashAll(profiles),
-      Object.hashAll(aliases),
-      architecture,
-      cached,
-      filename,
-      fingerprint,
-      size,
-      updateSource,
-      type,
-      createdAt,
-      lastUsedAt,
-      uploadedAt,
-    );
-  }
 }
 
-@JsonSerializable()
-class LxdImageAlias {
-  /// Name of the alias
-  ///
-  /// Example: ubuntu-22.04
-  final String name;
+@freezed
+class LxdImageAlias with _$LxdImageAlias {
+  @JsonSerializable(explicitToJson: true)
+  const factory LxdImageAlias({
+    /// Name of the alias
+    ///
+    /// Example: ubuntu-22.04
+    required String name,
 
-  /// Description of the alias
-  ///
-  /// Example: Our preferred Ubuntu image
-  final String description;
-
-  const LxdImageAlias({required this.name, required this.description});
+    /// Description of the alias
+    ///
+    /// Example: Our preferred Ubuntu image
+    required String description,
+  }) = _LxdImageAlias;
 
   factory LxdImageAlias.fromJson(Map<String, dynamic> json) =>
       _$LxdImageAliasFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LxdImageAliasToJson(this);
-
-  @override
-  String toString() => 'LxdImageAlias(name: $name, description: $description)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is LxdImageAlias &&
-        other.name == name &&
-        other.description == description;
-  }
-
-  @override
-  int get hashCode => Object.hash(name, description);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class LxdImageSource {
-  /// Source alias to download from
-  ///
-  /// Example: jammy
-  final String alias;
+@freezed
+class LxdImageSource with _$LxdImageSource {
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+  const factory LxdImageSource({
+    /// Source alias to download from
+    ///
+    /// Example: jammy
+    required String alias,
 
-  /// Source server certificate (if not trusted by system CA)
-  ///
-  /// Example: X509 PEM certificate
-  final String? certificate;
+    /// Source server certificate (if not trusted by system CA)
+    ///
+    /// Example: X509 PEM certificate
+    String? certificate,
 
-  /// Source server protocol
-  ///
-  /// Example: simplestreams
-  final String protocol;
+    /// Source server protocol
+    ///
+    /// Example: simplestreams
+    required String protocol,
 
-  /// URL of the source server
-  ///
-  /// Example: https://images.linuxcontainers.org
-  final String server;
+    /// URL of the source server
+    ///
+    /// Example: https://images.linuxcontainers.org
+    required String server,
 
-  // Type of image (container or virtual-machine)
-  // Example: container
-  //
-  // API extension: image_types
-  @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
-  final LxdImageType? imageType;
-
-  const LxdImageSource({
-    required this.alias,
-    this.certificate,
-    required this.protocol,
-    required this.server,
-    this.imageType,
-  });
+    // Type of image (container or virtual-machine)
+    // Example: container
+    //
+    // API extension: image_types
+    @JsonKey(unknownEnumValue: JsonKey.nullForUndefinedEnumValue)
+        LxdImageType? imageType,
+  }) = _LxdImageSource;
 
   factory LxdImageSource.fromJson(Map<String, dynamic> json) =>
       _$LxdImageSourceFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LxdImageSourceToJson(this);
-
-  @override
-  String toString() =>
-      'LxdImageSource(alias: $alias, certificate: $certificate, protocol: $protocol, server: $server, imageType: $imageType)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is LxdImageSource &&
-        other.alias == alias &&
-        other.certificate == certificate &&
-        other.protocol == protocol &&
-        other.server == server &&
-        other.imageType == imageType;
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(
-      alias,
-      certificate,
-      protocol,
-      server,
-      imageType,
-    );
-  }
 }

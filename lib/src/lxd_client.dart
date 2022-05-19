@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:meta/meta.dart';
 
 import 'lxd_image.dart';
+import 'lxd_instance.dart';
+import 'lxd_operation.dart';
 import 'lxd_types.dart';
 import 'simplestream_client.dart';
 
@@ -431,21 +433,7 @@ class LxdClient {
   /// Gets information on the instance with [name].
   Future<LxdInstance> getInstance(String name) async {
     var instance = await _requestSync('GET', '/1.0/instances/$name');
-    // FIXME: 'devices', 'expanded_config', 'expanded_devices'
-    return LxdInstance(
-        architecture: instance['architecture'],
-        config: instance['config'],
-        createdAt: DateTime.parse(instance['created_at']),
-        description: instance['description'],
-        ephemeral: instance['ephemeral'],
-        lastUsedAt: DateTime.parse(instance['last_used_at']),
-        location: instance['location'],
-        name: instance['name'],
-        profiles: instance['profiles'].cast<String>(),
-        stateful: instance['stateful'],
-        status: instance['status'],
-        statusCode: instance['status_code'],
-        type: instance['type']);
+    return LxdInstance.fromJson(instance);
   }
 
   /// Gets runtime state of the instance with [name].

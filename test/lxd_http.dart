@@ -48,13 +48,17 @@ MockHttpClientRequest mockOperation({
     'status': '',
     'status_code': statusCode,
     'metadata': {
-      'id': id,
       'class': type,
-      'description': description,
       'created_at': createdAt,
-      'updated_at': updatedAt,
+      'description': description,
+      'err': '',
+      'id': id,
+      'location': 'none',
+      'may_cancel': false,
+      'resources': {},
       'status': status,
       'status_code': statusCode,
+      'updated_at': updatedAt,
     },
   }));
 }

@@ -6,7 +6,7 @@ part of 'lxd_image.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-LxdImage _$LxdImageFromJson(Map<String, dynamic> json) => LxdImage(
+_$_LxdImage _$$_LxdImageFromJson(Map<String, dynamic> json) => _$_LxdImage(
       autoUpdate: json['auto_update'] as bool,
       properties: Map<String, String>.from(json['properties'] as Map),
       public: json['public'] as bool,
@@ -31,7 +31,8 @@ LxdImage _$LxdImageFromJson(Map<String, dynamic> json) => LxdImage(
       uploadedAt: DateTime.parse(json['uploaded_at'] as String),
     );
 
-Map<String, dynamic> _$LxdImageToJson(LxdImage instance) => <String, dynamic>{
+Map<String, dynamic> _$$_LxdImageToJson(_$_LxdImage instance) =>
+    <String, dynamic>{
       'auto_update': instance.autoUpdate,
       'properties': instance.properties,
       'public': instance.public,
@@ -55,20 +56,20 @@ const _$LxdImageTypeEnumMap = {
   LxdImageType.virtualMachine: 'virtual-machine',
 };
 
-LxdImageAlias _$LxdImageAliasFromJson(Map<String, dynamic> json) =>
-    LxdImageAlias(
+_$_LxdImageAlias _$$_LxdImageAliasFromJson(Map<String, dynamic> json) =>
+    _$_LxdImageAlias(
       name: json['name'] as String,
       description: json['description'] as String,
     );
 
-Map<String, dynamic> _$LxdImageAliasToJson(LxdImageAlias instance) =>
+Map<String, dynamic> _$$_LxdImageAliasToJson(_$_LxdImageAlias instance) =>
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
     };
 
-LxdImageSource _$LxdImageSourceFromJson(Map<String, dynamic> json) =>
-    LxdImageSource(
+_$_LxdImageSource _$$_LxdImageSourceFromJson(Map<String, dynamic> json) =>
+    _$_LxdImageSource(
       alias: json['alias'] as String,
       certificate: json['certificate'] as String?,
       protocol: json['protocol'] as String,
@@ -77,7 +78,7 @@ LxdImageSource _$LxdImageSourceFromJson(Map<String, dynamic> json) =>
           unknownValue: JsonKey.nullForUndefinedEnumValue),
     );
 
-Map<String, dynamic> _$LxdImageSourceToJson(LxdImageSource instance) =>
+Map<String, dynamic> _$$_LxdImageSourceToJson(_$_LxdImageSource instance) =>
     <String, dynamic>{
       'alias': instance.alias,
       'certificate': instance.certificate,

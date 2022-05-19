@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'lxd_types.dart';
+part of 'lxd_operation.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LxdOperation _$LxdOperationFromJson(Map<String, dynamic> json) => LxdOperation(
+_$_LxdOperation _$$_LxdOperationFromJson(Map<String, dynamic> json) =>
+    _$_LxdOperation(
       id: json['id'] as String,
       type: $enumDecode(_$LxdOperationTypeEnumMap, json['class']),
       description: json['description'] as String,
@@ -14,14 +15,14 @@ LxdOperation _$LxdOperationFromJson(Map<String, dynamic> json) => LxdOperation(
       updatedAt: DateTime.parse(json['updated_at'] as String),
       status: json['status'] as String,
       statusCode: json['status_code'] as int,
-      resources: json['resources'] as Map<String, dynamic>? ?? const {},
+      resources: json['resources'] as Map<String, dynamic>,
       metadata: json['metadata'] as Map<String, dynamic>?,
-      mayCancel: json['may_cancel'] as bool? ?? false,
-      error: json['err'] as String? ?? '',
-      location: json['location'] as String? ?? '',
+      mayCancel: json['may_cancel'] as bool,
+      error: json['err'] as String,
+      location: json['location'] as String,
     );
 
-Map<String, dynamic> _$LxdOperationToJson(LxdOperation instance) =>
+Map<String, dynamic> _$$_LxdOperationToJson(_$_LxdOperation instance) =>
     <String, dynamic>{
       'id': instance.id,
       'class': _$LxdOperationTypeEnumMap[instance.type],
