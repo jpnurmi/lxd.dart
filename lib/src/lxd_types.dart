@@ -451,60 +451,6 @@ class LxdResources {
   }
 }
 
-class LxdProfile {
-  final Map<String, dynamic> config;
-  final String description;
-  final String name;
-
-  LxdProfile(
-      {required this.config, required this.description, required this.name});
-
-  @override
-  String toString() =>
-      "LxdProfile(config: $config, description: '$description', name: $name)";
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    final mapEquals = const DeepCollectionEquality().equals;
-
-    return other is LxdProfile &&
-        mapEquals(other.config, config) &&
-        other.description == description &&
-        other.name == name;
-  }
-
-  @override
-  int get hashCode => Object.hash(config, description, name);
-}
-
-class LxdProject {
-  final Map<String, dynamic> config;
-  final String description;
-  final String name;
-
-  LxdProject(
-      {required this.config, required this.description, required this.name});
-
-  @override
-  String toString() =>
-      "LxdProject(config: $config, description: '$description', name: $name)";
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    final mapEquals = const DeepCollectionEquality().equals;
-
-    return other is LxdProject &&
-        mapEquals(other.config, config) &&
-        other.description == description &&
-        other.name == name;
-  }
-
-  @override
-  int get hashCode => Object.hash(config, description, name);
-}
-
 class LxdStoragePool {
   final Map<String, dynamic> config;
   final String description;

@@ -10,6 +10,8 @@ import 'api/instance_state.dart';
 import 'api/network.dart';
 import 'api/network_acl.dart';
 import 'api/operation.dart';
+import 'api/profile.dart';
+import 'api/project.dart';
 import 'lxd_types.dart';
 import 'simplestream_client.dart';
 
@@ -556,10 +558,7 @@ class LxdClient {
   /// Gets information on the profile with [name].
   Future<LxdProfile> getProfile(String name) async {
     var profile = await _requestSync('GET', '/1.0/profiles/$name');
-    return LxdProfile(
-        config: profile['config'],
-        description: profile['description'],
-        name: profile['name']);
+    return LxdProfile.fromJson(profile);
   }
 
   /// Gets the names of the projects provided by the LXD server.
@@ -577,10 +576,7 @@ class LxdClient {
   /// Gets information on the project with [name].
   Future<LxdProject> getProject(String name) async {
     var project = await _requestSync('GET', '/1.0/projects/$name');
-    return LxdProject(
-        config: project['config'],
-        description: project['description'],
-        name: project['name']);
+    return LxdProject.fromJson(project);
   }
 
   /// Gets the names of the storage pools provided by the LXD server.
