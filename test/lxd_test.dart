@@ -5,92 +5,6 @@ import 'dart:io';
 import 'package:lxd/lxd.dart';
 import 'package:test/test.dart';
 
-class MockNetworkAddress {
-  final String address;
-  final String family;
-  final String netmask;
-  final String scope;
-
-  MockNetworkAddress(
-      {this.address = '',
-      this.family = '',
-      this.netmask = '',
-      this.scope = ''});
-}
-
-class MockNetworkAcl {
-  final Map<String, dynamic> config;
-  final String description;
-
-  MockNetworkAcl({this.config = const {}, this.description = ''});
-}
-
-class MockNetworkLease {
-  final String address;
-  final String hostname;
-  final String hwaddr;
-  final String location;
-  final String type;
-
-  MockNetworkLease(
-      {this.address = '',
-      this.hostname = '',
-      this.hwaddr = '',
-      this.location = '',
-      this.type = ''});
-}
-
-class MockNetworkCounters {
-  final int bytesReceived;
-  final int bytesSent;
-  final int packetsReceived;
-  final int packetsSent;
-
-  const MockNetworkCounters(
-      {this.bytesReceived = 0,
-      this.bytesSent = 0,
-      this.packetsReceived = 0,
-      this.packetsSent = 0});
-}
-
-class MockNetworkState {
-  final List<MockNetworkAddress> addresses;
-  final MockNetworkCounters counters;
-  final String hwaddr;
-  final int mtu;
-  final String state;
-  final String type;
-
-  const MockNetworkState(
-      {this.addresses = const [],
-      this.counters = const MockNetworkCounters(),
-      this.hwaddr = '',
-      this.mtu = 0,
-      this.state = '',
-      this.type = ''});
-}
-
-class MockNetwork {
-  final Map<String, dynamic> config;
-  final String description;
-  final bool managed;
-  final String status;
-  final String type;
-
-  final MockNetworkState state;
-
-  final List<MockNetworkLease> leases;
-
-  MockNetwork(
-      {this.config = const {},
-      this.description = '',
-      this.managed = false,
-      this.status = '',
-      this.type = '',
-      this.state = const MockNetworkState(),
-      this.leases = const []});
-}
-
 class MockProfile {
   final Map<String, dynamic> config;
   final String description;
@@ -169,8 +83,6 @@ class MockLxdServer {
   StreamSubscription<HttpRequest>? _requestSubscription;
   final _tcpSockets = <Socket, Socket>{};
 
-  final Map<String, MockNetwork> networks;
-  final Map<String, MockNetworkAcl> networkAcls;
   final operations = <String, MockOperation>{};
   final Map<String, MockProfile> profiles;
   final Map<String, MockProject> projects;
@@ -179,9 +91,7 @@ class MockLxdServer {
   String get socketPath => _socketPath!;
 
   MockLxdServer(
-      {this.networks = const {},
-      this.networkAcls = const {},
-      this.profiles = const {},
+      {this.profiles = const {},
       this.projects = const {},
       this.storagePools = const {}});
 
@@ -236,42 +146,6 @@ class MockLxdServer {
         path[1] == 'operations') {
       var id = path[2];
       _deleteOperation(response, id);
-    } else if (request.method == 'GET' &&
-        path.length == 2 &&
-        path[0] == '1.0' &&
-        path[1] == 'networks') {
-      _getNetworks(response);
-    } else if (request.method == 'GET' &&
-        path.length == 3 &&
-        path[0] == '1.0' &&
-        path[1] == 'networks') {
-      var name = path[2];
-      _getNetwork(response, name);
-    } else if (request.method == 'GET' &&
-        path.length == 4 &&
-        path[0] == '1.0' &&
-        path[1] == 'networks' &&
-        path[3] == 'leases') {
-      var name = path[2];
-      _getNetworkLeases(response, name);
-    } else if (request.method == 'GET' &&
-        path.length == 4 &&
-        path[0] == '1.0' &&
-        path[1] == 'networks' &&
-        path[3] == 'state') {
-      var name = path[2];
-      _getNetworkState(response, name);
-    } else if (request.method == 'GET' &&
-        path.length == 2 &&
-        path[0] == '1.0' &&
-        path[1] == 'network-acls') {
-      _getNetworkAcls(response);
-    } else if (request.method == 'GET' &&
-        path.length == 3 &&
-        path[0] == '1.0' &&
-        path[1] == 'network-acls') {
-      var name = path[2];
-      _getNetworkAcl(response, name);
     } else if (request.method == 'GET' &&
         path.length == 2 &&
         path[0] == '1.0' &&
@@ -345,73 +219,6 @@ class MockLxdServer {
     var operation = operations[id]!;
     operation.status = 'cancelled';
     _writeSyncResponse(response, {});
-  }
-
-  void _getNetworks(HttpResponse response) {
-    _writeSyncResponse(
-        response, networks.keys.map((name) => '/1.0/networks/$name').toList());
-  }
-
-  void _getNetwork(HttpResponse response, String name) {
-    var network = networks[name]!;
-    _writeSyncResponse(response, {
-      'config': network.config,
-      'description': network.description,
-      'managed': network.managed,
-      'name': name,
-      'status': network.status,
-      'type': network.type
-    });
-  }
-
-  void _getNetworkLeases(HttpResponse response, String name) {
-    var network = networks[name]!;
-    _writeSyncResponse(
-        response,
-        network.leases
-            .map((lease) => {
-                  'address': lease.address,
-                  'hostname': lease.hostname,
-                  'hwaddr': lease.hwaddr,
-                  'location': lease.location,
-                  'type': lease.type
-                })
-            .toList());
-  }
-
-  void _getNetworkState(HttpResponse response, String name) {
-    var state = networks[name]!.state;
-    _writeSyncResponse(response, {
-      'addresses': state.addresses
-          .map((address) => {
-                'address': address.address,
-                'family': address.family,
-                'netmask': address.netmask,
-                'scope': address.scope
-              })
-          .toList(),
-      'counters': {
-        'bytes_received': state.counters.bytesReceived,
-        'bytes_sent': state.counters.bytesSent,
-        'packets_received': state.counters.packetsReceived,
-        'packets_sent': state.counters.packetsSent
-      },
-      'hwaddr': state.hwaddr,
-      'mtu': state.mtu,
-      'state': state.state,
-      'type': state.type
-    });
-  }
-
-  void _getNetworkAcls(HttpResponse response) {
-    _writeSyncResponse(response,
-        networkAcls.keys.map((name) => '/1.0/network-acls/$name').toList());
-  }
-
-  void _getNetworkAcl(HttpResponse response, String name) {
-    var acl = networkAcls[name]!;
-    _writeSyncResponse(response,
-        {'config': acl.config, 'description': acl.description, 'name': name});
   }
 
   void _getProfiles(HttpResponse response) {
@@ -506,156 +313,6 @@ class MockLxdServer {
 }
 
 void main() {
-  test('get networks', () async {
-    var lxd = MockLxdServer(networks: {'lxdbr0': MockNetwork()});
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var networkNames = await client.getNetworks();
-    expect(networkNames, equals(['lxdbr0']));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get network', () async {
-    var lxd = MockLxdServer(networks: {
-      'lxdbr0': MockNetwork(
-          config: {
-            'ipv4.address': '10.0.0.1/24',
-            'ipv4.nat': 'true',
-            'ipv6.address': 'none'
-          },
-          description: 'My new LXD bridge',
-          managed: true,
-          status: 'Created',
-          type: 'bridge')
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var network = await client.getNetwork('lxdbr0');
-    expect(
-        network.config,
-        equals({
-          'ipv4.address': '10.0.0.1/24',
-          'ipv4.nat': 'true',
-          'ipv6.address': 'none'
-        }));
-    expect(network.description, equals('My new LXD bridge'));
-    expect(network.managed, isTrue);
-    expect(network.name, equals('lxdbr0'));
-    expect(network.status, equals('Created'));
-    expect(network.type, equals('bridge'));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get network leases', () async {
-    var lxd = MockLxdServer(networks: {
-      'lxdbr0': MockNetwork(leases: [
-        MockNetworkLease(
-            address: '10.0.0.98',
-            hostname: 'c1',
-            hwaddr: '00:16:3e:2c:89:d9',
-            location: 'lxd01',
-            type: 'dynamic')
-      ])
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var leases = await client.getNetworkLeases('lxdbr0');
-    expect(leases, hasLength(1));
-    var lease = leases[0];
-    expect(lease.address, equals('10.0.0.98'));
-    expect(lease.hostname, equals('c1'));
-    expect(lease.hwaddr, equals('00:16:3e:2c:89:d9'));
-    expect(lease.location, equals('lxd01'));
-    expect(lease.type, equals('dynamic'));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get network state', () async {
-    var lxd = MockLxdServer(networks: {
-      'lxdbr0': MockNetwork(
-          state: MockNetworkState(
-              addresses: [
-            MockNetworkAddress(
-                address: '10.0.0.1',
-                family: 'inet',
-                netmask: '24',
-                scope: 'global')
-          ],
-              counters: MockNetworkCounters(
-                  bytesReceived: 250542118,
-                  bytesSent: 17524040140,
-                  packetsReceived: 1182515,
-                  packetsSent: 1567934),
-              hwaddr: '00:16:3e:5a:83:57',
-              mtu: 1500,
-              state: 'up',
-              type: 'broadcast'))
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var state = await client.getNetworkState('lxdbr0');
-    expect(
-        state.addresses,
-        equals([
-          LxdNetworkAddress(
-              address: '10.0.0.1',
-              family: 'inet',
-              netmask: '24',
-              scope: 'global')
-        ]));
-    expect(state.counters.bytesReceived, equals(250542118));
-    expect(state.counters.bytesSent, equals(17524040140));
-    expect(state.counters.packetsReceived, equals(1182515));
-    expect(state.counters.packetsSent, equals(1567934));
-    expect(state.hwaddr, equals('00:16:3e:5a:83:57'));
-    expect(state.mtu, equals(1500));
-    expect(state.state, equals('up'));
-    expect(state.type, equals('broadcast'));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get network acls', () async {
-    var lxd = MockLxdServer(
-        networkAcls: {'foo': MockNetworkAcl(), 'bar': MockNetworkAcl()});
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var aclNames = await client.getNetworkAcls();
-    expect(aclNames, equals(['foo', 'bar']));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get network acl', () async {
-    var lxd = MockLxdServer(networkAcls: {
-      'foo': MockNetworkAcl(
-          config: {'user.mykey': 'foo'}, description: 'Web servers')
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var acl = await client.getNetworkAcl('foo');
-    expect(acl.config, equals({'user.mykey': 'foo'}));
-    expect(acl.description, equals('Web servers'));
-    expect(acl.name, equals('foo'));
-
-    client.close();
-    await lxd.close();
-  });
-
   test('get profiles', () async {
     var lxd = MockLxdServer(
         profiles: {'default': MockProfile(), 'foo': MockProfile()});
