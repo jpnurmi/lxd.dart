@@ -12,6 +12,7 @@ import 'api/network_acl.dart';
 import 'api/operation.dart';
 import 'api/profile.dart';
 import 'api/project.dart';
+import 'api/storage_pool.dart';
 import 'lxd_types.dart';
 import 'simplestream_client.dart';
 
@@ -594,11 +595,7 @@ class LxdClient {
   /// Gets information on the pool with [name].
   Future<LxdStoragePool> getStoragePool(String name) async {
     var pool = await _requestSync('GET', '/1.0/storage-pools/$name');
-    return LxdStoragePool(
-        config: pool['config'],
-        description: pool['description'],
-        name: pool['name'],
-        status: pool['status']);
+    return LxdStoragePool.fromJson(pool);
   }
 
   /// Terminates all active connections. If a client remains unclosed, the Dart process may not terminate.
