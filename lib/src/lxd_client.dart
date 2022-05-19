@@ -6,6 +6,9 @@ import 'package:meta/meta.dart';
 import 'api/certificate.dart';
 import 'api/image.dart';
 import 'api/instance.dart';
+import 'api/instance_state.dart';
+import 'api/network.dart';
+import 'api/network_acl.dart';
 import 'api/operation.dart';
 import 'lxd_types.dart';
 import 'simplestream_client.dart';
@@ -434,13 +437,7 @@ class LxdClient {
   /// Gets runtime state of the instance with [name].
   Future<LxdInstanceState> getInstanceState(String name) async {
     var state = await _requestSync('GET', '/1.0/instances/$name/state');
-    return LxdInstanceState(
-        network: (state['network'] ?? {}).map<String, LxdNetworkState>(
-            (interface, state) =>
-                MapEntry(interface as String, _parseNetworkState(state))),
-        pid: state['pid'],
-        status: state['status'],
-        statusCode: state['status_code']);
+    return LxdInstanceState.fromJson(state);
   }
 
   /// Creates a new instance from [image].
@@ -507,13 +504,7 @@ class LxdClient {
   /// Gets information on the network with [name].
   Future<LxdNetwork> getNetwork(String name) async {
     var network = await _requestSync('GET', '/1.0/networks/$name');
-    return LxdNetwork(
-        config: network['config'],
-        description: network['description'],
-        managed: network['managed'],
-        name: network['name'],
-        status: network['status'],
-        type: network['type']);
+    return LxdNetwork.fromJson(network);
   }
 
   /// Gets DHCP leases on the network with [name].
@@ -521,12 +512,7 @@ class LxdClient {
     var leaseList = await _requestSync('GET', '/1.0/networks/$name/leases');
     var leases = <LxdNetworkLease>[];
     for (var lease in leaseList) {
-      leases.add(LxdNetworkLease(
-          address: lease['address'],
-          hostname: lease['hostname'],
-          hwaddr: lease['hwaddr'],
-          location: lease['location'],
-          type: lease['type']));
+      leases.add(LxdNetworkLease.fromJson(lease));
     }
     return leases;
   }
@@ -534,30 +520,7 @@ class LxdClient {
   /// Gets the current network state of the network with [name].
   Future<LxdNetworkState> getNetworkState(String name) async {
     var state = await _requestSync('GET', '/1.0/networks/$name/state');
-    return _parseNetworkState(state);
-  }
-
-  LxdNetworkState _parseNetworkState(dynamic state) {
-    var addresses = <LxdNetworkAddress>[];
-    for (var address in state['addresses']) {
-      addresses.add(LxdNetworkAddress(
-          address: address['address'],
-          family: address['family'],
-          netmask: address['netmask'],
-          scope: address['scope']));
-    }
-    var counters = state['counters'];
-    return LxdNetworkState(
-        addresses: addresses,
-        counters: LxdNetworkCounters(
-            bytesReceived: counters['bytes_received'],
-            bytesSent: counters['bytes_sent'],
-            packetsReceived: counters['packets_received'],
-            packetsSent: counters['packets_sent']),
-        hwaddr: state['hwaddr'],
-        mtu: state['mtu'],
-        state: state['state'],
-        type: state['type']);
+    return LxdNetworkState.fromJson(state);
   }
 
   /// Gets the names of the network ACLs provided by the LXD server.
@@ -575,10 +538,7 @@ class LxdClient {
   /// Gets information on the network ACL with [name].
   Future<LxdNetworkAcl> getNetworkAcl(String name) async {
     var acl = await _requestSync('GET', '/1.0/network-acls/$name');
-    return LxdNetworkAcl(
-        config: acl['config'],
-        description: acl['description'],
-        name: acl['name']);
+    return LxdNetworkAcl.fromJson(acl);
   }
 
   /// Gets the names of the profiles provided by the LXD server.
