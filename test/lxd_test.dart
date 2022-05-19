@@ -5,15 +5,6 @@ import 'dart:io';
 import 'package:lxd/lxd.dart';
 import 'package:test/test.dart';
 
-class MockStoragePool {
-  final Map<String, dynamic> config;
-  final String description;
-  final String status;
-
-  MockStoragePool(
-      {this.config = const {}, this.description = '', this.status = ''});
-}
-
 class MockOperation {
   final String id;
   final String type;
@@ -70,11 +61,8 @@ class MockLxdServer {
   final _tcpSockets = <Socket, Socket>{};
 
   final operations = <String, MockOperation>{};
-  final Map<String, MockStoragePool> storagePools;
 
   String get socketPath => _socketPath!;
-
-  MockLxdServer({this.storagePools = const {}});
 
   Future<void> start() async {
     _tempDir = await Directory.systemTemp.createTemp();
@@ -127,17 +115,6 @@ class MockLxdServer {
         path[1] == 'operations') {
       var id = path[2];
       _deleteOperation(response, id);
-    } else if (request.method == 'GET' &&
-        path.length == 2 &&
-        path[0] == '1.0' &&
-        path[1] == 'storage-pools') {
-      _getStoragePools(response);
-    } else if (request.method == 'GET' &&
-        path.length == 3 &&
-        path[0] == '1.0' &&
-        path[1] == 'storage-pools') {
-      var name = path[2];
-      _getStoragePool(response, name);
     } else {
       response.statusCode = HttpStatus.notFound;
       _writeErrorResponse(response, 'not found');
@@ -178,21 +155,6 @@ class MockLxdServer {
     var operation = operations[id]!;
     operation.status = 'cancelled';
     _writeSyncResponse(response, {});
-  }
-
-  void _getStoragePools(HttpResponse response) {
-    _writeSyncResponse(response,
-        storagePools.keys.map((name) => '/1.0/storage-pools/$name').toList());
-  }
-
-  void _getStoragePool(HttpResponse response, String name) {
-    var pool = storagePools[name]!;
-    _writeSyncResponse(response, {
-      'config': pool.config,
-      'description': pool.description,
-      'name': name,
-      'status': pool.status
-    });
   }
 
   MockOperation _addOperation({String description = '', String status = ''}) {
@@ -244,42 +206,6 @@ class MockLxdServer {
 }
 
 void main() {
-  test('get storage pools', () async {
-    var lxd = MockLxdServer(storagePools: {
-      'local': MockStoragePool(),
-      'remote': MockStoragePool()
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var poolNames = await client.getStoragePools();
-    expect(poolNames, equals(['local', 'remote']));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get storage pool', () async {
-    var lxd = MockLxdServer(storagePools: {
-      'local': MockStoragePool(
-          config: {'volume.block.filesystem': 'ext4', 'volume.size': '50GiB'},
-          description: 'Local SSD pool',
-          status: 'Created')
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var pool = await client.getStoragePool('local');
-    expect(pool.config,
-        equals({'volume.block.filesystem': 'ext4', 'volume.size': '50GiB'}));
-    expect(pool.description, equals('Local SSD pool'));
-    expect(pool.name, equals('local'));
-    expect(pool.status, equals('Created'));
-
-    client.close();
-    await lxd.close();
-  });
-
   test('get operations', () async {
     var lxd = MockLxdServer();
     await lxd.start();
