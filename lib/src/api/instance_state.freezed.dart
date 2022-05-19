@@ -136,7 +136,7 @@ class __$$_LxdInstanceStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdInstanceState implements _LxdInstanceState {
   const _$_LxdInstanceState(
       {required final Map<String, LxdNetworkState> network,

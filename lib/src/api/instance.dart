@@ -10,7 +10,7 @@ enum LxdInstanceType { container, virtualMachine }
 
 @freezed
 class LxdInstance with _$LxdInstance {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstance({
     /// Architecture name
     ///

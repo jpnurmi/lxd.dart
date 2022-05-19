@@ -59,8 +59,8 @@ _$_LxdNetworkState _$$_LxdNetworkStateFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_LxdNetworkStateToJson(_$_LxdNetworkState instance) =>
     <String, dynamic>{
-      'addresses': instance.addresses,
-      'counters': instance.counters,
+      'addresses': instance.addresses.map((e) => e.toJson()).toList(),
+      'counters': instance.counters.toJson(),
       'hwaddr': instance.hwaddr,
       'mtu': instance.mtu,
       'state': instance.state,

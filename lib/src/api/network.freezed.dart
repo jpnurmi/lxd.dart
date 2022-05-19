@@ -159,7 +159,7 @@ class __$$_LxdNetworkCopyWithImpl<$Res> extends _$LxdNetworkCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdNetwork implements _LxdNetwork {
   const _$_LxdNetwork(
       {required final Map<String, dynamic> config,
@@ -396,7 +396,7 @@ class __$$_LxdNetworkLeaseCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdNetworkLease implements _LxdNetworkLease {
   const _$_LxdNetworkLease(
       {required this.address,
@@ -643,7 +643,7 @@ class __$$_LxdNetworkStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdNetworkState implements _LxdNetworkState {
   const _$_LxdNetworkState(
       {required final List<LxdNetworkAddress> addresses,
@@ -859,7 +859,7 @@ class __$$_LxdNetworkAddressCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdNetworkAddress implements _LxdNetworkAddress {
   const _$_LxdNetworkAddress(
       {required this.address,
@@ -1055,7 +1055,7 @@ class __$$_LxdNetworkCountersCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdNetworkCounters implements _LxdNetworkCounters {
   const _$_LxdNetworkCounters(
       {required this.bytesReceived,

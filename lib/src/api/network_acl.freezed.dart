@@ -116,7 +116,7 @@ class __$$_LxdNetworkAclCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdNetworkAcl implements _LxdNetworkAcl {
   const _$_LxdNetworkAcl(
       {required final Map<String, dynamic> config,

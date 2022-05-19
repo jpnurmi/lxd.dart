@@ -80,7 +80,7 @@ class LxdImage with _$LxdImage {
 
 @freezed
 class LxdImageAlias with _$LxdImageAlias {
-  @JsonSerializable(explicitToJson: true)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdImageAlias({
     /// Name of the alias
     ///
@@ -167,7 +167,7 @@ class LxdImageMetadata with _$LxdImageMetadata {
 
 @freezed
 class LxdImageMetadataTemplate with _$LxdImageMetadataTemplate {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdImageMetadataTemplate({
     /// When to trigger the template (create, copy or start)
     ///

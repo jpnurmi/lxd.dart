@@ -19,7 +19,7 @@ _$_LxdInstanceState _$$_LxdInstanceStateFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_LxdInstanceStateToJson(_$_LxdInstanceState instance) =>
     <String, dynamic>{
-      'network': instance.network,
+      'network': instance.network.map((k, e) => MapEntry(k, e.toJson())),
       'pid': instance.pid,
       'status': instance.status,
       'status_code': instance.statusCode,

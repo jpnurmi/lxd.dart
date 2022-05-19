@@ -105,7 +105,7 @@ class __$$_LxdCpuResourcesCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdCpuResources implements _LxdCpuResources {
   const _$_LxdCpuResources(
       {required this.architecture, required final List<String> sockets})
@@ -265,7 +265,7 @@ class __$$_LxdMemoryResourcesCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdMemoryResources implements _LxdMemoryResources {
   const _$_LxdMemoryResources({required this.used, required this.total});
 
@@ -580,7 +580,7 @@ class __$$_LxdGpuCardCopyWithImpl<$Res> extends _$LxdGpuCardCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdGpuCard implements _LxdGpuCard {
   const _$_LxdGpuCard(
       {required this.driver,
@@ -916,7 +916,7 @@ class __$$_LxdNetworkCardCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdNetworkCard implements _LxdNetworkCard {
   const _$_LxdNetworkCard(
       {required this.driver,
@@ -1261,7 +1261,7 @@ class __$$_LxdStorageDiskCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdStorageDisk implements _LxdStorageDisk {
   const _$_LxdStorageDisk(
       {required this.id,
@@ -1647,7 +1647,7 @@ class __$$_LxdUsbDeviceCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdUsbDevice implements _LxdUsbDevice {
   const _$_LxdUsbDevice(
       {required this.busAddress,
@@ -2051,7 +2051,7 @@ class __$$_LxdPciDeviceCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdPciDevice implements _LxdPciDevice {
   const _$_LxdPciDevice(
       {required this.driver,
@@ -2257,7 +2257,7 @@ class __$$_LxdFirmwareCopyWithImpl<$Res> extends _$LxdFirmwareCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdFirmware implements _LxdFirmware {
   const _$_LxdFirmware(
       {required this.date, required this.vendor, required this.version});
@@ -2438,7 +2438,7 @@ class __$$_LxdChassisCopyWithImpl<$Res> extends _$LxdChassisCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdChassis implements _LxdChassis {
   const _$_LxdChassis(
       {required this.serial,
@@ -2631,7 +2631,7 @@ class __$$_LxdMotherboardCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdMotherboard implements _LxdMotherboard {
   const _$_LxdMotherboard(
       {required this.product,

@@ -7,7 +7,7 @@ part 'resource.g.dart';
 
 @freezed
 class LxdCpuResources with _$LxdCpuResources {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdCpuResources({
     required String architecture,
     required List<String> sockets,
@@ -19,7 +19,7 @@ class LxdCpuResources with _$LxdCpuResources {
 
 @freezed
 class LxdMemoryResources with _$LxdMemoryResources {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdMemoryResources({
     required int used,
     required int total,
@@ -42,7 +42,7 @@ class LxdGpuResources with _$LxdGpuResources {
 
 @freezed
 class LxdGpuCard with _$LxdGpuCard {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdGpuCard({
     required String driver,
     required String driverVersion,
@@ -67,7 +67,7 @@ class LXdNetworkResources with _$LXdNetworkResources {
 
 @freezed
 class LxdNetworkCard with _$LxdNetworkCard {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetworkCard({
     required String driver,
     required String driverVersion,
@@ -92,7 +92,7 @@ class LxdStorageResources with _$LxdStorageResources {
 
 @freezed
 class LxdStorageDisk with _$LxdStorageDisk {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdStorageDisk({
     required String id,
     required String model,
@@ -118,7 +118,7 @@ class LxdUsbResources with _$LxdUsbResources {
 
 @freezed
 class LxdUsbDevice with _$LxdUsbDevice {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdUsbDevice({
     required int busAddress,
     required int deviceAddress,
@@ -146,7 +146,7 @@ class LxdPciResources with _$LxdPciResources {
 
 @freezed
 class LxdPciDevice with _$LxdPciDevice {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdPciDevice({
     required String driver,
     required String driverVersion,
@@ -163,7 +163,7 @@ class LxdPciDevice with _$LxdPciDevice {
 
 @freezed
 class LxdFirmware with _$LxdFirmware {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdFirmware({
     required String date,
     required String vendor,
@@ -176,7 +176,7 @@ class LxdFirmware with _$LxdFirmware {
 
 @freezed
 class LxdChassis with _$LxdChassis {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdChassis({
     required String serial,
     required String type,
@@ -190,7 +190,7 @@ class LxdChassis with _$LxdChassis {
 
 @freezed
 class LxdMotherboard with _$LxdMotherboard {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdMotherboard({
     required String product,
     required String serial,

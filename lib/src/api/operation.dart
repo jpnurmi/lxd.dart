@@ -9,7 +9,7 @@ enum LxdOperationType { task, websocket, token }
 
 @freezed
 class LxdOperation with _$LxdOperation {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdOperation({
     /// UUID of the operation
     ///

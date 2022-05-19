@@ -296,7 +296,7 @@ class __$$_LxdOperationCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdOperation implements _LxdOperation {
   const _$_LxdOperation(
       {required this.id,

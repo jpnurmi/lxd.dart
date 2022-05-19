@@ -9,7 +9,7 @@ part 'instance_state.g.dart';
 
 @freezed
 class LxdInstanceState with _$LxdInstanceState {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstanceState({
     required Map<String, LxdNetworkState> network,
     required int pid,

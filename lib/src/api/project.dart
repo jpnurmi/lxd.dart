@@ -7,7 +7,7 @@ part 'project.g.dart';
 
 @freezed
 class LxdProject with _$LxdProject {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdProject({
     required Map<String, dynamic> config,
     required String description,

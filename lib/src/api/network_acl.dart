@@ -7,7 +7,7 @@ part 'network_acl.g.dart';
 
 @freezed
 class LxdNetworkAcl with _$LxdNetworkAcl {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetworkAcl({
     required Map<String, dynamic> config,
     required String description,

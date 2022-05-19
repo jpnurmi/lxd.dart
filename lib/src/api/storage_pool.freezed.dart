@@ -135,7 +135,7 @@ class __$$_LxdStoragePoolCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdStoragePool implements _LxdStoragePool {
   const _$_LxdStoragePool(
       {required final Map<String, dynamic> config,

@@ -9,7 +9,7 @@ enum LxdCertificateType { client, server, metrics, unknown }
 
 @freezed
 class LxdCertificate with _$LxdCertificate {
-  @JsonSerializable(fieldRename: FieldRename.snake)
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdCertificate({
     /// Name associated with the certificate
     ///

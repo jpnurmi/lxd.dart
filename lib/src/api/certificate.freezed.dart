@@ -182,7 +182,7 @@ class __$$_LxdCertificateCopyWithImpl<$Res>
 
 /// @nodoc
 
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdCertificate implements _LxdCertificate {
   const _$_LxdCertificate(
       {required this.name,

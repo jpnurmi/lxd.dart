@@ -105,7 +105,7 @@ Map<String, dynamic> _$$_LxdImageMetadataToJson(_$_LxdImageMetadata instance) =>
       'creation_date': instance.creationDate,
       'expiry_date': instance.expiryDate,
       'properties': instance.properties,
-      'templates': instance.templates,
+      'templates': instance.templates.map((k, e) => MapEntry(k, e.toJson())),
     };
 
 _$_LxdImageMetadataTemplate _$$_LxdImageMetadataTemplateFromJson(
