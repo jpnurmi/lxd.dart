@@ -132,3 +132,62 @@ class LxdImageSource with _$LxdImageSource {
   factory LxdImageSource.fromJson(Map<String, dynamic> json) =>
       _$LxdImageSourceFromJson(json);
 }
+
+@freezed
+class LxdImageMetadata with _$LxdImageMetadata {
+  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+  const factory LxdImageMetadata({
+    /// Architecture name
+    ///
+    /// Example: x86_64
+    required String architecture,
+
+    /// Image creation data (as UNIX epoch)
+    ///
+    /// Example: 1620655439
+    required int creationDate,
+
+    /// Image expiry data (as UNIX epoch)
+    ///
+    /// Example: 1620685757
+    required int expiryDate,
+
+    /// Descriptive properties
+    ///
+    /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
+    required Map<String, dynamic> properties,
+
+    // Template for files in the image
+    required Map<String, LxdImageMetadataTemplate> templates,
+  }) = _LxdImageMetadata;
+
+  factory LxdImageMetadata.fromJson(Map<String, dynamic> json) =>
+      _$LxdImageMetadataFromJson(json);
+}
+
+@freezed
+class LxdImageMetadataTemplate with _$LxdImageMetadataTemplate {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory LxdImageMetadataTemplate({
+    /// When to trigger the template (create, copy or start)
+    ///
+    /// Example: create
+    required List<String> when,
+
+    // /Whether to trigger only if the file is missing
+    required bool createOnly,
+
+    /// The template itself as a valid pongo2 template
+    ///
+    /// Example: pongo2-template
+    required String template,
+
+    /// Key/value properties to pass to the template
+    ///
+    /// Example: {"foo": "bar"}
+    required Map<String, dynamic> properties,
+  }) = _LxdImageMetadataTemplate;
+
+  factory LxdImageMetadataTemplate.fromJson(Map<String, dynamic> json) =>
+      _$LxdImageMetadataTemplateFromJson(json);
+}

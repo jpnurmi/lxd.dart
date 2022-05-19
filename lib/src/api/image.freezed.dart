@@ -1107,3 +1107,560 @@ abstract class _LxdImageSource implements LxdImageSource {
   _$$_LxdImageSourceCopyWith<_$_LxdImageSource> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+LxdImageMetadata _$LxdImageMetadataFromJson(Map<String, dynamic> json) {
+  return _LxdImageMetadata.fromJson(json);
+}
+
+/// @nodoc
+mixin _$LxdImageMetadata {
+  /// Architecture name
+  ///
+  /// Example: x86_64
+  String get architecture => throw _privateConstructorUsedError;
+
+  /// Image creation data (as UNIX epoch)
+  ///
+  /// Example: 1620655439
+  int get creationDate => throw _privateConstructorUsedError;
+
+  /// Image expiry data (as UNIX epoch)
+  ///
+  /// Example: 1620685757
+  int get expiryDate => throw _privateConstructorUsedError;
+
+  /// Descriptive properties
+  ///
+  /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
+  Map<String, dynamic> get properties =>
+      throw _privateConstructorUsedError; // Template for files in the image
+  Map<String, LxdImageMetadataTemplate> get templates =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $LxdImageMetadataCopyWith<LxdImageMetadata> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LxdImageMetadataCopyWith<$Res> {
+  factory $LxdImageMetadataCopyWith(
+          LxdImageMetadata value, $Res Function(LxdImageMetadata) then) =
+      _$LxdImageMetadataCopyWithImpl<$Res>;
+  $Res call(
+      {String architecture,
+      int creationDate,
+      int expiryDate,
+      Map<String, dynamic> properties,
+      Map<String, LxdImageMetadataTemplate> templates});
+}
+
+/// @nodoc
+class _$LxdImageMetadataCopyWithImpl<$Res>
+    implements $LxdImageMetadataCopyWith<$Res> {
+  _$LxdImageMetadataCopyWithImpl(this._value, this._then);
+
+  final LxdImageMetadata _value;
+  // ignore: unused_field
+  final $Res Function(LxdImageMetadata) _then;
+
+  @override
+  $Res call({
+    Object? architecture = freezed,
+    Object? creationDate = freezed,
+    Object? expiryDate = freezed,
+    Object? properties = freezed,
+    Object? templates = freezed,
+  }) {
+    return _then(_value.copyWith(
+      architecture: architecture == freezed
+          ? _value.architecture
+          : architecture // ignore: cast_nullable_to_non_nullable
+              as String,
+      creationDate: creationDate == freezed
+          ? _value.creationDate
+          : creationDate // ignore: cast_nullable_to_non_nullable
+              as int,
+      expiryDate: expiryDate == freezed
+          ? _value.expiryDate
+          : expiryDate // ignore: cast_nullable_to_non_nullable
+              as int,
+      properties: properties == freezed
+          ? _value.properties
+          : properties // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+      templates: templates == freezed
+          ? _value.templates
+          : templates // ignore: cast_nullable_to_non_nullable
+              as Map<String, LxdImageMetadataTemplate>,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_LxdImageMetadataCopyWith<$Res>
+    implements $LxdImageMetadataCopyWith<$Res> {
+  factory _$$_LxdImageMetadataCopyWith(
+          _$_LxdImageMetadata value, $Res Function(_$_LxdImageMetadata) then) =
+      __$$_LxdImageMetadataCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String architecture,
+      int creationDate,
+      int expiryDate,
+      Map<String, dynamic> properties,
+      Map<String, LxdImageMetadataTemplate> templates});
+}
+
+/// @nodoc
+class __$$_LxdImageMetadataCopyWithImpl<$Res>
+    extends _$LxdImageMetadataCopyWithImpl<$Res>
+    implements _$$_LxdImageMetadataCopyWith<$Res> {
+  __$$_LxdImageMetadataCopyWithImpl(
+      _$_LxdImageMetadata _value, $Res Function(_$_LxdImageMetadata) _then)
+      : super(_value, (v) => _then(v as _$_LxdImageMetadata));
+
+  @override
+  _$_LxdImageMetadata get _value => super._value as _$_LxdImageMetadata;
+
+  @override
+  $Res call({
+    Object? architecture = freezed,
+    Object? creationDate = freezed,
+    Object? expiryDate = freezed,
+    Object? properties = freezed,
+    Object? templates = freezed,
+  }) {
+    return _then(_$_LxdImageMetadata(
+      architecture: architecture == freezed
+          ? _value.architecture
+          : architecture // ignore: cast_nullable_to_non_nullable
+              as String,
+      creationDate: creationDate == freezed
+          ? _value.creationDate
+          : creationDate // ignore: cast_nullable_to_non_nullable
+              as int,
+      expiryDate: expiryDate == freezed
+          ? _value.expiryDate
+          : expiryDate // ignore: cast_nullable_to_non_nullable
+              as int,
+      properties: properties == freezed
+          ? _value._properties
+          : properties // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+      templates: templates == freezed
+          ? _value._templates
+          : templates // ignore: cast_nullable_to_non_nullable
+              as Map<String, LxdImageMetadataTemplate>,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class _$_LxdImageMetadata implements _LxdImageMetadata {
+  const _$_LxdImageMetadata(
+      {required this.architecture,
+      required this.creationDate,
+      required this.expiryDate,
+      required final Map<String, dynamic> properties,
+      required final Map<String, LxdImageMetadataTemplate> templates})
+      : _properties = properties,
+        _templates = templates;
+
+  factory _$_LxdImageMetadata.fromJson(Map<String, dynamic> json) =>
+      _$$_LxdImageMetadataFromJson(json);
+
+  /// Architecture name
+  ///
+  /// Example: x86_64
+  @override
+  final String architecture;
+
+  /// Image creation data (as UNIX epoch)
+  ///
+  /// Example: 1620655439
+  @override
+  final int creationDate;
+
+  /// Image expiry data (as UNIX epoch)
+  ///
+  /// Example: 1620685757
+  @override
+  final int expiryDate;
+
+  /// Descriptive properties
+  ///
+  /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
+  final Map<String, dynamic> _properties;
+
+  /// Descriptive properties
+  ///
+  /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
+  @override
+  Map<String, dynamic> get properties {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_properties);
+  }
+
+// Template for files in the image
+  final Map<String, LxdImageMetadataTemplate> _templates;
+// Template for files in the image
+  @override
+  Map<String, LxdImageMetadataTemplate> get templates {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_templates);
+  }
+
+  @override
+  String toString() {
+    return 'LxdImageMetadata(architecture: $architecture, creationDate: $creationDate, expiryDate: $expiryDate, properties: $properties, templates: $templates)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_LxdImageMetadata &&
+            const DeepCollectionEquality()
+                .equals(other.architecture, architecture) &&
+            const DeepCollectionEquality()
+                .equals(other.creationDate, creationDate) &&
+            const DeepCollectionEquality()
+                .equals(other.expiryDate, expiryDate) &&
+            const DeepCollectionEquality()
+                .equals(other._properties, _properties) &&
+            const DeepCollectionEquality()
+                .equals(other._templates, _templates));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(architecture),
+      const DeepCollectionEquality().hash(creationDate),
+      const DeepCollectionEquality().hash(expiryDate),
+      const DeepCollectionEquality().hash(_properties),
+      const DeepCollectionEquality().hash(_templates));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_LxdImageMetadataCopyWith<_$_LxdImageMetadata> get copyWith =>
+      __$$_LxdImageMetadataCopyWithImpl<_$_LxdImageMetadata>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_LxdImageMetadataToJson(this);
+  }
+}
+
+abstract class _LxdImageMetadata implements LxdImageMetadata {
+  const factory _LxdImageMetadata(
+          {required final String architecture,
+          required final int creationDate,
+          required final int expiryDate,
+          required final Map<String, dynamic> properties,
+          required final Map<String, LxdImageMetadataTemplate> templates}) =
+      _$_LxdImageMetadata;
+
+  factory _LxdImageMetadata.fromJson(Map<String, dynamic> json) =
+      _$_LxdImageMetadata.fromJson;
+
+  @override
+
+  /// Architecture name
+  ///
+  /// Example: x86_64
+  String get architecture => throw _privateConstructorUsedError;
+  @override
+
+  /// Image creation data (as UNIX epoch)
+  ///
+  /// Example: 1620655439
+  int get creationDate => throw _privateConstructorUsedError;
+  @override
+
+  /// Image expiry data (as UNIX epoch)
+  ///
+  /// Example: 1620685757
+  int get expiryDate => throw _privateConstructorUsedError;
+  @override
+
+  /// Descriptive properties
+  ///
+  /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
+  Map<String, dynamic> get properties => throw _privateConstructorUsedError;
+  @override // Template for files in the image
+  Map<String, LxdImageMetadataTemplate> get templates =>
+      throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_LxdImageMetadataCopyWith<_$_LxdImageMetadata> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+LxdImageMetadataTemplate _$LxdImageMetadataTemplateFromJson(
+    Map<String, dynamic> json) {
+  return _LxdImageMetadataTemplate.fromJson(json);
+}
+
+/// @nodoc
+mixin _$LxdImageMetadataTemplate {
+  /// When to trigger the template (create, copy or start)
+  ///
+  /// Example: create
+  List<String> get when =>
+      throw _privateConstructorUsedError; // /Whether to trigger only if the file is missing
+  bool get createOnly => throw _privateConstructorUsedError;
+
+  /// The template itself as a valid pongo2 template
+  ///
+  /// Example: pongo2-template
+  String get template => throw _privateConstructorUsedError;
+
+  /// Key/value properties to pass to the template
+  ///
+  /// Example: {"foo": "bar"}
+  Map<String, dynamic> get properties => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $LxdImageMetadataTemplateCopyWith<LxdImageMetadataTemplate> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $LxdImageMetadataTemplateCopyWith<$Res> {
+  factory $LxdImageMetadataTemplateCopyWith(LxdImageMetadataTemplate value,
+          $Res Function(LxdImageMetadataTemplate) then) =
+      _$LxdImageMetadataTemplateCopyWithImpl<$Res>;
+  $Res call(
+      {List<String> when,
+      bool createOnly,
+      String template,
+      Map<String, dynamic> properties});
+}
+
+/// @nodoc
+class _$LxdImageMetadataTemplateCopyWithImpl<$Res>
+    implements $LxdImageMetadataTemplateCopyWith<$Res> {
+  _$LxdImageMetadataTemplateCopyWithImpl(this._value, this._then);
+
+  final LxdImageMetadataTemplate _value;
+  // ignore: unused_field
+  final $Res Function(LxdImageMetadataTemplate) _then;
+
+  @override
+  $Res call({
+    Object? when = freezed,
+    Object? createOnly = freezed,
+    Object? template = freezed,
+    Object? properties = freezed,
+  }) {
+    return _then(_value.copyWith(
+      when: when == freezed
+          ? _value.when
+          : when // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      createOnly: createOnly == freezed
+          ? _value.createOnly
+          : createOnly // ignore: cast_nullable_to_non_nullable
+              as bool,
+      template: template == freezed
+          ? _value.template
+          : template // ignore: cast_nullable_to_non_nullable
+              as String,
+      properties: properties == freezed
+          ? _value.properties
+          : properties // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_LxdImageMetadataTemplateCopyWith<$Res>
+    implements $LxdImageMetadataTemplateCopyWith<$Res> {
+  factory _$$_LxdImageMetadataTemplateCopyWith(
+          _$_LxdImageMetadataTemplate value,
+          $Res Function(_$_LxdImageMetadataTemplate) then) =
+      __$$_LxdImageMetadataTemplateCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {List<String> when,
+      bool createOnly,
+      String template,
+      Map<String, dynamic> properties});
+}
+
+/// @nodoc
+class __$$_LxdImageMetadataTemplateCopyWithImpl<$Res>
+    extends _$LxdImageMetadataTemplateCopyWithImpl<$Res>
+    implements _$$_LxdImageMetadataTemplateCopyWith<$Res> {
+  __$$_LxdImageMetadataTemplateCopyWithImpl(_$_LxdImageMetadataTemplate _value,
+      $Res Function(_$_LxdImageMetadataTemplate) _then)
+      : super(_value, (v) => _then(v as _$_LxdImageMetadataTemplate));
+
+  @override
+  _$_LxdImageMetadataTemplate get _value =>
+      super._value as _$_LxdImageMetadataTemplate;
+
+  @override
+  $Res call({
+    Object? when = freezed,
+    Object? createOnly = freezed,
+    Object? template = freezed,
+    Object? properties = freezed,
+  }) {
+    return _then(_$_LxdImageMetadataTemplate(
+      when: when == freezed
+          ? _value._when
+          : when // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      createOnly: createOnly == freezed
+          ? _value.createOnly
+          : createOnly // ignore: cast_nullable_to_non_nullable
+              as bool,
+      template: template == freezed
+          ? _value.template
+          : template // ignore: cast_nullable_to_non_nullable
+              as String,
+      properties: properties == freezed
+          ? _value._properties
+          : properties // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class _$_LxdImageMetadataTemplate implements _LxdImageMetadataTemplate {
+  const _$_LxdImageMetadataTemplate(
+      {required final List<String> when,
+      required this.createOnly,
+      required this.template,
+      required final Map<String, dynamic> properties})
+      : _when = when,
+        _properties = properties;
+
+  factory _$_LxdImageMetadataTemplate.fromJson(Map<String, dynamic> json) =>
+      _$$_LxdImageMetadataTemplateFromJson(json);
+
+  /// When to trigger the template (create, copy or start)
+  ///
+  /// Example: create
+  final List<String> _when;
+
+  /// When to trigger the template (create, copy or start)
+  ///
+  /// Example: create
+  @override
+  List<String> get when {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_when);
+  }
+
+// /Whether to trigger only if the file is missing
+  @override
+  final bool createOnly;
+
+  /// The template itself as a valid pongo2 template
+  ///
+  /// Example: pongo2-template
+  @override
+  final String template;
+
+  /// Key/value properties to pass to the template
+  ///
+  /// Example: {"foo": "bar"}
+  final Map<String, dynamic> _properties;
+
+  /// Key/value properties to pass to the template
+  ///
+  /// Example: {"foo": "bar"}
+  @override
+  Map<String, dynamic> get properties {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_properties);
+  }
+
+  @override
+  String toString() {
+    return 'LxdImageMetadataTemplate(when: $when, createOnly: $createOnly, template: $template, properties: $properties)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_LxdImageMetadataTemplate &&
+            const DeepCollectionEquality().equals(other._when, _when) &&
+            const DeepCollectionEquality()
+                .equals(other.createOnly, createOnly) &&
+            const DeepCollectionEquality().equals(other.template, template) &&
+            const DeepCollectionEquality()
+                .equals(other._properties, _properties));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_when),
+      const DeepCollectionEquality().hash(createOnly),
+      const DeepCollectionEquality().hash(template),
+      const DeepCollectionEquality().hash(_properties));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_LxdImageMetadataTemplateCopyWith<_$_LxdImageMetadataTemplate>
+      get copyWith => __$$_LxdImageMetadataTemplateCopyWithImpl<
+          _$_LxdImageMetadataTemplate>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_LxdImageMetadataTemplateToJson(this);
+  }
+}
+
+abstract class _LxdImageMetadataTemplate implements LxdImageMetadataTemplate {
+  const factory _LxdImageMetadataTemplate(
+          {required final List<String> when,
+          required final bool createOnly,
+          required final String template,
+          required final Map<String, dynamic> properties}) =
+      _$_LxdImageMetadataTemplate;
+
+  factory _LxdImageMetadataTemplate.fromJson(Map<String, dynamic> json) =
+      _$_LxdImageMetadataTemplate.fromJson;
+
+  @override
+
+  /// When to trigger the template (create, copy or start)
+  ///
+  /// Example: create
+  List<String> get when => throw _privateConstructorUsedError;
+  @override // /Whether to trigger only if the file is missing
+  bool get createOnly => throw _privateConstructorUsedError;
+  @override
+
+  /// The template itself as a valid pongo2 template
+  ///
+  /// Example: pongo2-template
+  String get template => throw _privateConstructorUsedError;
+  @override
+
+  /// Key/value properties to pass to the template
+  ///
+  /// Example: {"foo": "bar"}
+  Map<String, dynamic> get properties => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_LxdImageMetadataTemplateCopyWith<_$_LxdImageMetadataTemplate>
+      get copyWith => throw _privateConstructorUsedError;
+}

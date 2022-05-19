@@ -86,3 +86,42 @@ Map<String, dynamic> _$$_LxdImageSourceToJson(_$_LxdImageSource instance) =>
       'server': instance.server,
       'image_type': _$LxdImageTypeEnumMap[instance.imageType],
     };
+
+_$_LxdImageMetadata _$$_LxdImageMetadataFromJson(Map<String, dynamic> json) =>
+    _$_LxdImageMetadata(
+      architecture: json['architecture'] as String,
+      creationDate: json['creation_date'] as int,
+      expiryDate: json['expiry_date'] as int,
+      properties: json['properties'] as Map<String, dynamic>,
+      templates: (json['templates'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k, LxdImageMetadataTemplate.fromJson(e as Map<String, dynamic>)),
+      ),
+    );
+
+Map<String, dynamic> _$$_LxdImageMetadataToJson(_$_LxdImageMetadata instance) =>
+    <String, dynamic>{
+      'architecture': instance.architecture,
+      'creation_date': instance.creationDate,
+      'expiry_date': instance.expiryDate,
+      'properties': instance.properties,
+      'templates': instance.templates,
+    };
+
+_$_LxdImageMetadataTemplate _$$_LxdImageMetadataTemplateFromJson(
+        Map<String, dynamic> json) =>
+    _$_LxdImageMetadataTemplate(
+      when: (json['when'] as List<dynamic>).map((e) => e as String).toList(),
+      createOnly: json['create_only'] as bool,
+      template: json['template'] as String,
+      properties: json['properties'] as Map<String, dynamic>,
+    );
+
+Map<String, dynamic> _$$_LxdImageMetadataTemplateToJson(
+        _$_LxdImageMetadataTemplate instance) =>
+    <String, dynamic>{
+      'when': instance.when,
+      'create_only': instance.createOnly,
+      'template': instance.template,
+      'properties': instance.properties,
+    };
