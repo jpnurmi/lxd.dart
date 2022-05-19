@@ -5,13 +5,6 @@ import 'dart:io';
 import 'package:lxd/lxd.dart';
 import 'package:test/test.dart';
 
-class MockProfile {
-  final Map<String, dynamic> config;
-  final String description;
-
-  MockProfile({this.config = const {}, this.description = ''});
-}
-
 class MockProject {
   final Map<String, dynamic> config;
   final String description;
@@ -84,16 +77,12 @@ class MockLxdServer {
   final _tcpSockets = <Socket, Socket>{};
 
   final operations = <String, MockOperation>{};
-  final Map<String, MockProfile> profiles;
   final Map<String, MockProject> projects;
   final Map<String, MockStoragePool> storagePools;
 
   String get socketPath => _socketPath!;
 
-  MockLxdServer(
-      {this.profiles = const {},
-      this.projects = const {},
-      this.storagePools = const {}});
+  MockLxdServer({this.projects = const {}, this.storagePools = const {}});
 
   Future<void> start() async {
     _tempDir = await Directory.systemTemp.createTemp();
@@ -146,17 +135,6 @@ class MockLxdServer {
         path[1] == 'operations') {
       var id = path[2];
       _deleteOperation(response, id);
-    } else if (request.method == 'GET' &&
-        path.length == 2 &&
-        path[0] == '1.0' &&
-        path[1] == 'profiles') {
-      _getProfiles(response);
-    } else if (request.method == 'GET' &&
-        path.length == 3 &&
-        path[0] == '1.0' &&
-        path[1] == 'profiles') {
-      var name = path[2];
-      _getProfile(response, name);
     } else if (request.method == 'GET' &&
         path.length == 2 &&
         path[0] == '1.0' &&
@@ -219,20 +197,6 @@ class MockLxdServer {
     var operation = operations[id]!;
     operation.status = 'cancelled';
     _writeSyncResponse(response, {});
-  }
-
-  void _getProfiles(HttpResponse response) {
-    _writeSyncResponse(
-        response, profiles.keys.map((name) => '/1.0/profiles/$name').toList());
-  }
-
-  void _getProfile(HttpResponse response, String name) {
-    var profile = profiles[name]!;
-    _writeSyncResponse(response, {
-      'config': profile.config,
-      'description': profile.description,
-      'name': name
-    });
   }
 
   void _getProjects(HttpResponse response) {
@@ -313,38 +277,6 @@ class MockLxdServer {
 }
 
 void main() {
-  test('get profiles', () async {
-    var lxd = MockLxdServer(
-        profiles: {'default': MockProfile(), 'foo': MockProfile()});
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var profileNames = await client.getProfiles();
-    expect(profileNames, equals(['default', 'foo']));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get profile', () async {
-    var lxd = MockLxdServer(profiles: {
-      'foo': MockProfile(
-          config: {'limits.cpu': '4', 'limits.memory': '4GiB'},
-          description: 'Medium size instances')
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var profile = await client.getProfile('foo');
-    expect(
-        profile.config, equals({'limits.cpu': '4', 'limits.memory': '4GiB'}));
-    expect(profile.description, equals('Medium size instances'));
-    expect(profile.name, equals('foo'));
-
-    client.close();
-    await lxd.close();
-  });
-
   test('get projects', () async {
     var lxd = MockLxdServer(
         projects: {'default': MockProject(), 'foo': MockProject()});
