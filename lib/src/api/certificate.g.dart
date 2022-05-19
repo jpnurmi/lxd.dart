@@ -8,21 +8,29 @@ part of 'certificate.dart';
 
 _$_LxdCertificate _$$_LxdCertificateFromJson(Map<String, dynamic> json) =>
     _$_LxdCertificate(
-      certificate: json['certificate'] as String,
-      fingerprint: json['fingerprint'] as String,
       name: json['name'] as String,
+      type: $enumDecode(_$LxdCertificateTypeEnumMap, json['type'],
+          unknownValue: LxdCertificateType.unknown),
+      restricted: json['restricted'] as bool,
       projects:
           (json['projects'] as List<dynamic>).map((e) => e as String).toList(),
-      restricted: json['restricted'] as bool,
-      type: json['type'] as String,
+      certificate: json['certificate'] as String,
+      fingerprint: json['fingerprint'] as String,
     );
 
 Map<String, dynamic> _$$_LxdCertificateToJson(_$_LxdCertificate instance) =>
     <String, dynamic>{
+      'name': instance.name,
+      'type': _$LxdCertificateTypeEnumMap[instance.type],
+      'restricted': instance.restricted,
+      'projects': instance.projects,
       'certificate': instance.certificate,
       'fingerprint': instance.fingerprint,
-      'name': instance.name,
-      'projects': instance.projects,
-      'restricted': instance.restricted,
-      'type': instance.type,
     };
+
+const _$LxdCertificateTypeEnumMap = {
+  LxdCertificateType.client: 'client',
+  LxdCertificateType.server: 'server',
+  LxdCertificateType.metrics: 'metrics',
+  LxdCertificateType.unknown: 'unknown',
+};

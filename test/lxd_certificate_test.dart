@@ -27,7 +27,7 @@ void main() {
       'name': 'NAME',
       'projects': [],
       'restricted': true,
-      'type': 'TYPE',
+      'type': 'server',
     };
 
     final http = mockHttpClient();
@@ -44,6 +44,6 @@ void main() {
     expect(certificate.fingerprint, equals('213394bb'));
     expect(certificate.name, equals('NAME'));
     expect(certificate.restricted, isTrue);
-    expect(certificate.type, equals('TYPE'));
+    expect(certificate.type, LxdCertificateType.server);
   });
 }

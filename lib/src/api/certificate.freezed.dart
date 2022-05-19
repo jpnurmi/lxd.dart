@@ -20,12 +20,31 @@ LxdCertificate _$LxdCertificateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LxdCertificate {
-  String get certificate => throw _privateConstructorUsedError;
-  String get fingerprint => throw _privateConstructorUsedError;
+  /// Name associated with the certificate
+  ///
+  /// Example: castiana
   String get name => throw _privateConstructorUsedError;
-  List<String> get projects => throw _privateConstructorUsedError;
+
+  /// Usage type for the certificate
+  @JsonKey(unknownEnumValue: LxdCertificateType.unknown)
+  LxdCertificateType get type =>
+      throw _privateConstructorUsedError; // Whether to limit the certificate to listed projects
   bool get restricted => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
+
+  /// List of allowed projects (applies when restricted)
+  ///
+  /// Example: ["default", "foo", "bar"]
+  List<String> get projects => throw _privateConstructorUsedError;
+
+  /// The certificate itself, as PEM encoded X509
+  ///
+  /// Example: X509 PEM certificate
+  String get certificate => throw _privateConstructorUsedError;
+
+  /// SHA256 fingerprint of the certificate
+  ///
+  /// Example: fd200419b271f1dc2a5591b693cc5774b7f234e1ff8c6b78ad703b6888fe2b69
+  String get fingerprint => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,12 +58,13 @@ abstract class $LxdCertificateCopyWith<$Res> {
           LxdCertificate value, $Res Function(LxdCertificate) then) =
       _$LxdCertificateCopyWithImpl<$Res>;
   $Res call(
-      {String certificate,
-      String fingerprint,
-      String name,
-      List<String> projects,
+      {String name,
+      @JsonKey(unknownEnumValue: LxdCertificateType.unknown)
+          LxdCertificateType type,
       bool restricted,
-      String type});
+      List<String> projects,
+      String certificate,
+      String fingerprint});
 }
 
 /// @nodoc
@@ -58,14 +78,30 @@ class _$LxdCertificateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? name = freezed,
+    Object? type = freezed,
+    Object? restricted = freezed,
+    Object? projects = freezed,
     Object? certificate = freezed,
     Object? fingerprint = freezed,
-    Object? name = freezed,
-    Object? projects = freezed,
-    Object? restricted = freezed,
-    Object? type = freezed,
   }) {
     return _then(_value.copyWith(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as LxdCertificateType,
+      restricted: restricted == freezed
+          ? _value.restricted
+          : restricted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      projects: projects == freezed
+          ? _value.projects
+          : projects // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       certificate: certificate == freezed
           ? _value.certificate
           : certificate // ignore: cast_nullable_to_non_nullable
@@ -73,22 +109,6 @@ class _$LxdCertificateCopyWithImpl<$Res>
       fingerprint: fingerprint == freezed
           ? _value.fingerprint
           : fingerprint // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      projects: projects == freezed
-          ? _value.projects
-          : projects // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      restricted: restricted == freezed
-          ? _value.restricted
-          : restricted // ignore: cast_nullable_to_non_nullable
-              as bool,
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -102,12 +122,13 @@ abstract class _$$_LxdCertificateCopyWith<$Res>
       __$$_LxdCertificateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String certificate,
-      String fingerprint,
-      String name,
-      List<String> projects,
+      {String name,
+      @JsonKey(unknownEnumValue: LxdCertificateType.unknown)
+          LxdCertificateType type,
       bool restricted,
-      String type});
+      List<String> projects,
+      String certificate,
+      String fingerprint});
 }
 
 /// @nodoc
@@ -123,14 +144,30 @@ class __$$_LxdCertificateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? name = freezed,
+    Object? type = freezed,
+    Object? restricted = freezed,
+    Object? projects = freezed,
     Object? certificate = freezed,
     Object? fingerprint = freezed,
-    Object? name = freezed,
-    Object? projects = freezed,
-    Object? restricted = freezed,
-    Object? type = freezed,
   }) {
     return _then(_$_LxdCertificate(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as LxdCertificateType,
+      restricted: restricted == freezed
+          ? _value.restricted
+          : restricted // ignore: cast_nullable_to_non_nullable
+              as bool,
+      projects: projects == freezed
+          ? _value._projects
+          : projects // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       certificate: certificate == freezed
           ? _value.certificate
           : certificate // ignore: cast_nullable_to_non_nullable
@@ -138,22 +175,6 @@ class __$$_LxdCertificateCopyWithImpl<$Res>
       fingerprint: fingerprint == freezed
           ? _value.fingerprint
           : fingerprint // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      projects: projects == freezed
-          ? _value._projects
-          : projects // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      restricted: restricted == freezed
-          ? _value.restricted
-          : restricted // ignore: cast_nullable_to_non_nullable
-              as bool,
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -164,38 +185,60 @@ class __$$_LxdCertificateCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$_LxdCertificate implements _LxdCertificate {
   const _$_LxdCertificate(
-      {required this.certificate,
-      required this.fingerprint,
-      required this.name,
-      required final List<String> projects,
+      {required this.name,
+      @JsonKey(unknownEnumValue: LxdCertificateType.unknown) required this.type,
       required this.restricted,
-      required this.type})
+      required final List<String> projects,
+      required this.certificate,
+      required this.fingerprint})
       : _projects = projects;
 
   factory _$_LxdCertificate.fromJson(Map<String, dynamic> json) =>
       _$$_LxdCertificateFromJson(json);
 
-  @override
-  final String certificate;
-  @override
-  final String fingerprint;
+  /// Name associated with the certificate
+  ///
+  /// Example: castiana
   @override
   final String name;
+
+  /// Usage type for the certificate
+  @override
+  @JsonKey(unknownEnumValue: LxdCertificateType.unknown)
+  final LxdCertificateType type;
+// Whether to limit the certificate to listed projects
+  @override
+  final bool restricted;
+
+  /// List of allowed projects (applies when restricted)
+  ///
+  /// Example: ["default", "foo", "bar"]
   final List<String> _projects;
+
+  /// List of allowed projects (applies when restricted)
+  ///
+  /// Example: ["default", "foo", "bar"]
   @override
   List<String> get projects {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_projects);
   }
 
+  /// The certificate itself, as PEM encoded X509
+  ///
+  /// Example: X509 PEM certificate
   @override
-  final bool restricted;
+  final String certificate;
+
+  /// SHA256 fingerprint of the certificate
+  ///
+  /// Example: fd200419b271f1dc2a5591b693cc5774b7f234e1ff8c6b78ad703b6888fe2b69
   @override
-  final String type;
+  final String fingerprint;
 
   @override
   String toString() {
-    return 'LxdCertificate(certificate: $certificate, fingerprint: $fingerprint, name: $name, projects: $projects, restricted: $restricted, type: $type)';
+    return 'LxdCertificate(name: $name, type: $type, restricted: $restricted, projects: $projects, certificate: $certificate, fingerprint: $fingerprint)';
   }
 
   @override
@@ -203,27 +246,27 @@ class _$_LxdCertificate implements _LxdCertificate {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LxdCertificate &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.type, type) &&
+            const DeepCollectionEquality()
+                .equals(other.restricted, restricted) &&
+            const DeepCollectionEquality().equals(other._projects, _projects) &&
             const DeepCollectionEquality()
                 .equals(other.certificate, certificate) &&
             const DeepCollectionEquality()
-                .equals(other.fingerprint, fingerprint) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other._projects, _projects) &&
-            const DeepCollectionEquality()
-                .equals(other.restricted, restricted) &&
-            const DeepCollectionEquality().equals(other.type, type));
+                .equals(other.fingerprint, fingerprint));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(certificate),
-      const DeepCollectionEquality().hash(fingerprint),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(_projects),
+      const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(restricted),
-      const DeepCollectionEquality().hash(type));
+      const DeepCollectionEquality().hash(_projects),
+      const DeepCollectionEquality().hash(certificate),
+      const DeepCollectionEquality().hash(fingerprint));
 
   @JsonKey(ignore: true)
   @override
@@ -238,28 +281,48 @@ class _$_LxdCertificate implements _LxdCertificate {
 
 abstract class _LxdCertificate implements LxdCertificate {
   const factory _LxdCertificate(
-      {required final String certificate,
-      required final String fingerprint,
-      required final String name,
-      required final List<String> projects,
+      {required final String name,
+      @JsonKey(unknownEnumValue: LxdCertificateType.unknown)
+          required final LxdCertificateType type,
       required final bool restricted,
-      required final String type}) = _$_LxdCertificate;
+      required final List<String> projects,
+      required final String certificate,
+      required final String fingerprint}) = _$_LxdCertificate;
 
   factory _LxdCertificate.fromJson(Map<String, dynamic> json) =
       _$_LxdCertificate.fromJson;
 
   @override
-  String get certificate => throw _privateConstructorUsedError;
-  @override
-  String get fingerprint => throw _privateConstructorUsedError;
-  @override
+
+  /// Name associated with the certificate
+  ///
+  /// Example: castiana
   String get name => throw _privateConstructorUsedError;
   @override
-  List<String> get projects => throw _privateConstructorUsedError;
-  @override
+
+  /// Usage type for the certificate
+  @JsonKey(unknownEnumValue: LxdCertificateType.unknown)
+  LxdCertificateType get type => throw _privateConstructorUsedError;
+  @override // Whether to limit the certificate to listed projects
   bool get restricted => throw _privateConstructorUsedError;
   @override
-  String get type => throw _privateConstructorUsedError;
+
+  /// List of allowed projects (applies when restricted)
+  ///
+  /// Example: ["default", "foo", "bar"]
+  List<String> get projects => throw _privateConstructorUsedError;
+  @override
+
+  /// The certificate itself, as PEM encoded X509
+  ///
+  /// Example: X509 PEM certificate
+  String get certificate => throw _privateConstructorUsedError;
+  @override
+
+  /// SHA256 fingerprint of the certificate
+  ///
+  /// Example: fd200419b271f1dc2a5591b693cc5774b7f234e1ff8c6b78ad703b6888fe2b69
+  String get fingerprint => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_LxdCertificateCopyWith<_$_LxdCertificate> get copyWith =>
