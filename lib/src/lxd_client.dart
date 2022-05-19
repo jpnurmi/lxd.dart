@@ -14,7 +14,7 @@ import 'api/profile.dart';
 import 'api/project.dart';
 import 'api/resource.dart';
 import 'api/storage_pool.dart';
-import 'lxd_types.dart';
+import 'remote_image.dart';
 import 'simplestream_client.dart';
 
 const _certificatePath = '/1.0/certificates/';
