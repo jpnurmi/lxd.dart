@@ -2,8 +2,8 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'lxd_operation.freezed.dart';
-part 'lxd_operation.g.dart';
+part 'operation.freezed.dart';
+part 'operation.g.dart';
 
 enum LxdOperationType { task, websocket, token }
 

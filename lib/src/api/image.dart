@@ -2,8 +2,8 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'lxd_image.freezed.dart';
-part 'lxd_image.g.dart';
+part 'image.freezed.dart';
+part 'image.g.dart';
 
 @JsonEnum(fieldRename: FieldRename.kebab)
 enum LxdImageType { container, virtualMachine }

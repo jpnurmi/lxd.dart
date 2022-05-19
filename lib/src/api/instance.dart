@@ -2,8 +2,8 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'lxd_instance.freezed.dart';
-part 'lxd_instance.g.dart';
+part 'instance.freezed.dart';
+part 'instance.g.dart';
 
 @JsonEnum(fieldRename: FieldRename.kebab)
 enum LxdInstanceType { container, virtualMachine }

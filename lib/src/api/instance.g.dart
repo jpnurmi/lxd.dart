@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'lxd_instance.dart';
+part of 'instance.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

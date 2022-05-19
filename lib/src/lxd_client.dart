@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:meta/meta.dart';
 
-import 'lxd_certificate.dart';
-import 'lxd_image.dart';
-import 'lxd_instance.dart';
-import 'lxd_operation.dart';
+import 'api/certificate.dart';
+import 'api/image.dart';
+import 'api/instance.dart';
+import 'api/operation.dart';
 import 'lxd_types.dart';
 import 'simplestream_client.dart';
 

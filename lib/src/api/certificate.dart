@@ -2,8 +2,8 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'lxd_certificate.freezed.dart';
-part 'lxd_certificate.g.dart';
+part 'certificate.freezed.dart';
+part 'certificate.g.dart';
 
 @freezed
 class LxdCertificate with _$LxdCertificate {
