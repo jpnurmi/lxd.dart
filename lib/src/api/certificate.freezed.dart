@@ -27,21 +27,30 @@ mixin _$LxdCertificate {
 
   /// Usage type for the certificate
   @JsonKey(unknownEnumValue: LxdCertificateType.unknown)
-  LxdCertificateType get type =>
-      throw _privateConstructorUsedError; // Whether to limit the certificate to listed projects
+  LxdCertificateType get type => throw _privateConstructorUsedError;
+
+  /// Whether to limit the certificate to listed projects
+  ///
+  /// API extension: certificate_project
   bool get restricted => throw _privateConstructorUsedError;
 
   /// List of allowed projects (applies when restricted)
   ///
   /// Example: ["default", "foo", "bar"]
+  ///
+  /// API extension: certificate_project
   List<String> get projects => throw _privateConstructorUsedError;
 
   /// The certificate itself, as PEM encoded X509
   ///
   /// Example: X509 PEM certificate
+  ///
+  /// API extension: certificate_self_renewal
   String get certificate => throw _privateConstructorUsedError;
 
   /// SHA256 fingerprint of the certificate
+  ///
+  /// Read only: true
   ///
   /// Example: fd200419b271f1dc2a5591b693cc5774b7f234e1ff8c6b78ad703b6888fe2b69
   String get fingerprint => throw _privateConstructorUsedError;
@@ -206,18 +215,25 @@ class _$_LxdCertificate implements _LxdCertificate {
   @override
   @JsonKey(unknownEnumValue: LxdCertificateType.unknown)
   final LxdCertificateType type;
-// Whether to limit the certificate to listed projects
+
+  /// Whether to limit the certificate to listed projects
+  ///
+  /// API extension: certificate_project
   @override
   final bool restricted;
 
   /// List of allowed projects (applies when restricted)
   ///
   /// Example: ["default", "foo", "bar"]
+  ///
+  /// API extension: certificate_project
   final List<String> _projects;
 
   /// List of allowed projects (applies when restricted)
   ///
   /// Example: ["default", "foo", "bar"]
+  ///
+  /// API extension: certificate_project
   @override
   List<String> get projects {
     // ignore: implicit_dynamic_type
@@ -227,10 +243,14 @@ class _$_LxdCertificate implements _LxdCertificate {
   /// The certificate itself, as PEM encoded X509
   ///
   /// Example: X509 PEM certificate
+  ///
+  /// API extension: certificate_self_renewal
   @override
   final String certificate;
 
   /// SHA256 fingerprint of the certificate
+  ///
+  /// Read only: true
   ///
   /// Example: fd200419b271f1dc2a5591b693cc5774b7f234e1ff8c6b78ad703b6888fe2b69
   @override
@@ -303,23 +323,33 @@ abstract class _LxdCertificate implements LxdCertificate {
   /// Usage type for the certificate
   @JsonKey(unknownEnumValue: LxdCertificateType.unknown)
   LxdCertificateType get type => throw _privateConstructorUsedError;
-  @override // Whether to limit the certificate to listed projects
+  @override
+
+  /// Whether to limit the certificate to listed projects
+  ///
+  /// API extension: certificate_project
   bool get restricted => throw _privateConstructorUsedError;
   @override
 
   /// List of allowed projects (applies when restricted)
   ///
   /// Example: ["default", "foo", "bar"]
+  ///
+  /// API extension: certificate_project
   List<String> get projects => throw _privateConstructorUsedError;
   @override
 
   /// The certificate itself, as PEM encoded X509
   ///
   /// Example: X509 PEM certificate
+  ///
+  /// API extension: certificate_self_renewal
   String get certificate => throw _privateConstructorUsedError;
   @override
 
   /// SHA256 fingerprint of the certificate
+  ///
+  /// Read only: true
   ///
   /// Example: fd200419b271f1dc2a5591b693cc5774b7f234e1ff8c6b78ad703b6888fe2b69
   String get fingerprint => throw _privateConstructorUsedError;
