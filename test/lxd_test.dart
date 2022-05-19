@@ -5,13 +5,6 @@ import 'dart:io';
 import 'package:lxd/lxd.dart';
 import 'package:test/test.dart';
 
-class MockProject {
-  final Map<String, dynamic> config;
-  final String description;
-
-  MockProject({this.config = const {}, this.description = ''});
-}
-
 class MockStoragePool {
   final Map<String, dynamic> config;
   final String description;
@@ -77,12 +70,11 @@ class MockLxdServer {
   final _tcpSockets = <Socket, Socket>{};
 
   final operations = <String, MockOperation>{};
-  final Map<String, MockProject> projects;
   final Map<String, MockStoragePool> storagePools;
 
   String get socketPath => _socketPath!;
 
-  MockLxdServer({this.projects = const {}, this.storagePools = const {}});
+  MockLxdServer({this.storagePools = const {}});
 
   Future<void> start() async {
     _tempDir = await Directory.systemTemp.createTemp();
@@ -138,17 +130,6 @@ class MockLxdServer {
     } else if (request.method == 'GET' &&
         path.length == 2 &&
         path[0] == '1.0' &&
-        path[1] == 'projects') {
-      _getProjects(response);
-    } else if (request.method == 'GET' &&
-        path.length == 3 &&
-        path[0] == '1.0' &&
-        path[1] == 'projects') {
-      var name = path[2];
-      _getProject(response, name);
-    } else if (request.method == 'GET' &&
-        path.length == 2 &&
-        path[0] == '1.0' &&
         path[1] == 'storage-pools') {
       _getStoragePools(response);
     } else if (request.method == 'GET' &&
@@ -197,20 +178,6 @@ class MockLxdServer {
     var operation = operations[id]!;
     operation.status = 'cancelled';
     _writeSyncResponse(response, {});
-  }
-
-  void _getProjects(HttpResponse response) {
-    _writeSyncResponse(
-        response, projects.keys.map((name) => '/1.0/projects/$name').toList());
-  }
-
-  void _getProject(HttpResponse response, String name) {
-    var project = projects[name]!;
-    _writeSyncResponse(response, {
-      'config': project.config,
-      'description': project.description,
-      'name': name
-    });
   }
 
   void _getStoragePools(HttpResponse response) {
@@ -277,38 +244,6 @@ class MockLxdServer {
 }
 
 void main() {
-  test('get projects', () async {
-    var lxd = MockLxdServer(
-        projects: {'default': MockProject(), 'foo': MockProject()});
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var projectNames = await client.getProjects();
-    expect(projectNames, equals(['default', 'foo']));
-
-    client.close();
-    await lxd.close();
-  });
-
-  test('get project', () async {
-    var lxd = MockLxdServer(projects: {
-      'foo': MockProject(
-          config: {'features.networks': 'false', 'features.profiles': 'true'},
-          description: 'My new project')
-    });
-    await lxd.start();
-
-    var client = LxdClient(socketPath: lxd.socketPath);
-    var project = await client.getProject('foo');
-    expect(project.config,
-        equals({'features.networks': 'false', 'features.profiles': 'true'}));
-    expect(project.description, equals('My new project'));
-    expect(project.name, equals('foo'));
-
-    client.close();
-    await lxd.close();
-  });
-
   test('get storage pools', () async {
     var lxd = MockLxdServer(storagePools: {
       'local': MockStoragePool(),
