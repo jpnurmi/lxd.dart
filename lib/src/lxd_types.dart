@@ -451,53 +451,6 @@ class LxdResources {
   }
 }
 
-class LxdCertificate {
-  final String certificate;
-  final String fingerprint;
-  final String name;
-  final List<String> projects;
-  final bool restricted;
-  final String type;
-
-  LxdCertificate(
-      {required this.certificate,
-      required this.fingerprint,
-      required this.name,
-      required this.projects,
-      required this.restricted,
-      required this.type});
-
-  @override
-  String toString() =>
-      'LxdCertificate(certificate: $certificate, fingerprint: $fingerprint, name: $name, projects: $projects, restricted: $restricted, type: $type)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    final listEquals = const DeepCollectionEquality().equals;
-
-    return other is LxdCertificate &&
-        other.certificate == certificate &&
-        other.fingerprint == fingerprint &&
-        other.name == name &&
-        listEquals(other.projects, projects) &&
-        other.restricted == restricted &&
-        other.type == type;
-  }
-
-  @override
-  int get hashCode {
-    return Object.hash(
-      certificate,
-      fingerprint,
-      name,
-      projects,
-      restricted,
-      type,
-    );
-  }
-}
-
 class LxdInstanceState {
   final Map<String, LxdNetworkState> network;
   final int pid;

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:meta/meta.dart';
 
+import 'lxd_certificate.dart';
 import 'lxd_image.dart';
 import 'lxd_instance.dart';
 import 'lxd_operation.dart';
@@ -271,13 +272,7 @@ class LxdClient {
   Future<LxdCertificate> getCertificate(String fingerprint) async {
     var certificate =
         await _requestSync('GET', '/1.0/certificates/$fingerprint');
-    return LxdCertificate(
-        certificate: certificate['certificate'],
-        fingerprint: certificate['fingerprint'],
-        name: certificate['name'],
-        projects: certificate['projects'].cast<String>(),
-        restricted: certificate['restricted'],
-        type: certificate['type']);
+    return LxdCertificate.fromJson(certificate);
   }
 
   /// Gets the fingerprints of the images provided by the LXD server.
