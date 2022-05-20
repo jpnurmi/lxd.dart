@@ -47,6 +47,7 @@ MockHttpClientRequest mockOperation({
     'type': 'async',
     'status': '',
     'status_code': statusCode,
+    'operation': '/1.0/operations/$id',
     'metadata': {
       'class': type,
       'created_at': createdAt,

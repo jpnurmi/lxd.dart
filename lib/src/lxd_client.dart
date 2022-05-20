@@ -15,6 +15,7 @@ import 'api/project.dart';
 import 'api/resource.dart';
 import 'api/storage_pool.dart';
 import 'remote_image.dart';
+import 'response.dart';
 import 'simplestream_client.dart';
 
 const _certificatePath = '/1.0/certificates/';
@@ -26,72 +27,6 @@ const _operationPath = '/1.0/operations/';
 const _profilePath = '/1.0/profiles/';
 const _projectPath = '/1.0/projects/';
 const _storagePoolPath = '/1.0/storage-pools/';
-
-/// General response from lxd.
-abstract class _LxdResponse {
-  /// Request result. Throws an exception if not a sync result.
-  dynamic get result;
-
-  /// Request operation. Throws an exception if not an async result.
-  LxdOperation get operation;
-
-  const _LxdResponse();
-}
-
-/// Response retuned when a sync request is completed.
-class _LxdSyncResponse extends _LxdResponse {
-  final int statusCode;
-
-  final String status;
-
-  final dynamic _result;
-
-  @override
-  dynamic get result => _result;
-
-  @override
-  LxdOperation get operation => throw 'Result is sync';
-
-  _LxdSyncResponse(dynamic result,
-      {required this.statusCode, required this.status})
-      : _result = result;
-}
-
-/// Response retuned when an async request has been started.
-class _LxdAsyncResponse extends _LxdResponse {
-  final int statusCode;
-
-  final String status;
-
-  final LxdOperation _operation;
-
-  @override
-  dynamic get result => throw 'Result is async';
-
-  @override
-  LxdOperation get operation => _operation;
-
-  _LxdAsyncResponse(LxdOperation operation,
-      {required this.statusCode, required this.status})
-      : _operation = operation;
-}
-
-/// Response retuned when an error occurred.
-class _LxdErrorResponse extends _LxdResponse {
-  // Error code.
-  final int errorCode;
-
-  /// Error message returned.
-  final String error;
-
-  @override
-  dynamic get result => throw 'Result is error: $error';
-
-  @override
-  LxdOperation get operation => throw 'Result is error: $error';
-
-  const _LxdErrorResponse({required this.errorCode, required this.error});
-}
 
 /// Manages a connection to the lxd server.
 class LxdClient {
@@ -529,8 +464,8 @@ class LxdClient {
         method, Uri.http('localhost', path, queryParameters));
     _setHeaders(request);
     await request.close();
-    var lxdResponse = await _parseResponse(await request.done);
-    return lxdResponse.result;
+    var lxdResponse = await _parseResponse<LxdSyncResponse>(await request.done);
+    return lxdResponse.metadata;
   }
 
   /// Does an asynchronous request to lxd.
@@ -542,8 +477,9 @@ class LxdClient {
     request.headers.contentType = ContentType('application', 'json');
     request.write(json.encode(body));
     await request.close();
-    var lxdResponse = await _parseResponse(await request.done);
-    return lxdResponse.operation;
+    var lxdResponse =
+        await _parseResponse<LxdAsyncResponse>(await request.done);
+    return LxdOperation.fromJson(lxdResponse.metadata);
   }
 
   /// Makes base HTTP headers to send.
@@ -554,30 +490,9 @@ class LxdClient {
   }
 
   /// Decodes a response from lxd.
-  Future<_LxdResponse> _parseResponse(HttpClientResponse response) async {
-    var body = await response.transform(utf8.decoder).join();
-    var jsonResponse = json.decode(body);
-    _LxdResponse lxdResponse;
-    var type = jsonResponse['type'];
-    if (type == 'sync') {
-      var statusCode = jsonResponse['status_code'];
-      var status = jsonResponse['status'];
-      lxdResponse = _LxdSyncResponse(jsonResponse['metadata'],
-          statusCode: statusCode, status: status);
-    } else if (type == 'async') {
-      var statusCode = jsonResponse['status_code'];
-      var status = jsonResponse['status'];
-      var metadata = jsonResponse['metadata'];
-      lxdResponse = _LxdAsyncResponse(LxdOperation.fromJson(metadata),
-          statusCode: statusCode, status: status);
-    } else if (type == 'error') {
-      var errorCode = jsonResponse['error_code'];
-      var error = jsonResponse['error'];
-      lxdResponse = _LxdErrorResponse(errorCode: errorCode, error: error);
-    } else {
-      throw "Unknown lxd response '$type'";
-    }
-
-    return lxdResponse;
+  Future<T> _parseResponse<T>(HttpClientResponse data) async {
+    var body = await data.transform(utf8.decoder).join();
+    var response = LxdResponse.fromJson(json.decode(body));
+    return response as T;
   }
 }
