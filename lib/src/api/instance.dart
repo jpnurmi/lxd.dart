@@ -5,9 +5,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'instance.freezed.dart';
 part 'instance.g.dart';
 
+/// Represents an LXD instance type
 @JsonEnum(fieldRename: FieldRename.kebab)
 enum LxdInstanceType { container, virtualMachine }
 
+/// Represents an LXD instance
 @freezed
 class LxdInstance with _$LxdInstance {
   @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)

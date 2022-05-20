@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'image.freezed.dart';
 part 'image.g.dart';
 
-/// Represents an LXD certificate type
+/// Represents an LXD image type
 @JsonEnum(fieldRename: FieldRename.kebab)
 enum LxdImageType { container, virtualMachine }
 
