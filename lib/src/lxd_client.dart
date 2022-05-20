@@ -320,6 +320,35 @@ class LxdClient {
         {'action': 'start', 'force': force});
   }
 
+  /// Executes a command in the instance with [name].
+  Future<LxdOperation> execInstance(
+    String name, {
+    required List<String> command,
+    String? workingDirectory,
+    Map<String, String>? environment,
+    int? user,
+    int? group,
+    bool? interactive,
+    bool? recordOutput,
+    int? width,
+    int? height,
+    bool? waitForWebSocket,
+  }) async {
+    // TODO: which parameters are required?
+    return await _requestAsync('POST', '/1.0/instances/$name/exec', {
+      'command': command,
+      if (workingDirectory != null) 'cwd': workingDirectory,
+      if (environment != null) 'environment': environment,
+      if (user != null) 'user': user,
+      if (group != null) 'group': group,
+      if (interactive != null) 'interactive': interactive,
+      if (recordOutput != null) 'record-output': recordOutput,
+      if (width != null) 'width': width,
+      if (height != null) 'height': height,
+      if (waitForWebSocket != null) 'wait-for-websocket': waitForWebSocket,
+    });
+  }
+
   /// Stops the instance with [name].
   Future<LxdOperation> stopInstance(String name, {bool force = false}) async {
     return await _requestAsync('PUT', '/1.0/instances/$name/state',
