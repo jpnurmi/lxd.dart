@@ -143,41 +143,4 @@ void main() {
     expect(state.state, equals('up'));
     expect(state.type, equals('broadcast'));
   });
-
-  test('get network acls', () async {
-    final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/network-acls', {});
-    final request =
-        mockResponse(['/1.0/network-acls/foo', '/1.0/network-acls/bar']);
-    when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
-
-    final client = LxdClient(client: http);
-    final acls = await client.getNetworkAcls();
-    verify(http.openUrl('GET', uri)).called(1);
-    verify(request.close()).called(1);
-
-    expect(acls, equals(['foo', 'bar']));
-  });
-
-  test('get network acl', () async {
-    const response = {
-      'config': {'user.mykey': 'foo'},
-      'description': 'Web servers',
-      'name': 'foo',
-    };
-
-    final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/network-acls/foo', {});
-    final request = mockResponse(response);
-    when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
-
-    final client = LxdClient(client: http);
-    final acl = await client.getNetworkAcl('foo');
-    verify(http.openUrl('GET', uri)).called(1);
-    verify(request.close()).called(1);
-
-    expect(acl.config, equals({'user.mykey': 'foo'}));
-    expect(acl.description, equals('Web servers'));
-    expect(acl.name, equals('foo'));
-  });
 }
