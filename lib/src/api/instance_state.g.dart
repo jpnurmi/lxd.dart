@@ -10,7 +10,7 @@ _$_LxdInstanceState _$$_LxdInstanceStateFromJson(Map<String, dynamic> json) =>
     _$_LxdInstanceState(
       status: $enumDecode(_$LxdInstanceStatusEnumMap, json['status']),
       statusCode: json['status_code'] as int,
-      network: (json['network'] as Map<String, dynamic>).map(
+      network: (json['network'] as Map<String, dynamic>?)?.map(
         (k, e) =>
             MapEntry(k, LxdNetworkState.fromJson(e as Map<String, dynamic>)),
       ),
@@ -21,7 +21,7 @@ Map<String, dynamic> _$$_LxdInstanceStateToJson(_$_LxdInstanceState instance) =>
     <String, dynamic>{
       'status': _$LxdInstanceStatusEnumMap[instance.status],
       'status_code': instance.statusCode,
-      'network': instance.network.map((k, e) => MapEntry(k, e.toJson())),
+      'network': instance.network?.map((k, e) => MapEntry(k, e.toJson())),
       'pid': instance.pid,
     };
 

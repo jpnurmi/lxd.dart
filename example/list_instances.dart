@@ -10,11 +10,12 @@ void main() async {
     var state = await client.getInstanceState(name);
     var addresses4 = <String>[];
     var addresses6 = <String>[];
-    for (var interface in state.network.keys) {
+    var network = state.network ?? {};
+    for (var interface in network.keys) {
       if (interface == 'lo') {
         continue;
       }
-      for (var address in state.network[interface]!.addresses) {
+      for (var address in network[interface]!.addresses) {
         if (address.scope == 'link' || address.scope == 'local') {
           continue;
         }

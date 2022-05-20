@@ -25,7 +25,7 @@ mixin _$LxdInstanceState {
 
   /// Numeric status code (101, 102, 110, 112)
   int get statusCode => throw _privateConstructorUsedError;
-  Map<String, LxdNetworkState> get network =>
+  Map<String, LxdNetworkState>? get network =>
       throw _privateConstructorUsedError;
   int get pid => throw _privateConstructorUsedError;
 
@@ -43,7 +43,7 @@ abstract class $LxdInstanceStateCopyWith<$Res> {
   $Res call(
       {LxdInstanceStatus status,
       int statusCode,
-      Map<String, LxdNetworkState> network,
+      Map<String, LxdNetworkState>? network,
       int pid});
 }
 
@@ -75,7 +75,7 @@ class _$LxdInstanceStateCopyWithImpl<$Res>
       network: network == freezed
           ? _value.network
           : network // ignore: cast_nullable_to_non_nullable
-              as Map<String, LxdNetworkState>,
+              as Map<String, LxdNetworkState>?,
       pid: pid == freezed
           ? _value.pid
           : pid // ignore: cast_nullable_to_non_nullable
@@ -94,7 +94,7 @@ abstract class _$$_LxdInstanceStateCopyWith<$Res>
   $Res call(
       {LxdInstanceStatus status,
       int statusCode,
-      Map<String, LxdNetworkState> network,
+      Map<String, LxdNetworkState>? network,
       int pid});
 }
 
@@ -128,7 +128,7 @@ class __$$_LxdInstanceStateCopyWithImpl<$Res>
       network: network == freezed
           ? _value._network
           : network // ignore: cast_nullable_to_non_nullable
-              as Map<String, LxdNetworkState>,
+              as Map<String, LxdNetworkState>?,
       pid: pid == freezed
           ? _value.pid
           : pid // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ class _$_LxdInstanceState implements _LxdInstanceState {
   const _$_LxdInstanceState(
       {required this.status,
       required this.statusCode,
-      required final Map<String, LxdNetworkState> network,
+      final Map<String, LxdNetworkState>? network,
       required this.pid})
       : _network = network;
 
@@ -158,11 +158,13 @@ class _$_LxdInstanceState implements _LxdInstanceState {
   /// Numeric status code (101, 102, 110, 112)
   @override
   final int statusCode;
-  final Map<String, LxdNetworkState> _network;
+  final Map<String, LxdNetworkState>? _network;
   @override
-  Map<String, LxdNetworkState> get network {
+  Map<String, LxdNetworkState>? get network {
+    final value = _network;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_network);
+    return EqualUnmodifiableMapView(value);
   }
 
   @override
@@ -209,7 +211,7 @@ abstract class _LxdInstanceState implements LxdInstanceState {
   const factory _LxdInstanceState(
       {required final LxdInstanceStatus status,
       required final int statusCode,
-      required final Map<String, LxdNetworkState> network,
+      final Map<String, LxdNetworkState>? network,
       required final int pid}) = _$_LxdInstanceState;
 
   factory _LxdInstanceState.fromJson(Map<String, dynamic> json) =
@@ -224,7 +226,7 @@ abstract class _LxdInstanceState implements LxdInstanceState {
   /// Numeric status code (101, 102, 110, 112)
   int get statusCode => throw _privateConstructorUsedError;
   @override
-  Map<String, LxdNetworkState> get network =>
+  Map<String, LxdNetworkState>? get network =>
       throw _privateConstructorUsedError;
   @override
   int get pid => throw _privateConstructorUsedError;

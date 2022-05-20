@@ -33,7 +33,7 @@ class LxdInstanceState with _$LxdInstanceState {
 
     /// Numeric status code (101, 102, 110, 112)
     required int statusCode,
-    required Map<String, LxdNetworkState> network,
+    Map<String, LxdNetworkState>? network,
     required int pid,
   }) = _LxdInstanceState;
 
