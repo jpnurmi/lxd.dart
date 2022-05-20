@@ -533,3 +533,16 @@ class LxdClient {
     return response as T;
   }
 }
+
+extension LxdWebSocket on WebSocket {
+  void sendTermSize(int width, int height) {
+    add(jsonEncode({
+      'command': 'window-resize',
+      'args': {'width': '$width', 'height': '$height'},
+    }));
+  }
+
+  void forwardSignal(int signal) {
+    add(jsonEncode({'command': 'signal', 'signal': signal}));
+  }
+}
