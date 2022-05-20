@@ -55,8 +55,8 @@ void main() {
 
     final client = LxdClient(client: http);
     final state = await client.getInstanceState('foo');
-    expect(state.network.keys, equals(['eth0']));
-    final eth = state.network['eth0']!;
+    expect(state.network!.keys, equals(['eth0']));
+    final eth = state.network!['eth0']!;
     expect(
         eth.addresses,
         equals([
