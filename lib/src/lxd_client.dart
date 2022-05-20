@@ -91,6 +91,14 @@ class LxdClient {
     return LxdOperation.fromJson(response);
   }
 
+  /// Get a websocket connection for the provided operation.
+  Future<WebSocket> getOperationWebSocket(String id, String secret) {
+    return WebSocket.connect(
+      'ws://localhost/1.0/operations/$id/websocket?secret=$secret',
+      customClient: _client,
+    );
+  }
+
   /// Wait for the operation with [id] to complete.
   Future<LxdOperation> waitOperation(String id) async {
     var response = await _requestSync('GET', '/1.0/operations/$id/wait');
