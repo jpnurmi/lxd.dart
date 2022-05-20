@@ -21,23 +21,40 @@ void main() {
 
   test('get image', () async {
     const response = {
-      'auto_update': true,
-      'properties': {},
-      'public': false,
-      'expires_at': '2025-03-23T20:00:00-04:00',
-      'profiles': [],
-      'aliases': [],
+      'aliases': [
+        {'name': 'ubuntu-22.04', 'description': 'Our preferred Ubuntu image'},
+      ],
       'architecture': 'x86_64',
+      'auto_update': true,
       'cached': true,
-      'filename':
-          '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb.rootfs',
+      'created_at': '2022-05-06T00:00:00Z',
+      'expires_at': '2027-04-21T00:00:00Z',
+      'filename': 'ubuntu-22.04-server-cloudimg-amd64-lxd.tar.xz',
       'fingerprint':
-          '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb',
-      'size': 272237676,
-      'type': 'container',
-      'created_at': '2021-03-23T20:00:00-04:00',
-      'last_used_at': '2021-03-22T20:39:00.575185384-04:00',
-      'uploaded_at': '2021-03-24T14:18:15.115036787-04:00'
+          '0cf6019706a493d3b7fa9f178d791b7a333c92299864749d018962290bd80453',
+      'last_used_at': '2022-05-16T19:37:43.410127112Z',
+      'profiles': ['default'],
+      'properties': {
+        'architecture': 'amd64',
+        'description': 'ubuntu 22.04 LTS amd64 (release) (20220506)',
+        'label': 'release',
+        'os': 'ubuntu',
+        'release': 'jammy',
+        'serial': '20220506',
+        'type': 'disk-kvm.img',
+        'version': '22.04'
+      },
+      'public': false,
+      'size': 596771228,
+      'type': 'virtual-machine',
+      'update_source': {
+        'alias': '22.04',
+        'certificate': '',
+        'image_type': '',
+        'protocol': 'simplestreams',
+        'server': 'https://cloud-images.ubuntu.com/releases'
+      },
+      'uploaded_at': '2022-05-16T19:37:43.335699925Z'
     };
 
     final http = mockHttpClient();
@@ -50,28 +67,50 @@ void main() {
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 
+    expect(
+        image.aliases,
+        equals([
+          LxdImageAlias(
+              name: 'ubuntu-22.04', description: 'Our preferred Ubuntu image'),
+        ]));
     expect(image.architecture, equals('x86_64'));
     expect(image.autoUpdate, isTrue);
     expect(image.cached, isTrue);
-    expect(
-        image.createdAt, equals(DateTime.parse('2021-03-23T20:00:00-04:00')));
-    expect(
-        image.expiresAt, equals(DateTime.parse('2025-03-23T20:00:00-04:00')));
-    expect(
-        image.filename,
-        equals(
-            '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb.rootfs'));
+    expect(image.createdAt, equals(DateTime.parse('2022-05-06T00:00:00Z')));
+    expect(image.expiresAt, equals(DateTime.parse('2027-04-21T00:00:00Z')));
+    expect(image.filename,
+        equals('ubuntu-22.04-server-cloudimg-amd64-lxd.tar.xz'));
     expect(
         image.fingerprint,
         equals(
-            '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb'));
+            '0cf6019706a493d3b7fa9f178d791b7a333c92299864749d018962290bd80453'));
     expect(image.lastUsedAt,
-        equals(DateTime.parse('2021-03-22T20:39:00.575185384-04:00')));
-    expect(image.profiles, equals([]));
+        equals(DateTime.parse('2022-05-16T19:37:43.410127112Z')));
+    expect(image.profiles, equals(['default']));
+    expect(
+        image.properties,
+        equals({
+          'architecture': 'amd64',
+          'description': 'ubuntu 22.04 LTS amd64 (release) (20220506)',
+          'label': 'release',
+          'os': 'ubuntu',
+          'release': 'jammy',
+          'serial': '20220506',
+          'type': 'disk-kvm.img',
+          'version': '22.04'
+        }));
     expect(image.public, isFalse);
-    expect(image.size, equals(272237676));
-    expect(image.type, equals(LxdImageType.container));
+    expect(image.size, equals(596771228));
+    expect(image.type, equals(LxdImageType.virtualMachine));
+    expect(
+        image.updateSource,
+        equals(LxdImageSource(
+            alias: '22.04',
+            certificate: '',
+            imageType: null,
+            protocol: 'simplestreams',
+            server: 'https://cloud-images.ubuntu.com/releases')));
     expect(image.uploadedAt,
-        equals(DateTime.parse('2021-03-24T14:18:15.115036787-04:00')));
+        equals(DateTime.parse('2022-05-16T19:37:43.335699925Z')));
   });
 }
