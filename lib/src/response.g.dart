@@ -44,7 +44,7 @@ _$LxdErrorResponse _$$LxdErrorResponseFromJson(Map<String, dynamic> json) =>
     _$LxdErrorResponse(
       error: json['error'] as String,
       errorCode: json['error_code'] as int,
-      metadata: json['metadata'] as Map<String, dynamic>,
+      metadata: json['metadata'] as Map<String, dynamic>?,
       $type: json['type'] as String?,
     );
 

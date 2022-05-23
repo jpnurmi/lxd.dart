@@ -39,7 +39,7 @@ mixin _$LxdResponse {
             Map<String, dynamic> metadata)
         async,
     required TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)
+            String error, int errorCode, Map<String, dynamic>? metadata)
         error,
   }) =>
       throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ mixin _$LxdResponse {
             Map<String, dynamic> metadata)?
         async,
     TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)?
+            String error, int errorCode, Map<String, dynamic>? metadata)?
         error,
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ mixin _$LxdResponse {
             Map<String, dynamic> metadata)?
         async,
     TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)?
+            String error, int errorCode, Map<String, dynamic>? metadata)?
         error,
     required TResult orElse(),
   }) =>
@@ -211,7 +211,7 @@ class _$LxdSyncResponse implements LxdSyncResponse {
             Map<String, dynamic> metadata)
         async,
     required TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)
+            String error, int errorCode, Map<String, dynamic>? metadata)
         error,
   }) {
     return sync(status, statusCode, metadata);
@@ -225,7 +225,7 @@ class _$LxdSyncResponse implements LxdSyncResponse {
             Map<String, dynamic> metadata)?
         async,
     TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)?
+            String error, int errorCode, Map<String, dynamic>? metadata)?
         error,
   }) {
     return sync?.call(status, statusCode, metadata);
@@ -239,7 +239,7 @@ class _$LxdSyncResponse implements LxdSyncResponse {
             Map<String, dynamic> metadata)?
         async,
     TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)?
+            String error, int errorCode, Map<String, dynamic>? metadata)?
         error,
     required TResult orElse(),
   }) {
@@ -429,7 +429,7 @@ class _$LxdAsyncResponse implements LxdAsyncResponse {
             Map<String, dynamic> metadata)
         async,
     required TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)
+            String error, int errorCode, Map<String, dynamic>? metadata)
         error,
   }) {
     return async(status, statusCode, operation, metadata);
@@ -443,7 +443,7 @@ class _$LxdAsyncResponse implements LxdAsyncResponse {
             Map<String, dynamic> metadata)?
         async,
     TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)?
+            String error, int errorCode, Map<String, dynamic>? metadata)?
         error,
   }) {
     return async?.call(status, statusCode, operation, metadata);
@@ -457,7 +457,7 @@ class _$LxdAsyncResponse implements LxdAsyncResponse {
             Map<String, dynamic> metadata)?
         async,
     TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)?
+            String error, int errorCode, Map<String, dynamic>? metadata)?
         error,
     required TResult orElse(),
   }) {
@@ -531,7 +531,7 @@ abstract class _$$LxdErrorResponseCopyWith<$Res> {
   factory _$$LxdErrorResponseCopyWith(
           _$LxdErrorResponse value, $Res Function(_$LxdErrorResponse) then) =
       __$$LxdErrorResponseCopyWithImpl<$Res>;
-  $Res call({String error, int errorCode, Map<String, dynamic> metadata});
+  $Res call({String error, int errorCode, Map<String, dynamic>? metadata});
 }
 
 /// @nodoc
@@ -563,7 +563,7 @@ class __$$LxdErrorResponseCopyWithImpl<$Res>
       metadata: metadata == freezed
           ? _value._metadata
           : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, dynamic>?,
     ));
   }
 }
@@ -575,7 +575,7 @@ class _$LxdErrorResponse implements LxdErrorResponse {
   const _$LxdErrorResponse(
       {required this.error,
       required this.errorCode,
-      required final Map<String, dynamic> metadata,
+      required final Map<String, dynamic>? metadata,
       final String? $type})
       : _metadata = metadata,
         $type = $type ?? 'error';
@@ -587,11 +587,13 @@ class _$LxdErrorResponse implements LxdErrorResponse {
   final String error;
   @override
   final int errorCode;
-  final Map<String, dynamic> _metadata;
+  final Map<String, dynamic>? _metadata;
   @override
-  Map<String, dynamic> get metadata {
+  Map<String, dynamic>? get metadata {
+    final value = _metadata;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_metadata);
+    return EqualUnmodifiableMapView(value);
   }
 
   @JsonKey(name: 'type')
@@ -634,7 +636,7 @@ class _$LxdErrorResponse implements LxdErrorResponse {
             Map<String, dynamic> metadata)
         async,
     required TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)
+            String error, int errorCode, Map<String, dynamic>? metadata)
         error,
   }) {
     return error(this.error, errorCode, metadata);
@@ -648,7 +650,7 @@ class _$LxdErrorResponse implements LxdErrorResponse {
             Map<String, dynamic> metadata)?
         async,
     TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)?
+            String error, int errorCode, Map<String, dynamic>? metadata)?
         error,
   }) {
     return error?.call(this.error, errorCode, metadata);
@@ -662,7 +664,7 @@ class _$LxdErrorResponse implements LxdErrorResponse {
             Map<String, dynamic> metadata)?
         async,
     TResult Function(
-            String error, int errorCode, Map<String, dynamic> metadata)?
+            String error, int errorCode, Map<String, dynamic>? metadata)?
         error,
     required TResult orElse(),
   }) {
@@ -716,14 +718,14 @@ abstract class LxdErrorResponse implements LxdResponse {
   const factory LxdErrorResponse(
       {required final String error,
       required final int errorCode,
-      required final Map<String, dynamic> metadata}) = _$LxdErrorResponse;
+      required final Map<String, dynamic>? metadata}) = _$LxdErrorResponse;
 
   factory LxdErrorResponse.fromJson(Map<String, dynamic> json) =
       _$LxdErrorResponse.fromJson;
 
   String get error => throw _privateConstructorUsedError;
   int get errorCode => throw _privateConstructorUsedError;
-  Map<String, dynamic> get metadata => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$LxdErrorResponseCopyWith<_$LxdErrorResponse> get copyWith =>
       throw _privateConstructorUsedError;

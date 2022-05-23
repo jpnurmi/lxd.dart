@@ -32,7 +32,7 @@ class LxdResponse with _$LxdResponse {
   const factory LxdResponse.error({
     required String error,
     required int errorCode,
-    required Map<String, dynamic> metadata,
+    required Map<String, dynamic>? metadata,
   }) = LxdErrorResponse;
 
   factory LxdResponse.fromJson(Map<String, dynamic> json) =>
