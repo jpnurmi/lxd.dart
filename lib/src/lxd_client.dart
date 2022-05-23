@@ -14,6 +14,7 @@ import 'api/profile.dart';
 import 'api/project.dart';
 import 'api/resource.dart';
 import 'api/storage_pool.dart';
+import 'event.dart';
 import 'exception.dart';
 import 'remote_image.dart';
 import 'response.dart';
@@ -134,6 +135,30 @@ class LxdClient {
     var certificate =
         await _requestSync('GET', '/1.0/certificates/$fingerprint');
     return LxdCertificate.fromJson(certificate);
+  }
+
+  /// Gets a stream of LXD events.
+  Stream<LxdEvent> getEvents({
+    String project = '',
+    Set<LxdEventType> types = const {},
+  }) async* {
+    final url = Uri(
+      scheme: 'ws',
+      host: 'localhost',
+      path: '/1.0/events',
+      queryParameters: {
+        if (project.isNotEmpty) 'project': project,
+        if (types.isNotEmpty) 'type': types.map((t) => t.name).join(','),
+      },
+    );
+    final ws = await WebSocket.connect(url.toString(), customClient: _client);
+    try {
+      await for (final event in ws) {
+        yield LxdEvent.fromJson(json.decode(event.toString()));
+      }
+    } finally {
+      await ws.close();
+    }
   }
 
   /// Gets the fingerprints of the images provided by the LXD server.
