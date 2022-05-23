@@ -14,6 +14,7 @@ import 'api/profile.dart';
 import 'api/project.dart';
 import 'api/resource.dart';
 import 'api/storage_pool.dart';
+import 'exception.dart';
 import 'remote_image.dart';
 import 'response.dart';
 import 'simplestream_client.dart';
@@ -530,6 +531,9 @@ class LxdClient {
   Future<T> _parseResponse<T>(HttpClientResponse data) async {
     var body = await data.transform(utf8.decoder).join();
     var response = LxdResponse.fromJson(json.decode(body));
+    if (response is LxdErrorResponse) {
+      throw LxdException(response.errorCode, error: response.error);
+    }
     return response as T;
   }
 }
