@@ -11,3 +11,4 @@ export 'src/api/resource.dart';
 export 'src/api/storage_pool.dart';
 export 'src/lxd_client.dart';
 export 'src/remote_image.dart';
+export 'src/status_code.dart';
