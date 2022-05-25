@@ -239,7 +239,8 @@ class LxdClient {
       var description = '${product.os ?? ''} ${product.releaseTitle ?? ''}';
 
       if (lxdItem.combinedSquashfsSha256 != null) {
-        var squashfsItem = v['squashfs'] as SimplestreamDownloadItem;
+        var squashfsItem =
+            (v['squashfs'] ?? v['root.squashfs']) as SimplestreamDownloadItem;
         images.add(LxdRemoteImage(
             architecture: product.architecture ?? '',
             aliases: product.aliases,
