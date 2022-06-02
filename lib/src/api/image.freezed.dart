@@ -679,7 +679,7 @@ mixin _$LxdImageAlias {
   /// Description of the alias
   ///
   /// Example: Our preferred Ubuntu image
-  String get description => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -692,7 +692,7 @@ abstract class $LxdImageAliasCopyWith<$Res> {
   factory $LxdImageAliasCopyWith(
           LxdImageAlias value, $Res Function(LxdImageAlias) then) =
       _$LxdImageAliasCopyWithImpl<$Res>;
-  $Res call({String name, String description});
+  $Res call({String name, String? description});
 }
 
 /// @nodoc
@@ -717,7 +717,7 @@ class _$LxdImageAliasCopyWithImpl<$Res>
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -729,7 +729,7 @@ abstract class _$$_LxdImageAliasCopyWith<$Res>
           _$_LxdImageAlias value, $Res Function(_$_LxdImageAlias) then) =
       __$$_LxdImageAliasCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String description});
+  $Res call({String name, String? description});
 }
 
 /// @nodoc
@@ -756,7 +756,7 @@ class __$$_LxdImageAliasCopyWithImpl<$Res>
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -765,7 +765,7 @@ class __$$_LxdImageAliasCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdImageAlias implements _LxdImageAlias {
-  const _$_LxdImageAlias({required this.name, required this.description});
+  const _$_LxdImageAlias({required this.name, this.description});
 
   factory _$_LxdImageAlias.fromJson(Map<String, dynamic> json) =>
       _$$_LxdImageAliasFromJson(json);
@@ -780,7 +780,7 @@ class _$_LxdImageAlias implements _LxdImageAlias {
   ///
   /// Example: Our preferred Ubuntu image
   @override
-  final String description;
+  final String? description;
 
   @override
   String toString() {
@@ -818,7 +818,7 @@ class _$_LxdImageAlias implements _LxdImageAlias {
 abstract class _LxdImageAlias implements LxdImageAlias {
   const factory _LxdImageAlias(
       {required final String name,
-      required final String description}) = _$_LxdImageAlias;
+      final String? description}) = _$_LxdImageAlias;
 
   factory _LxdImageAlias.fromJson(Map<String, dynamic> json) =
       _$_LxdImageAlias.fromJson;
@@ -834,7 +834,7 @@ abstract class _LxdImageAlias implements LxdImageAlias {
   /// Description of the alias
   ///
   /// Example: Our preferred Ubuntu image
-  String get description => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_LxdImageAliasCopyWith<_$_LxdImageAlias> get copyWith =>

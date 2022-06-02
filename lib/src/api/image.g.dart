@@ -59,7 +59,7 @@ const _$LxdImageTypeEnumMap = {
 _$_LxdImageAlias _$$_LxdImageAliasFromJson(Map<String, dynamic> json) =>
     _$_LxdImageAlias(
       name: json['name'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$$_LxdImageAliasToJson(_$_LxdImageAlias instance) =>

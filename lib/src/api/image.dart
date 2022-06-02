@@ -99,7 +99,7 @@ class LxdImageAlias with _$LxdImageAlias {
     /// Description of the alias
     ///
     /// Example: Our preferred Ubuntu image
-    required String description,
+    String? description,
   }) = _LxdImageAlias;
 
   factory LxdImageAlias.fromJson(Map<String, dynamic> json) =>
