@@ -7,17 +7,23 @@ part of 'image.dart';
 // **************************************************************************
 
 _$_LxdImage _$$_LxdImageFromJson(Map<String, dynamic> json) => _$_LxdImage(
-      autoUpdate: json['auto_update'] as bool,
-      properties: Map<String, String>.from(json['properties'] as Map),
-      public: json['public'] as bool,
+      autoUpdate: json['auto_update'] as bool? ?? false,
+      properties: (json['properties'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const {},
+      public: json['public'] as bool? ?? true,
       expiresAt: DateTime.parse(json['expires_at'] as String),
-      profiles:
-          (json['profiles'] as List<dynamic>).map((e) => e as String).toList(),
-      aliases: (json['aliases'] as List<dynamic>)
-          .map((e) => LxdImageAlias.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      profiles: (json['profiles'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      aliases: (json['aliases'] as List<dynamic>?)
+              ?.map((e) => LxdImageAlias.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       architecture: json['architecture'] as String,
-      cached: json['cached'] as bool,
+      cached: json['cached'] as bool? ?? false,
       filename: json['filename'] as String,
       fingerprint: json['fingerprint'] as String,
       size: json['size'] as int,
@@ -27,7 +33,9 @@ _$_LxdImage _$$_LxdImageFromJson(Map<String, dynamic> json) => _$_LxdImage(
               json['update_source'] as Map<String, dynamic>),
       type: $enumDecode(_$LxdImageTypeEnumMap, json['type']),
       createdAt: DateTime.parse(json['created_at'] as String),
-      lastUsedAt: DateTime.parse(json['last_used_at'] as String),
+      lastUsedAt: json['last_used_at'] == null
+          ? null
+          : DateTime.parse(json['last_used_at'] as String),
       uploadedAt: DateTime.parse(json['uploaded_at'] as String),
     );
 
@@ -47,7 +55,7 @@ Map<String, dynamic> _$$_LxdImageToJson(_$_LxdImage instance) =>
       'update_source': instance.updateSource?.toJson(),
       'type': _$LxdImageTypeEnumMap[instance.type],
       'created_at': instance.createdAt.toIso8601String(),
-      'last_used_at': instance.lastUsedAt.toIso8601String(),
+      'last_used_at': instance.lastUsedAt?.toIso8601String(),
       'uploaded_at': instance.uploadedAt.toIso8601String(),
     };
 

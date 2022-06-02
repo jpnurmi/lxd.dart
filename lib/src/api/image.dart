@@ -15,17 +15,17 @@ class LxdImage with _$LxdImage {
   @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdImage({
     /// Whether the image should auto-update when a new build is available
-    required bool autoUpdate,
+    @Default(false) bool autoUpdate,
 
     /// Descriptive properties
     ///
     /// Example:
     /// ```json
     /// {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
-    required Map<String, String> properties,
+    @Default({}) Map<String, String> properties,
 
     /// Whether the image is available to unauthenticated users
-    required bool public,
+    @Default(true) bool public,
 
     /// When the image becomes obsolete
     ///
@@ -37,17 +37,17 @@ class LxdImage with _$LxdImage {
     /// Example: ["default"]
     ///
     /// API extension: image_profiles
-    required List<String> profiles,
+    @Default([]) List<String> profiles,
 
     /// List of aliases
-    required List<LxdImageAlias> aliases,
+    @Default([]) List<LxdImageAlias> aliases,
 
     /// Architecture
     /// Example: x86_64
     required String architecture,
 
     /// Whether the image is an automatically cached remote image
-    required bool cached,
+    @Default(false) bool cached,
 
     /// Original filename
     ///
@@ -76,7 +76,7 @@ class LxdImage with _$LxdImage {
     required DateTime createdAt,
 
     /// Last time the image was used
-    required DateTime lastUsedAt,
+    DateTime? lastUsedAt,
 
     /// When the image was added to this LXD server
     required DateTime uploadedAt,

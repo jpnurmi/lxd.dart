@@ -82,7 +82,7 @@ mixin _$LxdImage {
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   /// Last time the image was used
-  DateTime get lastUsedAt => throw _privateConstructorUsedError;
+  DateTime? get lastUsedAt => throw _privateConstructorUsedError;
 
   /// When the image was added to this LXD server
   DateTime get uploadedAt => throw _privateConstructorUsedError;
@@ -112,7 +112,7 @@ abstract class $LxdImageCopyWith<$Res> {
       LxdImageSource? updateSource,
       LxdImageType type,
       DateTime createdAt,
-      DateTime lastUsedAt,
+      DateTime? lastUsedAt,
       DateTime uploadedAt});
 
   $LxdImageSourceCopyWith<$Res>? get updateSource;
@@ -205,7 +205,7 @@ class _$LxdImageCopyWithImpl<$Res> implements $LxdImageCopyWith<$Res> {
       lastUsedAt: lastUsedAt == freezed
           ? _value.lastUsedAt
           : lastUsedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       uploadedAt: uploadedAt == freezed
           ? _value.uploadedAt
           : uploadedAt // ignore: cast_nullable_to_non_nullable
@@ -246,7 +246,7 @@ abstract class _$$_LxdImageCopyWith<$Res> implements $LxdImageCopyWith<$Res> {
       LxdImageSource? updateSource,
       LxdImageType type,
       DateTime createdAt,
-      DateTime lastUsedAt,
+      DateTime? lastUsedAt,
       DateTime uploadedAt});
 
   @override
@@ -342,7 +342,7 @@ class __$$_LxdImageCopyWithImpl<$Res> extends _$LxdImageCopyWithImpl<$Res>
       lastUsedAt: lastUsedAt == freezed
           ? _value.lastUsedAt
           : lastUsedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       uploadedAt: uploadedAt == freezed
           ? _value.uploadedAt
           : uploadedAt // ignore: cast_nullable_to_non_nullable
@@ -356,21 +356,21 @@ class __$$_LxdImageCopyWithImpl<$Res> extends _$LxdImageCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdImage implements _LxdImage {
   const _$_LxdImage(
-      {required this.autoUpdate,
-      required final Map<String, String> properties,
-      required this.public,
+      {this.autoUpdate = false,
+      final Map<String, String> properties = const {},
+      this.public = true,
       required this.expiresAt,
-      required final List<String> profiles,
-      required final List<LxdImageAlias> aliases,
+      final List<String> profiles = const [],
+      final List<LxdImageAlias> aliases = const [],
       required this.architecture,
-      required this.cached,
+      this.cached = false,
       required this.filename,
       required this.fingerprint,
       required this.size,
       this.updateSource,
       required this.type,
       required this.createdAt,
-      required this.lastUsedAt,
+      this.lastUsedAt,
       required this.uploadedAt})
       : _properties = properties,
         _profiles = profiles,
@@ -381,6 +381,7 @@ class _$_LxdImage implements _LxdImage {
 
   /// Whether the image should auto-update when a new build is available
   @override
+  @JsonKey()
   final bool autoUpdate;
 
   /// Descriptive properties
@@ -396,6 +397,7 @@ class _$_LxdImage implements _LxdImage {
   /// ```json
   /// {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
   @override
+  @JsonKey()
   Map<String, String> get properties {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_properties);
@@ -403,6 +405,7 @@ class _$_LxdImage implements _LxdImage {
 
   /// Whether the image is available to unauthenticated users
   @override
+  @JsonKey()
   final bool public;
 
   /// When the image becomes obsolete
@@ -424,6 +427,7 @@ class _$_LxdImage implements _LxdImage {
   ///
   /// API extension: image_profiles
   @override
+  @JsonKey()
   List<String> get profiles {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_profiles);
@@ -434,6 +438,7 @@ class _$_LxdImage implements _LxdImage {
 
   /// List of aliases
   @override
+  @JsonKey()
   List<LxdImageAlias> get aliases {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_aliases);
@@ -446,6 +451,7 @@ class _$_LxdImage implements _LxdImage {
 
   /// Whether the image is an automatically cached remote image
   @override
+  @JsonKey()
   final bool cached;
 
   /// Original filename
@@ -482,7 +488,7 @@ class _$_LxdImage implements _LxdImage {
 
   /// Last time the image was used
   @override
-  final DateTime lastUsedAt;
+  final DateTime? lastUsedAt;
 
   /// When the image was added to this LXD server
   @override
@@ -557,21 +563,21 @@ class _$_LxdImage implements _LxdImage {
 
 abstract class _LxdImage implements LxdImage {
   const factory _LxdImage(
-      {required final bool autoUpdate,
-      required final Map<String, String> properties,
-      required final bool public,
+      {final bool autoUpdate,
+      final Map<String, String> properties,
+      final bool public,
       required final DateTime expiresAt,
-      required final List<String> profiles,
-      required final List<LxdImageAlias> aliases,
+      final List<String> profiles,
+      final List<LxdImageAlias> aliases,
       required final String architecture,
-      required final bool cached,
+      final bool cached,
       required final String filename,
       required final String fingerprint,
       required final int size,
       final LxdImageSource? updateSource,
       required final LxdImageType type,
       required final DateTime createdAt,
-      required final DateTime lastUsedAt,
+      final DateTime? lastUsedAt,
       required final DateTime uploadedAt}) = _$_LxdImage;
 
   factory _LxdImage.fromJson(Map<String, dynamic> json) = _$_LxdImage.fromJson;
@@ -654,7 +660,7 @@ abstract class _LxdImage implements LxdImage {
   @override
 
   /// Last time the image was used
-  DateTime get lastUsedAt => throw _privateConstructorUsedError;
+  DateTime? get lastUsedAt => throw _privateConstructorUsedError;
   @override
 
   /// When the image was added to this LXD server
