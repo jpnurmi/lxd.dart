@@ -40,4 +40,37 @@ void main() {
     verify(http.openUrl('DELETE', uri)).called(1);
     verify(request.close()).called(1);
   });
+
+  test('null resources', () async {
+    const json = {
+      'id': '4f0d166b-3136-4bb2-99db-c7754fdbba3d',
+      'class': 'task',
+      'description': 'Updating images',
+      'created_at': '2022-06-06T09:22:36.212346295+02:00',
+      'updated_at': '2022-06-06T09:22:36.212346295+02:00',
+      'status': 'Success',
+      'status_code': 200,
+      'resources': null,
+      'metadata': null,
+      'may_cancel': false,
+      'err': '',
+      'location': 'none',
+    };
+
+    final operation = LxdOperation.fromJson(json);
+    expect(operation.id, '4f0d166b-3136-4bb2-99db-c7754fdbba3d');
+    expect(operation.type, LxdOperationType.task);
+    expect(operation.description, 'Updating images');
+    expect(operation.createdAt,
+        DateTime.parse('2022-06-06T09:22:36.212346295+02:00'));
+    expect(operation.updatedAt,
+        DateTime.parse('2022-06-06T09:22:36.212346295+02:00'));
+    expect(operation.status, 'Success');
+    expect(operation.statusCode, 200);
+    expect(operation.resources, null);
+    expect(operation.metadata, null);
+    expect(operation.mayCancel, false);
+    expect(operation.error, '');
+    expect(operation.location, 'none');
+  });
 }

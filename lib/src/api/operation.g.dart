@@ -15,7 +15,7 @@ _$_LxdOperation _$$_LxdOperationFromJson(Map<String, dynamic> json) =>
       updatedAt: DateTime.parse(json['updated_at'] as String),
       status: json['status'] as String,
       statusCode: json['status_code'] as int,
-      resources: json['resources'] as Map<String, dynamic>,
+      resources: json['resources'] as Map<String, dynamic>?,
       metadata: json['metadata'] as Map<String, dynamic>?,
       mayCancel: json['may_cancel'] as bool,
       error: json['err'] as String,

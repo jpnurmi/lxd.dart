@@ -43,7 +43,7 @@ class LxdOperation with _$LxdOperation {
     /// Affected resourcs
     ///
     /// Example: {"containers": ["/1.0/containers/foo"], "instances": ["/1.0/instances/foo"]}
-    required Map<String, dynamic> resources,
+    required Map<String, dynamic>? resources,
 
     /// Operation specific metadata
     ///
