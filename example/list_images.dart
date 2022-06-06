@@ -57,8 +57,8 @@ void main(List<String> args) async {
         image.description,
         image.architecture,
         {
-              LxdRemoteImageType.container: 'CONTAINER',
-              LxdRemoteImageType.virtualMachine: 'VIRTUAL-MACHINE'
+              LxdImageType.container: 'CONTAINER',
+              LxdImageType.virtualMachine: 'VIRTUAL-MACHINE'
             }[image.type] ??
             '',
         image.size.toString(),

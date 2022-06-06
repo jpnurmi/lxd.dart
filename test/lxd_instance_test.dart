@@ -92,7 +92,7 @@ void main() {
         fingerprint:
             '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb',
         size: 272237676,
-        type: LxdRemoteImageType.container,
+        type: LxdImageType.container,
         url: 'https://example.com',
       ),
     );

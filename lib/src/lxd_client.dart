@@ -253,7 +253,7 @@ class LxdClient {
             description: description,
             fingerprint: lxdItem.combinedSquashfsSha256!,
             size: squashfsItem.size,
-            type: LxdRemoteImageType.container,
+            type: LxdImageType.container,
             url: url));
       } else if (lxdItem.combinedDisk1ImgSha256 != null) {
         var disk1ImgItem = v['disk1.img'] as SimplestreamDownloadItem;
@@ -263,7 +263,7 @@ class LxdClient {
             description: description,
             fingerprint: lxdItem.combinedDisk1ImgSha256!,
             size: disk1ImgItem.size,
-            type: LxdRemoteImageType.virtualMachine,
+            type: LxdImageType.virtualMachine,
             url: url));
       }
     }

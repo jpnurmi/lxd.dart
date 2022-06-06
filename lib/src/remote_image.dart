@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 
-enum LxdRemoteImageType { container, virtualMachine }
+import 'api/image.dart';
 
 class LxdRemoteImage {
   final String architecture;
@@ -8,7 +8,7 @@ class LxdRemoteImage {
   final Set<String> aliases;
   final String fingerprint;
   final int size;
-  final LxdRemoteImageType type;
+  final LxdImageType type;
   final String url;
 
   LxdRemoteImage(
