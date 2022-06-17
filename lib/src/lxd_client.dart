@@ -17,7 +17,6 @@ import 'api/storage_pool.dart';
 import 'event.dart';
 import 'exception.dart';
 import 'response.dart';
-import 'simplestream_client.dart';
 
 const _certificatePath = '/1.0/certificates/';
 const _instancePath = '/1.0/instances/';
