@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:meta/meta.dart';
-
 import 'api/certificate.dart';
 import 'api/image.dart';
 import 'api/instance.dart';
@@ -31,20 +29,18 @@ const _storagePoolPath = '/1.0/storage-pools/';
 /// Manages a connection to the lxd server.
 class LxdClient {
   final HttpClient _client;
-  String? _userAgent;
+  final Uri _baseUrl;
 
   dynamic _hostInfo;
 
-  LxdClient(
-      {String userAgent = 'lxd.dart',
-      String? socketPath,
-      @visibleForTesting HttpClient? client})
+  LxdClient({String? socketPath, HttpClient? client})
       : assert(socketPath == null || client == null),
         _client = client ?? _createClient(socketPath),
-        _userAgent = userAgent;
+        _baseUrl = Uri.http('localhost');
 
   static HttpClient _createClient(String? socketPath) {
     final client = HttpClient();
+    client.userAgent = 'lxd.dart';
     client.connectionFactory =
         (Uri uri, String? proxyHost, int? proxyPort) async {
       if (socketPath == null) {
@@ -65,8 +61,13 @@ class LxdClient {
     return client;
   }
 
+  LxdClient.remote({required Uri url, HttpClient? client})
+      : _client = client ?? HttpClient()
+          ..userAgent = 'lxd.dart',
+        _baseUrl = url;
+
   /// Sets the user agent sent in requests to lxd.
-  set userAgent(String? value) => _userAgent = value;
+  set userAgent(String? value) => _client.userAgent = value;
 
   /// Get the operations in progress (keyed by type).
   Future<Map<String, List<String>>> getOperations() async {
@@ -94,7 +95,7 @@ class LxdClient {
   /// Get a websocket connection for the provided operation.
   Future<WebSocket> getOperationWebSocket(String id, String secret) {
     return WebSocket.connect(
-      'ws://localhost/1.0/operations/$id/websocket?secret=$secret',
+      'ws://${_baseUrl.authority}/1.0/operations/$id/websocket?secret=$secret',
       customClient: _client,
     );
   }
@@ -142,7 +143,7 @@ class LxdClient {
   }) async* {
     final url = Uri(
       scheme: 'ws',
-      host: 'localhost',
+      host: _baseUrl.host,
       path: '/1.0/events',
       queryParameters: {
         if (project.isNotEmpty) 'project': project,
@@ -425,8 +426,9 @@ class LxdClient {
       await _connect();
     }
     var request = await _client.openUrl(
-        method, Uri.http('localhost', path, queryParameters));
-    _setHeaders(request);
+      method,
+      _baseUrl.resolve(path).replace(queryParameters: queryParameters),
+    );
     await request.close();
     var lxdResponse = await _parseResponse<LxdSyncResponse>(await request.done);
     return lxdResponse.metadata;
@@ -436,21 +438,13 @@ class LxdClient {
   Future<dynamic> _requestAsync(String method, String path,
       [dynamic body]) async {
     await _connect();
-    var request = await _client.openUrl(method, Uri.http('localhost', path));
-    _setHeaders(request);
+    var request = await _client.openUrl(method, _baseUrl.resolve(path));
     request.headers.contentType = ContentType('application', 'json');
     request.write(json.encode(body));
     await request.close();
     var lxdResponse =
         await _parseResponse<LxdAsyncResponse>(await request.done);
     return LxdOperation.fromJson(lxdResponse.metadata);
-  }
-
-  /// Makes base HTTP headers to send.
-  void _setHeaders(HttpClientRequest request) {
-    if (_userAgent != null) {
-      request.headers.set(HttpHeaders.userAgentHeader, _userAgent!);
-    }
   }
 
   /// Decodes a response from lxd.
