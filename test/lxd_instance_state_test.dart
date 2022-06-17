@@ -49,7 +49,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/instances/foo/state', {});
+    final uri = unixDomainUrl('/1.0/instances/foo/state', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 

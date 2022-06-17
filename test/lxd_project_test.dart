@@ -7,7 +7,7 @@ import 'lxd_http.dart';
 void main() {
   test('get projects', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/projects', {});
+    final uri = unixDomainUrl('/1.0/projects', {});
     final request = mockResponse(['/1.0/projects/foo', '/1.0/projects/bar']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
@@ -27,7 +27,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/projects/foo', {});
+    final uri = unixDomainUrl('/1.0/projects/foo', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 

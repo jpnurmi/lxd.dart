@@ -7,7 +7,8 @@ import 'lxd_http.dart';
 void main() {
   test('get certificates', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/certificates', {});
+    final uri = unixDomainUrl('/1.0/certificates', {});
+
     final request =
         mockResponse(['/1.0/certificates/foo', '/1.0/certificates/bar']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
@@ -31,7 +32,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/certificates/213394bb', {});
+    final uri = unixDomainUrl('/1.0/certificates/213394bb', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 

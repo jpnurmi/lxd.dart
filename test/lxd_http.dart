@@ -7,6 +7,15 @@ import 'package:mockito/mockito.dart';
 
 import 'lxd_http.mocks.dart';
 
+Uri unixDomainUrl(String path, [Map<String, dynamic>? queryParameters]) {
+  return Uri(
+    scheme: 'unix',
+    host: 'localhost',
+    path: path,
+    queryParameters: queryParameters,
+  );
+}
+
 @GenerateMocks([HttpClient, HttpClientRequest, HttpClientResponse, HttpHeaders])
 MockHttpClient mockHttpClient() {
   const hostInfo = {
@@ -20,7 +29,7 @@ MockHttpClient mockHttpClient() {
     'environment': {}
   };
   final client = MockHttpClient();
-  when(client.openUrl('GET', Uri.http('localhost', '/1.0', {})))
+  when(client.openUrl('GET', unixDomainUrl('/1.0', {})))
       .thenAnswer((_) async => mockResponse(hostInfo));
   return client;
 }

@@ -11,7 +11,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/operations', {});
+    final uri = unixDomainUrl('/1.0/operations', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
@@ -30,7 +30,7 @@ void main() {
 
   test('cancel operation', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/operations/foo', {});
+    final uri = unixDomainUrl('/1.0/operations/foo', {});
     final request = mockResponse(null);
     when(http.openUrl('DELETE', uri)).thenAnswer((_) async => request);
 

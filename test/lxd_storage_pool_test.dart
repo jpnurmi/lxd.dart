@@ -7,7 +7,7 @@ import 'lxd_http.dart';
 void main() {
   test('get storage pools', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/storage-pools', {});
+    final uri = unixDomainUrl('/1.0/storage-pools', {});
     final request =
         mockResponse(['/1.0/storage-pools/foo', '/1.0/storage-pools/bar']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
@@ -29,7 +29,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/storage-pools/local', {});
+    final uri = unixDomainUrl('/1.0/storage-pools/local', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 

@@ -9,7 +9,7 @@ import 'lxd_http.dart';
 void main() {
   test('get instances', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/instances', {});
+    final uri = unixDomainUrl('/1.0/instances', {});
     final request = mockResponse(['/1.0/instances/foo', '/1.0/instances/bar']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
@@ -41,7 +41,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/instances/foo', {});
+    final uri = unixDomainUrl('/1.0/instances/foo', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
@@ -91,7 +91,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/instances');
+    final uri = unixDomainUrl('/1.0/instances');
     final request = mockOperation(id: 'ID');
     when(http.openUrl('POST', uri)).thenAnswer((_) async => request);
 
@@ -111,7 +111,7 @@ void main() {
 
   test('start instance', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/instances/foo/state');
+    final uri = unixDomainUrl('/1.0/instances/foo/state');
     final request = mockOperation(id: 'ID');
     when(http.openUrl('PUT', uri)).thenAnswer((_) async => request);
 
@@ -126,7 +126,7 @@ void main() {
 
   test('stop instance', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/instances/foo/state');
+    final uri = unixDomainUrl('/1.0/instances/foo/state');
     final request = mockOperation(id: 'ID');
     when(http.openUrl('PUT', uri)).thenAnswer((_) async => request);
 
@@ -141,7 +141,7 @@ void main() {
 
   test('restart instance', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/instances/foo/state');
+    final uri = unixDomainUrl('/1.0/instances/foo/state');
     final request = mockOperation(id: 'ID');
     when(http.openUrl('PUT', uri)).thenAnswer((_) async => request);
 
@@ -156,7 +156,7 @@ void main() {
 
   test('delete instance', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/instances/foo');
+    final uri = unixDomainUrl('/1.0/instances/foo');
     final request = mockOperation(id: 'ID');
     when(http.openUrl('DELETE', uri)).thenAnswer((_) async => request);
 

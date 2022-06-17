@@ -7,7 +7,7 @@ import 'lxd_http.dart';
 void main() {
   test('get networks', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/networks', {});
+    final uri = unixDomainUrl('/1.0/networks', {});
     final request = mockResponse(['/1.0/networks/foo', '/1.0/networks/bar']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
@@ -40,7 +40,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/networks/lxdbr0', {});
+    final uri = unixDomainUrl('/1.0/networks/lxdbr0', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
@@ -75,7 +75,7 @@ void main() {
     ];
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/networks/lxdbr0/leases', {});
+    final uri = unixDomainUrl('/1.0/networks/lxdbr0/leases', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
@@ -116,7 +116,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/networks/lxdbr0/state', {});
+    final uri = unixDomainUrl('/1.0/networks/lxdbr0/state', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 

@@ -7,7 +7,7 @@ import 'lxd_http.dart';
 void main() {
   test('get network acls', () async {
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/network-acls', {});
+    final uri = unixDomainUrl('/1.0/network-acls', {});
     final request =
         mockResponse(['/1.0/network-acls/foo', '/1.0/network-acls/bar']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
@@ -35,7 +35,7 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = Uri.http('localhost', '/1.0/network-acls/foo', {});
+    final uri = unixDomainUrl('/1.0/network-acls/foo', {});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
