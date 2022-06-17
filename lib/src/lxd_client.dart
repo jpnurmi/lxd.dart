@@ -35,13 +35,22 @@ class LxdClient {
 
   dynamic _hostInfo;
 
-  LxdClient({String? socketPath, HttpClient? client})
-      : assert(socketPath == null || client == null),
-        _client = client ?? _createClient(socketPath),
-        _url = Uri(
-            scheme: 'unix',
-            host: 'localhost',
-            path: _resolveSocketPath(socketPath));
+  LxdClient._(Uri url, HttpClient? client)
+      : _client = client ?? _createClient(url),
+        _url = url;
+
+  factory LxdClient({String? socketPath, HttpClient? client}) {
+    assert(socketPath == null || client == null);
+    final url = Uri(
+      scheme: 'unix',
+      host: 'localhost',
+      path: _resolveSocketPath(socketPath),
+    );
+    return LxdClient._(url, client);
+  }
+
+  factory LxdClient.remote({required Uri url, HttpClient? client}) =>
+      LxdClient._(url, client);
 
   static String _resolveSocketPath(String? socketPath) {
     final lxdDir = Platform.environment['LXD_DIR'];
@@ -54,21 +63,18 @@ class LxdClient {
         '/var/lib/lxd/unix.socket';
   }
 
-  static HttpClient _createClient(String? socketPath) {
+  static HttpClient _createClient(Uri url) {
     final client = HttpClient();
     client.userAgent = 'lxd.dart';
-    client.connectionFactory = (uri, proxyHost, proxyPort) {
-      final path = _resolveSocketPath(socketPath);
-      final address = InternetAddress(path, type: InternetAddressType.unix);
-      return Socket.startConnect(address, 0);
-    };
+    if (url.scheme == 'unix') {
+      client.connectionFactory = (uri, proxyHost, proxyPort) {
+        final path = _resolveSocketPath(url.path);
+        final address = InternetAddress(path, type: InternetAddressType.unix);
+        return Socket.startConnect(address, 0);
+      };
+    }
     return client;
   }
-
-  LxdClient.remote({required Uri url, HttpClient? client})
-      : _client = client ?? HttpClient()
-          ..userAgent = 'lxd.dart',
-        _url = url;
 
   Uri get url => _url;
 
