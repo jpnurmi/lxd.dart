@@ -12,5 +12,4 @@ export 'src/api/storage_pool.dart';
 export 'src/event.dart';
 export 'src/exception.dart';
 export 'src/lxd_client.dart';
-export 'src/remote_image.dart';
 export 'src/status_code.dart';

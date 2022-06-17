@@ -16,7 +16,6 @@ import 'api/resource.dart';
 import 'api/storage_pool.dart';
 import 'event.dart';
 import 'exception.dart';
-import 'remote_image.dart';
 import 'response.dart';
 import 'simplestream_client.dart';
 
@@ -186,126 +185,6 @@ class LxdClient {
     return LxdImage.fromJson(image);
   }
 
-  /// Gets the remote images available on the Simplestreams server at [url].
-  Future<List<LxdRemoteImage>> getRemoteImages(String url) async {
-    await _connect();
-    var architecture = _hostInfo['environment']['architectures'][0] ?? '';
-
-    var s = SimplestreamClient(url);
-
-    var images = <LxdRemoteImage>[];
-    var products = await s.getProducts(datatype: 'image-downloads');
-    for (var product in products) {
-      if (_getArchitecture(product.architecture ?? '') != architecture) {
-        continue;
-      }
-      images.addAll(_getRemoteImages(url, product));
-    }
-
-    s.close();
-
-    return images;
-  }
-
-  /// Finds the image with [name] (alias or fingeprint) on the Simplestreams server at [url].
-  Future<LxdRemoteImage?> findRemoteImage(String url, String name) async {
-    await _connect();
-    var architecture = _hostInfo['environment']['architectures'][0] ?? '';
-
-    var s = SimplestreamClient(url);
-
-    var products = await s.getProducts(datatype: 'image-downloads');
-    for (var product in products) {
-      if (!product.aliases.contains(name) ||
-          _getArchitecture(product.architecture ?? '') != architecture) {
-        continue;
-      }
-
-      var images = _getRemoteImages(url, product);
-      if (images.isNotEmpty) {
-        s.close();
-        return images.first;
-      }
-    }
-
-    s.close();
-    return null;
-  }
-
-  List<LxdRemoteImage> _getRemoteImages(
-      String url, SimplestreamProduct product) {
-    var images = <LxdRemoteImage>[];
-
-    for (var v in product.versions.values) {
-      var lxdItem = v['lxd.tar.xz'] as SimplestreamDownloadItem?;
-      if (lxdItem == null) {
-        continue;
-      }
-
-      var description = '${product.os ?? ''} ${product.releaseTitle ?? ''}';
-
-      if (lxdItem.combinedSquashfsSha256 != null) {
-        var squashfsItem =
-            (v['squashfs'] ?? v['root.squashfs']) as SimplestreamDownloadItem;
-        images.add(LxdRemoteImage(
-            architecture: product.architecture ?? '',
-            aliases: product.aliases,
-            description: description,
-            fingerprint: lxdItem.combinedSquashfsSha256!,
-            size: squashfsItem.size,
-            type: LxdImageType.container,
-            url: url));
-      } else if (lxdItem.combinedDisk1ImgSha256 != null) {
-        var disk1ImgItem = v['disk1.img'] as SimplestreamDownloadItem;
-        images.add(LxdRemoteImage(
-            architecture: product.architecture ?? '',
-            aliases: product.aliases,
-            description: description,
-            fingerprint: lxdItem.combinedDisk1ImgSha256!,
-            size: disk1ImgItem.size,
-            type: LxdImageType.virtualMachine,
-            url: url));
-      }
-    }
-
-    return images;
-  }
-
-  /// Get the canonical name for [architecture].
-  String _getArchitecture(String architecture) {
-    const aliases = <String, List<String>>{
-      'i686': ['i386', 'i586', '386', 'x86', 'generic_32'],
-      'x86_64': ['amd64', 'generic_64'],
-      'armv7l': [
-        'armel',
-        'armhf',
-        'arm',
-        'armhfp',
-        'armv7a_hardfp',
-        'armv7',
-        'armv7a_vfpv3_hardfp'
-      ],
-      'aarch64': ['arm64', 'arm64_generic'],
-      'ppc': ['powerpc'],
-      'ppc64': ['powerpc64', 'ppc64'],
-      'ppc64le': ['ppc64el'],
-      's390x': ['mipsel'],
-      'mips': ['mips64el'],
-      'mips64': [],
-      'riscv32': [],
-      'riscv64': []
-    };
-
-    for (var name in aliases.keys) {
-      if (architecture == name ||
-          (aliases[name]?.contains(architecture) ?? false)) {
-        return name;
-      }
-    }
-
-    return architecture;
-  }
-
   /// Gets the names of the instances provided by the LXD server.
   Future<List<String>> getInstances() async {
     var instancePaths = await _requestSync('GET', '/1.0/instances');
@@ -331,27 +210,43 @@ class LxdClient {
   }
 
   /// Creates a new instance from [image].
-  Future<LxdOperation> createInstance(
-      {String? architecture,
-      String? description,
-      String? name,
-      required LxdRemoteImage image}) async {
-    var body = {};
-    if (architecture != null) {
-      body['architecture'] = architecture;
-    }
-    if (description != null) {
-      body['description'] = description;
-    }
-    if (name != null) {
-      body['name'] = name;
-    }
-    var s = {};
-    s['type'] = 'image';
-    s['fingerprint'] = image.fingerprint;
-    s['protocol'] = 'simplestreams';
-    s['server'] = image.url;
-    body['source'] = s;
+  Future<LxdOperation> createInstance({
+    // InstancePut
+    String? architecture,
+    Map<String, String>? config,
+    Map<String, Map<String, String>>? devices,
+    bool? ephemeral,
+    List<String>? profiles,
+    String? restore,
+    bool? stateful,
+    String? description,
+    // InstancesPost
+    String? name,
+    // TODO: InstanceSource
+    required LxdImage source,
+    String? server,
+    String? instanceType,
+    LxdImageType? type,
+  }) async {
+    final body = {
+      if (architecture != null) 'architecture': architecture,
+      if (config != null) 'config': config,
+      if (devices != null) 'devices': devices,
+      if (ephemeral != null) 'ephemeral': ephemeral,
+      if (profiles != null) 'profiles': profiles,
+      if (restore != null) 'restore': restore,
+      if (stateful != null) 'stateful': stateful,
+      if (description != null) 'description': description,
+      if (name != null) 'name': name,
+      'source': {
+        ...source.toJson(), // TODO: InstanceSource
+        'type': 'image',
+        if (server != null) 'protocol': 'simplestreams',
+        if (server != null) 'server': server,
+      },
+      if (instanceType != null) 'type': instanceType,
+      if (type != null) 'type': type.name,
+    };
     return await _requestAsync('POST', '/1.0/instances', body);
   }
 

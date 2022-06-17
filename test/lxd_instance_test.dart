@@ -68,11 +68,23 @@ void main() {
   });
 
   test('create instance', () async {
-    const body = {
+    final image = LxdImage(
+      architecture: 'amd64',
+      fingerprint:
+          '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb',
+      size: 272237676,
+      type: LxdImageType.container,
+      filename: '',
+      createdAt: DateTime.parse('2021-03-23T20:00:00-04:00'),
+      expiresAt: DateTime.parse('2021-03-23T20:00:00-04:00'),
+      uploadedAt: DateTime.parse('2021-03-23T20:00:00-04:00'),
+    );
+
+    final body = {
+      'description': 'Test Image',
       'source': {
+        ...image.toJson(),
         'type': 'image',
-        'fingerprint':
-            '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb',
         'protocol': 'simplestreams',
         'server': 'https://example.com',
       }
@@ -85,16 +97,9 @@ void main() {
 
     final client = LxdClient(client: http);
     var operation = await client.createInstance(
-      image: LxdRemoteImage(
-        architecture: 'amd64',
-        aliases: {},
-        description: 'Test Image',
-        fingerprint:
-            '06b86454720d36b20f94e31c6812e05ec51c1b568cf3a8abd273769d213394bb',
-        size: 272237676,
-        type: LxdImageType.container,
-        url: 'https://example.com',
-      ),
+      description: 'Test Image',
+      source: image,
+      server: 'https://example.com',
     );
 
     verify(http.openUrl('POST', uri)).called(1);
