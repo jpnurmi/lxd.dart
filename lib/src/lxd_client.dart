@@ -297,6 +297,11 @@ class LxdClient {
     });
   }
 
+  Future<LxdOperation> updateInstance(LxdInstance instance) async {
+    return await _requestAsync(
+        'PUT', '/1.0/instances/${instance.name}', instance.toJson());
+  }
+
   /// Stops the instance with [name].
   Future<LxdOperation> stopInstance(String name, {bool force = false}) async {
     return await _requestAsync('PUT', '/1.0/instances/$name/state',
