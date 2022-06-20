@@ -315,6 +315,45 @@ class LxdClient {
     return await _requestAsync('DELETE', '/1.0/instances/$name');
   }
 
+  Future<String> getFile(
+    String instance, {
+    required String path,
+    String? project,
+  }) async {
+    return await _requestSync('GET', '/1.0/instances/$instance/files', {
+      'path': path,
+      if (project != null) 'project': project,
+    });
+  }
+
+  Future<void> deleteFile(
+    String instance, {
+    required String path,
+    String? project,
+  }) {
+    return _requestSync('DELETE', '/1.0/instances/$instance/files', {
+      'path': path,
+      if (project != null) 'project': project,
+    });
+  }
+
+  Future<void> createFile(
+    String instance, {
+    required String path,
+    String? project,
+    required String data,
+  }) {
+    return _requestSync(
+      'POST',
+      '/1.0/instances/$instance/files',
+      {
+        'path': path,
+        if (project != null) 'project': project,
+      },
+      data,
+    );
+  }
+
   /// Gets the names of the networks provided by the LXD server.
   Future<List<String>> getNetworks() async {
     var networkPaths = await _requestSync('GET', '/1.0/networks');
@@ -432,7 +471,7 @@ class LxdClient {
 
   /// Does a synchronous request to lxd.
   Future<dynamic> _requestSync(String method, String path,
-      [Map<String, String> queryParameters = const {}]) async {
+      [Map<String, String> queryParameters = const {}, dynamic body]) async {
     // Get host information first.
     if (method != 'GET' || path != '/1.0') {
       await _connect();
@@ -442,6 +481,7 @@ class LxdClient {
       method,
       _url.resolve(path).replace(queryParameters: queryParameters),
     );
+    if (body != null) request.write(body);
     await request.close();
     var lxdResponse = await _parseResponse<LxdSyncResponse>(await request.done);
     return lxdResponse.metadata;
