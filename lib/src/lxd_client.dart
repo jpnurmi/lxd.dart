@@ -320,15 +320,20 @@ class LxdClient {
     return await _requestAsync('DELETE', '/1.0/instances/$name');
   }
 
-  Future<String> getFile(
+  Future<String> pullFile(
     String instance, {
     required String path,
     String? project,
   }) async {
-    return await _requestSync('GET', '/1.0/instances/$instance/files', {
-      'path': path,
-      if (project != null) 'project': project,
-    });
+    var request = await _client.openUrl(
+      'GET',
+      _url.resolve('/1.0/instances/$instance/files').replace(queryParameters: {
+        'path': path,
+        if (project != null) 'project': project,
+      }),
+    );
+    final response = await request.close();
+    return await response.transform(utf8.decoder).join();
   }
 
   Future<void> deleteFile(
@@ -342,7 +347,7 @@ class LxdClient {
     });
   }
 
-  Future<void> createFile(
+  Future<void> pushFile(
     String instance, {
     required String path,
     String? project,
