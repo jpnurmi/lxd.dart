@@ -37,7 +37,7 @@ class LxdInstance with _$LxdInstance {
     /// ```
     ///
     /// See: https://linuxcontainers.org/lxd/docs/master/instances/
-    required Map<String, dynamic> devices,
+    required Map<String, Map<String, String>> devices,
 
     /// Whether the instance is ephemeral (deleted on shutdown)
     required bool ephemeral,

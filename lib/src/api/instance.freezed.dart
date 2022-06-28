@@ -43,7 +43,8 @@ mixin _$LxdInstance {
   /// ```
   ///
   /// See: https://linuxcontainers.org/lxd/docs/master/instances/
-  Map<String, dynamic> get devices => throw _privateConstructorUsedError;
+  Map<String, Map<String, String>> get devices =>
+      throw _privateConstructorUsedError;
 
   /// Whether the instance is ephemeral (deleted on shutdown)
   bool get ephemeral => throw _privateConstructorUsedError;
@@ -129,7 +130,7 @@ abstract class $LxdInstanceCopyWith<$Res> {
   $Res call(
       {String architecture,
       Map<String, dynamic> config,
-      Map<String, dynamic> devices,
+      Map<String, Map<String, String>> devices,
       bool ephemeral,
       List<String> profiles,
       @JsonKey(includeIfNull: false) String? restore,
@@ -188,7 +189,7 @@ class _$LxdInstanceCopyWithImpl<$Res> implements $LxdInstanceCopyWith<$Res> {
       devices: devices == freezed
           ? _value.devices
           : devices // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, Map<String, String>>,
       ephemeral: ephemeral == freezed
           ? _value.ephemeral
           : ephemeral // ignore: cast_nullable_to_non_nullable
@@ -263,7 +264,7 @@ abstract class _$$_LxdInstanceCopyWith<$Res>
   $Res call(
       {String architecture,
       Map<String, dynamic> config,
-      Map<String, dynamic> devices,
+      Map<String, Map<String, String>> devices,
       bool ephemeral,
       List<String> profiles,
       @JsonKey(includeIfNull: false) String? restore,
@@ -324,7 +325,7 @@ class __$$_LxdInstanceCopyWithImpl<$Res> extends _$LxdInstanceCopyWithImpl<$Res>
       devices: devices == freezed
           ? _value._devices
           : devices // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, Map<String, String>>,
       ephemeral: ephemeral == freezed
           ? _value.ephemeral
           : ephemeral // ignore: cast_nullable_to_non_nullable
@@ -396,7 +397,7 @@ class _$_LxdInstance implements _LxdInstance {
   const _$_LxdInstance(
       {required this.architecture,
       required final Map<String, dynamic> config,
-      required final Map<String, dynamic> devices,
+      required final Map<String, Map<String, String>> devices,
       required this.ephemeral,
       required final List<String> profiles,
       @JsonKey(includeIfNull: false)
@@ -462,7 +463,7 @@ class _$_LxdInstance implements _LxdInstance {
   /// ```
   ///
   /// See: https://linuxcontainers.org/lxd/docs/master/instances/
-  final Map<String, dynamic> _devices;
+  final Map<String, Map<String, String>> _devices;
 
   /// Instance devices
   ///
@@ -473,7 +474,7 @@ class _$_LxdInstance implements _LxdInstance {
   ///
   /// See: https://linuxcontainers.org/lxd/docs/master/instances/
   @override
-  Map<String, dynamic> get devices {
+  Map<String, Map<String, String>> get devices {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_devices);
   }
@@ -663,7 +664,7 @@ abstract class _LxdInstance implements LxdInstance {
   const factory _LxdInstance(
       {required final String architecture,
       required final Map<String, dynamic> config,
-      required final Map<String, dynamic> devices,
+      required final Map<String, Map<String, String>> devices,
       required final bool ephemeral,
       required final List<String> profiles,
       @JsonKey(includeIfNull: false)
@@ -713,7 +714,8 @@ abstract class _LxdInstance implements LxdInstance {
   /// ```
   ///
   /// See: https://linuxcontainers.org/lxd/docs/master/instances/
-  Map<String, dynamic> get devices => throw _privateConstructorUsedError;
+  Map<String, Map<String, String>> get devices =>
+      throw _privateConstructorUsedError;
   @override
 
   /// Whether the instance is ephemeral (deleted on shutdown)

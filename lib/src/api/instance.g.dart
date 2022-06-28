@@ -10,7 +10,9 @@ _$_LxdInstance _$$_LxdInstanceFromJson(Map<String, dynamic> json) =>
     _$_LxdInstance(
       architecture: json['architecture'] as String,
       config: json['config'] as Map<String, dynamic>,
-      devices: json['devices'] as Map<String, dynamic>,
+      devices: (json['devices'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Map<String, String>.from(e as Map)),
+      ),
       ephemeral: json['ephemeral'] as bool,
       profiles:
           (json['profiles'] as List<dynamic>).map((e) => e as String).toList(),
