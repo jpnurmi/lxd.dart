@@ -9,7 +9,7 @@ part of 'instance.dart';
 _$_LxdInstance _$$_LxdInstanceFromJson(Map<String, dynamic> json) =>
     _$_LxdInstance(
       architecture: json['architecture'] as String,
-      config: json['config'] as Map<String, dynamic>,
+      config: Map<String, String>.from(json['config'] as Map),
       devices: (json['devices'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, Map<String, String>.from(e as Map)),
       ),
@@ -20,8 +20,12 @@ _$_LxdInstance _$$_LxdInstanceFromJson(Map<String, dynamic> json) =>
       stateful: json['stateful'] as bool,
       description: json['description'] as String,
       createdAt: DateTime.parse(json['created_at'] as String),
-      expandedConfig: json['expanded_config'] as Map<String, dynamic>?,
-      expandedDevices: json['expanded_devices'] as Map<String, dynamic>?,
+      expandedConfig: (json['expanded_config'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+      expandedDevices: (json['expanded_devices'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
       name: json['name'] as String,
       status: json['status'] as String,
       statusCode: json['status_code'] as int,

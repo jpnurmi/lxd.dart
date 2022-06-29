@@ -20,7 +20,7 @@ LxdProfile _$LxdProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LxdProfile {
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
@@ -35,7 +35,7 @@ abstract class $LxdProfileCopyWith<$Res> {
   factory $LxdProfileCopyWith(
           LxdProfile value, $Res Function(LxdProfile) then) =
       _$LxdProfileCopyWithImpl<$Res>;
-  $Res call({Map<String, dynamic> config, String description, String name});
+  $Res call({Map<String, String> config, String description, String name});
 }
 
 /// @nodoc
@@ -56,7 +56,7 @@ class _$LxdProfileCopyWithImpl<$Res> implements $LxdProfileCopyWith<$Res> {
       config: config == freezed
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,7 @@ abstract class _$$_LxdProfileCopyWith<$Res>
           _$_LxdProfile value, $Res Function(_$_LxdProfile) then) =
       __$$_LxdProfileCopyWithImpl<$Res>;
   @override
-  $Res call({Map<String, dynamic> config, String description, String name});
+  $Res call({Map<String, String> config, String description, String name});
 }
 
 /// @nodoc
@@ -99,7 +99,7 @@ class __$$_LxdProfileCopyWithImpl<$Res> extends _$LxdProfileCopyWithImpl<$Res>
       config: config == freezed
           ? _value._config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -117,7 +117,7 @@ class __$$_LxdProfileCopyWithImpl<$Res> extends _$LxdProfileCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdProfile implements _LxdProfile {
   const _$_LxdProfile(
-      {required final Map<String, dynamic> config,
+      {required final Map<String, String> config,
       required this.description,
       required this.name})
       : _config = config;
@@ -125,9 +125,9 @@ class _$_LxdProfile implements _LxdProfile {
   factory _$_LxdProfile.fromJson(Map<String, dynamic> json) =>
       _$$_LxdProfileFromJson(json);
 
-  final Map<String, dynamic> _config;
+  final Map<String, String> _config;
   @override
-  Map<String, dynamic> get config {
+  Map<String, String> get config {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_config);
   }
@@ -174,7 +174,7 @@ class _$_LxdProfile implements _LxdProfile {
 
 abstract class _LxdProfile implements LxdProfile {
   const factory _LxdProfile(
-      {required final Map<String, dynamic> config,
+      {required final Map<String, String> config,
       required final String description,
       required final String name}) = _$_LxdProfile;
 
@@ -182,7 +182,7 @@ abstract class _LxdProfile implements LxdProfile {
       _$_LxdProfile.fromJson;
 
   @override
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
   @override
   String get description => throw _privateConstructorUsedError;
   @override

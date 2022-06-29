@@ -516,7 +516,7 @@ mixin _$LxdNetworkAcl {
   /// ```json
   /// {"user.mykey": "foo"}
   /// ```
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
 
   /// Resources that use the ACL
   List<String> get usedBy => throw _privateConstructorUsedError;
@@ -537,7 +537,7 @@ abstract class $LxdNetworkAclCopyWith<$Res> {
       String description,
       List<LxdNetworkAclRule> egress,
       List<LxdNetworkAclRule> ingress,
-      Map<String, dynamic> config,
+      Map<String, String> config,
       List<String> usedBy});
 }
 
@@ -579,7 +579,7 @@ class _$LxdNetworkAclCopyWithImpl<$Res>
       config: config == freezed
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       usedBy: usedBy == freezed
           ? _value.usedBy
           : usedBy // ignore: cast_nullable_to_non_nullable
@@ -600,7 +600,7 @@ abstract class _$$_LxdNetworkAclCopyWith<$Res>
       String description,
       List<LxdNetworkAclRule> egress,
       List<LxdNetworkAclRule> ingress,
-      Map<String, dynamic> config,
+      Map<String, String> config,
       List<String> usedBy});
 }
 
@@ -644,7 +644,7 @@ class __$$_LxdNetworkAclCopyWithImpl<$Res>
       config: config == freezed
           ? _value._config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       usedBy: usedBy == freezed
           ? _value._usedBy
           : usedBy // ignore: cast_nullable_to_non_nullable
@@ -662,7 +662,7 @@ class _$_LxdNetworkAcl implements _LxdNetworkAcl {
       required this.description,
       required final List<LxdNetworkAclRule> egress,
       required final List<LxdNetworkAclRule> ingress,
-      required final Map<String, dynamic> config,
+      required final Map<String, String> config,
       required final List<String> usedBy})
       : _egress = egress,
         _ingress = ingress,
@@ -710,7 +710,7 @@ class _$_LxdNetworkAcl implements _LxdNetworkAcl {
   /// ```json
   /// {"user.mykey": "foo"}
   /// ```
-  final Map<String, dynamic> _config;
+  final Map<String, String> _config;
 
   /// ACL configuration map
   ///
@@ -719,7 +719,7 @@ class _$_LxdNetworkAcl implements _LxdNetworkAcl {
   /// {"user.mykey": "foo"}
   /// ```
   @override
-  Map<String, dynamic> get config {
+  Map<String, String> get config {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_config);
   }
@@ -781,7 +781,7 @@ abstract class _LxdNetworkAcl implements LxdNetworkAcl {
       required final String description,
       required final List<LxdNetworkAclRule> egress,
       required final List<LxdNetworkAclRule> ingress,
-      required final Map<String, dynamic> config,
+      required final Map<String, String> config,
       required final List<String> usedBy}) = _$_LxdNetworkAcl;
 
   factory _LxdNetworkAcl.fromJson(Map<String, dynamic> json) =
@@ -815,7 +815,7 @@ abstract class _LxdNetworkAcl implements LxdNetworkAcl {
   /// ```json
   /// {"user.mykey": "foo"}
   /// ```
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
   @override
 
   /// Resources that use the ACL

@@ -165,7 +165,7 @@ class LxdImageMetadata with _$LxdImageMetadata {
     /// Descriptive properties
     ///
     /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
-    required Map<String, dynamic> properties,
+    required Map<String, String> properties,
 
     // Template for files in the image
     required Map<String, LxdImageMetadataTemplate> templates,
@@ -196,7 +196,7 @@ class LxdImageMetadataTemplate with _$LxdImageMetadataTemplate {
     /// Key/value properties to pass to the template
     ///
     /// Example: {"foo": "bar"}
-    required Map<String, dynamic> properties,
+    required Map<String, String> properties,
   }) = _LxdImageMetadataTemplate;
 
   factory LxdImageMetadataTemplate.fromJson(Map<String, dynamic> json) =>

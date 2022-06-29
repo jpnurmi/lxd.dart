@@ -20,7 +20,7 @@ LxdNetwork _$LxdNetworkFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LxdNetwork {
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   bool get managed => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $LxdNetworkCopyWith<$Res> {
           LxdNetwork value, $Res Function(LxdNetwork) then) =
       _$LxdNetworkCopyWithImpl<$Res>;
   $Res call(
-      {Map<String, dynamic> config,
+      {Map<String, String> config,
       String description,
       bool managed,
       String name,
@@ -68,7 +68,7 @@ class _$LxdNetworkCopyWithImpl<$Res> implements $LxdNetworkCopyWith<$Res> {
       config: config == freezed
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -101,7 +101,7 @@ abstract class _$$_LxdNetworkCopyWith<$Res>
       __$$_LxdNetworkCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Map<String, dynamic> config,
+      {Map<String, String> config,
       String description,
       bool managed,
       String name,
@@ -132,7 +132,7 @@ class __$$_LxdNetworkCopyWithImpl<$Res> extends _$LxdNetworkCopyWithImpl<$Res>
       config: config == freezed
           ? _value._config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -162,7 +162,7 @@ class __$$_LxdNetworkCopyWithImpl<$Res> extends _$LxdNetworkCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdNetwork implements _LxdNetwork {
   const _$_LxdNetwork(
-      {required final Map<String, dynamic> config,
+      {required final Map<String, String> config,
       required this.description,
       required this.managed,
       required this.name,
@@ -173,9 +173,9 @@ class _$_LxdNetwork implements _LxdNetwork {
   factory _$_LxdNetwork.fromJson(Map<String, dynamic> json) =>
       _$$_LxdNetworkFromJson(json);
 
-  final Map<String, dynamic> _config;
+  final Map<String, String> _config;
   @override
-  Map<String, dynamic> get config {
+  Map<String, String> get config {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_config);
   }
@@ -234,7 +234,7 @@ class _$_LxdNetwork implements _LxdNetwork {
 
 abstract class _LxdNetwork implements LxdNetwork {
   const factory _LxdNetwork(
-      {required final Map<String, dynamic> config,
+      {required final Map<String, String> config,
       required final String description,
       required final bool managed,
       required final String name,
@@ -245,7 +245,7 @@ abstract class _LxdNetwork implements LxdNetwork {
       _$_LxdNetwork.fromJson;
 
   @override
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
   @override
   String get description => throw _privateConstructorUsedError;
   @override

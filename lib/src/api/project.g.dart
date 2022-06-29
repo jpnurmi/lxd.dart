@@ -8,7 +8,7 @@ part of 'project.dart';
 
 _$_LxdProject _$$_LxdProjectFromJson(Map<String, dynamic> json) =>
     _$_LxdProject(
-      config: json['config'] as Map<String, dynamic>,
+      config: Map<String, String>.from(json['config'] as Map),
       description: json['description'] as String,
       name: json['name'] as String,
     );

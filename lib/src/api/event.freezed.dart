@@ -302,7 +302,7 @@ LxdEventLogging _$LxdEventLoggingFromJson(Map<String, dynamic> json) {
 mixin _$LxdEventLogging {
   String get message => throw _privateConstructorUsedError;
   String get level => throw _privateConstructorUsedError;
-  Map<String, dynamic> get context => throw _privateConstructorUsedError;
+  Map<String, String> get context => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -315,7 +315,7 @@ abstract class $LxdEventLoggingCopyWith<$Res> {
   factory $LxdEventLoggingCopyWith(
           LxdEventLogging value, $Res Function(LxdEventLogging) then) =
       _$LxdEventLoggingCopyWithImpl<$Res>;
-  $Res call({String message, String level, Map<String, dynamic> context});
+  $Res call({String message, String level, Map<String, String> context});
 }
 
 /// @nodoc
@@ -345,7 +345,7 @@ class _$LxdEventLoggingCopyWithImpl<$Res>
       context: context == freezed
           ? _value.context
           : context // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
     ));
   }
 }
@@ -357,7 +357,7 @@ abstract class _$$_LxdEventLoggingCopyWith<$Res>
           _$_LxdEventLogging value, $Res Function(_$_LxdEventLogging) then) =
       __$$_LxdEventLoggingCopyWithImpl<$Res>;
   @override
-  $Res call({String message, String level, Map<String, dynamic> context});
+  $Res call({String message, String level, Map<String, String> context});
 }
 
 /// @nodoc
@@ -389,7 +389,7 @@ class __$$_LxdEventLoggingCopyWithImpl<$Res>
       context: context == freezed
           ? _value._context
           : context // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
     ));
   }
 }
@@ -401,7 +401,7 @@ class _$_LxdEventLogging implements _LxdEventLogging {
   const _$_LxdEventLogging(
       {required this.message,
       required this.level,
-      required final Map<String, dynamic> context})
+      required final Map<String, String> context})
       : _context = context;
 
   factory _$_LxdEventLogging.fromJson(Map<String, dynamic> json) =>
@@ -411,9 +411,9 @@ class _$_LxdEventLogging implements _LxdEventLogging {
   final String message;
   @override
   final String level;
-  final Map<String, dynamic> _context;
+  final Map<String, String> _context;
   @override
-  Map<String, dynamic> get context {
+  Map<String, String> get context {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_context);
   }
@@ -456,7 +456,7 @@ abstract class _LxdEventLogging implements LxdEventLogging {
   const factory _LxdEventLogging(
       {required final String message,
       required final String level,
-      required final Map<String, dynamic> context}) = _$_LxdEventLogging;
+      required final Map<String, String> context}) = _$_LxdEventLogging;
 
   factory _LxdEventLogging.fromJson(Map<String, dynamic> json) =
       _$_LxdEventLogging.fromJson;
@@ -466,7 +466,7 @@ abstract class _LxdEventLogging implements LxdEventLogging {
   @override
   String get level => throw _privateConstructorUsedError;
   @override
-  Map<String, dynamic> get context => throw _privateConstructorUsedError;
+  Map<String, String> get context => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_LxdEventLoggingCopyWith<_$_LxdEventLogging> get copyWith =>

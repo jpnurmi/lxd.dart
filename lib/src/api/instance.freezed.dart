@@ -33,7 +33,7 @@ mixin _$LxdInstance {
   /// ```
   ///
   /// See: https://linuxcontainers.org/lxd/docs/master/instances/
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
 
   /// Instance devices
   ///
@@ -75,14 +75,13 @@ mixin _$LxdInstance {
   ///
   /// Example: {"security.nesting": "true"}
   @JsonKey(includeIfNull: false)
-  Map<String, dynamic>? get expandedConfig =>
-      throw _privateConstructorUsedError;
+  Map<String, String>? get expandedConfig => throw _privateConstructorUsedError;
 
   /// Expanded devices (all profiles and local devices merged)
   ///
   /// Example: {"root": {"type": "disk", "pool": "default", "path": "/"}}
   @JsonKey(includeIfNull: false)
-  Map<String, dynamic>? get expandedDevices =>
+  Map<String, String>? get expandedDevices =>
       throw _privateConstructorUsedError;
 
   /// Instance name
@@ -129,7 +128,7 @@ abstract class $LxdInstanceCopyWith<$Res> {
       _$LxdInstanceCopyWithImpl<$Res>;
   $Res call(
       {String architecture,
-      Map<String, dynamic> config,
+      Map<String, String> config,
       Map<String, Map<String, String>> devices,
       bool ephemeral,
       List<String> profiles,
@@ -137,8 +136,8 @@ abstract class $LxdInstanceCopyWith<$Res> {
       bool stateful,
       String description,
       DateTime createdAt,
-      @JsonKey(includeIfNull: false) Map<String, dynamic>? expandedConfig,
-      @JsonKey(includeIfNull: false) Map<String, dynamic>? expandedDevices,
+      @JsonKey(includeIfNull: false) Map<String, String>? expandedConfig,
+      @JsonKey(includeIfNull: false) Map<String, String>? expandedDevices,
       String name,
       String status,
       int statusCode,
@@ -185,7 +184,7 @@ class _$LxdInstanceCopyWithImpl<$Res> implements $LxdInstanceCopyWith<$Res> {
       config: config == freezed
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       devices: devices == freezed
           ? _value.devices
           : devices // ignore: cast_nullable_to_non_nullable
@@ -217,11 +216,11 @@ class _$LxdInstanceCopyWithImpl<$Res> implements $LxdInstanceCopyWith<$Res> {
       expandedConfig: expandedConfig == freezed
           ? _value.expandedConfig
           : expandedConfig // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as Map<String, String>?,
       expandedDevices: expandedDevices == freezed
           ? _value.expandedDevices
           : expandedDevices // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as Map<String, String>?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -263,7 +262,7 @@ abstract class _$$_LxdInstanceCopyWith<$Res>
   @override
   $Res call(
       {String architecture,
-      Map<String, dynamic> config,
+      Map<String, String> config,
       Map<String, Map<String, String>> devices,
       bool ephemeral,
       List<String> profiles,
@@ -271,8 +270,8 @@ abstract class _$$_LxdInstanceCopyWith<$Res>
       bool stateful,
       String description,
       DateTime createdAt,
-      @JsonKey(includeIfNull: false) Map<String, dynamic>? expandedConfig,
-      @JsonKey(includeIfNull: false) Map<String, dynamic>? expandedDevices,
+      @JsonKey(includeIfNull: false) Map<String, String>? expandedConfig,
+      @JsonKey(includeIfNull: false) Map<String, String>? expandedDevices,
       String name,
       String status,
       int statusCode,
@@ -321,7 +320,7 @@ class __$$_LxdInstanceCopyWithImpl<$Res> extends _$LxdInstanceCopyWithImpl<$Res>
       config: config == freezed
           ? _value._config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       devices: devices == freezed
           ? _value._devices
           : devices // ignore: cast_nullable_to_non_nullable
@@ -353,11 +352,11 @@ class __$$_LxdInstanceCopyWithImpl<$Res> extends _$LxdInstanceCopyWithImpl<$Res>
       expandedConfig: expandedConfig == freezed
           ? _value._expandedConfig
           : expandedConfig // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as Map<String, String>?,
       expandedDevices: expandedDevices == freezed
           ? _value._expandedDevices
           : expandedDevices // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as Map<String, String>?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -396,7 +395,7 @@ class __$$_LxdInstanceCopyWithImpl<$Res> extends _$LxdInstanceCopyWithImpl<$Res>
 class _$_LxdInstance implements _LxdInstance {
   const _$_LxdInstance(
       {required this.architecture,
-      required final Map<String, dynamic> config,
+      required final Map<String, String> config,
       required final Map<String, Map<String, String>> devices,
       required this.ephemeral,
       required final List<String> profiles,
@@ -406,9 +405,9 @@ class _$_LxdInstance implements _LxdInstance {
       required this.description,
       required this.createdAt,
       @JsonKey(includeIfNull: false)
-          required final Map<String, dynamic>? expandedConfig,
+          required final Map<String, String>? expandedConfig,
       @JsonKey(includeIfNull: false)
-          required final Map<String, dynamic>? expandedDevices,
+          required final Map<String, String>? expandedDevices,
       required this.name,
       required this.status,
       required this.statusCode,
@@ -439,7 +438,7 @@ class _$_LxdInstance implements _LxdInstance {
   /// ```
   ///
   /// See: https://linuxcontainers.org/lxd/docs/master/instances/
-  final Map<String, dynamic> _config;
+  final Map<String, String> _config;
 
   /// Instance configuration
   ///
@@ -450,7 +449,7 @@ class _$_LxdInstance implements _LxdInstance {
   ///
   /// See: https://linuxcontainers.org/lxd/docs/master/instances/
   @override
-  Map<String, dynamic> get config {
+  Map<String, String> get config {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_config);
   }
@@ -521,14 +520,14 @@ class _$_LxdInstance implements _LxdInstance {
   /// Expanded configuration (all profiles and local config merged)
   ///
   /// Example: {"security.nesting": "true"}
-  final Map<String, dynamic>? _expandedConfig;
+  final Map<String, String>? _expandedConfig;
 
   /// Expanded configuration (all profiles and local config merged)
   ///
   /// Example: {"security.nesting": "true"}
   @override
   @JsonKey(includeIfNull: false)
-  Map<String, dynamic>? get expandedConfig {
+  Map<String, String>? get expandedConfig {
     final value = _expandedConfig;
     if (value == null) return null;
     // ignore: implicit_dynamic_type
@@ -538,14 +537,14 @@ class _$_LxdInstance implements _LxdInstance {
   /// Expanded devices (all profiles and local devices merged)
   ///
   /// Example: {"root": {"type": "disk", "pool": "default", "path": "/"}}
-  final Map<String, dynamic>? _expandedDevices;
+  final Map<String, String>? _expandedDevices;
 
   /// Expanded devices (all profiles and local devices merged)
   ///
   /// Example: {"root": {"type": "disk", "pool": "default", "path": "/"}}
   @override
   @JsonKey(includeIfNull: false)
-  Map<String, dynamic>? get expandedDevices {
+  Map<String, String>? get expandedDevices {
     final value = _expandedDevices;
     if (value == null) return null;
     // ignore: implicit_dynamic_type
@@ -663,7 +662,7 @@ class _$_LxdInstance implements _LxdInstance {
 abstract class _LxdInstance implements LxdInstance {
   const factory _LxdInstance(
       {required final String architecture,
-      required final Map<String, dynamic> config,
+      required final Map<String, String> config,
       required final Map<String, Map<String, String>> devices,
       required final bool ephemeral,
       required final List<String> profiles,
@@ -673,9 +672,9 @@ abstract class _LxdInstance implements LxdInstance {
       required final String description,
       required final DateTime createdAt,
       @JsonKey(includeIfNull: false)
-          required final Map<String, dynamic>? expandedConfig,
+          required final Map<String, String>? expandedConfig,
       @JsonKey(includeIfNull: false)
-          required final Map<String, dynamic>? expandedDevices,
+          required final Map<String, String>? expandedDevices,
       required final String name,
       required final String status,
       required final int statusCode,
@@ -703,7 +702,7 @@ abstract class _LxdInstance implements LxdInstance {
   /// ```
   ///
   /// See: https://linuxcontainers.org/lxd/docs/master/instances/
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
   @override
 
   /// Instance devices
@@ -753,15 +752,14 @@ abstract class _LxdInstance implements LxdInstance {
   ///
   /// Example: {"security.nesting": "true"}
   @JsonKey(includeIfNull: false)
-  Map<String, dynamic>? get expandedConfig =>
-      throw _privateConstructorUsedError;
+  Map<String, String>? get expandedConfig => throw _privateConstructorUsedError;
   @override
 
   /// Expanded devices (all profiles and local devices merged)
   ///
   /// Example: {"root": {"type": "disk", "pool": "default", "path": "/"}}
   @JsonKey(includeIfNull: false)
-  Map<String, dynamic>? get expandedDevices =>
+  Map<String, String>? get expandedDevices =>
       throw _privateConstructorUsedError;
   @override
 

@@ -9,7 +9,7 @@ part 'network.g.dart';
 class LxdNetwork with _$LxdNetwork {
   @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetwork({
-    required Map<String, dynamic> config,
+    required Map<String, String> config,
     required String description,
     required bool managed,
     required String name,

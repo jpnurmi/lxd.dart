@@ -33,7 +33,7 @@ _$_LxdEventLogging _$$_LxdEventLoggingFromJson(Map<String, dynamic> json) =>
     _$_LxdEventLogging(
       message: json['message'] as String,
       level: json['level'] as String,
-      context: json['context'] as Map<String, dynamic>,
+      context: Map<String, String>.from(json['context'] as Map),
     );
 
 Map<String, dynamic> _$$_LxdEventLoggingToJson(_$_LxdEventLogging instance) =>

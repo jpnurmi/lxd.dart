@@ -8,7 +8,7 @@ part of 'storage_pool.dart';
 
 _$_LxdStoragePool _$$_LxdStoragePoolFromJson(Map<String, dynamic> json) =>
     _$_LxdStoragePool(
-      config: json['config'] as Map<String, dynamic>,
+      config: Map<String, String>.from(json['config'] as Map),
       description: json['description'] as String,
       name: json['name'] as String,
       status: json['status'] as String,

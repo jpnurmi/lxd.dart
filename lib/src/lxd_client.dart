@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 
 import 'api/certificate.dart';
+import 'api/event.dart';
 import 'api/image.dart';
 import 'api/instance.dart';
 import 'api/instance_state.dart';
@@ -14,7 +15,6 @@ import 'api/profile.dart';
 import 'api/project.dart';
 import 'api/resource.dart';
 import 'api/storage_pool.dart';
-import 'event.dart';
 import 'exception.dart';
 import 'response.dart';
 

@@ -100,7 +100,7 @@ _$_LxdImageMetadata _$$_LxdImageMetadataFromJson(Map<String, dynamic> json) =>
       architecture: json['architecture'] as String,
       creationDate: json['creation_date'] as int,
       expiryDate: json['expiry_date'] as int,
-      properties: json['properties'] as Map<String, dynamic>,
+      properties: Map<String, String>.from(json['properties'] as Map),
       templates: (json['templates'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(
             k, LxdImageMetadataTemplate.fromJson(e as Map<String, dynamic>)),
@@ -122,7 +122,7 @@ _$_LxdImageMetadataTemplate _$$_LxdImageMetadataTemplateFromJson(
       when: (json['when'] as List<dynamic>).map((e) => e as String).toList(),
       createOnly: json['create_only'] as bool,
       template: json['template'] as String,
-      properties: json['properties'] as Map<String, dynamic>,
+      properties: Map<String, String>.from(json['properties'] as Map),
     );
 
 Map<String, dynamic> _$$_LxdImageMetadataTemplateToJson(

@@ -54,7 +54,7 @@ _$_LxdNetworkAcl _$$_LxdNetworkAclFromJson(Map<String, dynamic> json) =>
       ingress: (json['ingress'] as List<dynamic>)
           .map((e) => LxdNetworkAclRule.fromJson(e as Map<String, dynamic>))
           .toList(),
-      config: json['config'] as Map<String, dynamic>,
+      config: Map<String, String>.from(json['config'] as Map),
       usedBy:
           (json['used_by'] as List<dynamic>).map((e) => e as String).toList(),
     );

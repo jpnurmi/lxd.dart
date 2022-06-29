@@ -20,7 +20,7 @@ LxdStoragePool _$LxdStoragePoolFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LxdStoragePool {
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $LxdStoragePoolCopyWith<$Res> {
           LxdStoragePool value, $Res Function(LxdStoragePool) then) =
       _$LxdStoragePoolCopyWithImpl<$Res>;
   $Res call(
-      {Map<String, dynamic> config,
+      {Map<String, String> config,
       String description,
       String name,
       String status});
@@ -63,7 +63,7 @@ class _$LxdStoragePoolCopyWithImpl<$Res>
       config: config == freezed
           ? _value.config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -88,7 +88,7 @@ abstract class _$$_LxdStoragePoolCopyWith<$Res>
       __$$_LxdStoragePoolCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Map<String, dynamic> config,
+      {Map<String, String> config,
       String description,
       String name,
       String status});
@@ -116,7 +116,7 @@ class __$$_LxdStoragePoolCopyWithImpl<$Res>
       config: config == freezed
           ? _value._config
           : config // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -138,7 +138,7 @@ class __$$_LxdStoragePoolCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class _$_LxdStoragePool implements _LxdStoragePool {
   const _$_LxdStoragePool(
-      {required final Map<String, dynamic> config,
+      {required final Map<String, String> config,
       required this.description,
       required this.name,
       required this.status})
@@ -147,9 +147,9 @@ class _$_LxdStoragePool implements _LxdStoragePool {
   factory _$_LxdStoragePool.fromJson(Map<String, dynamic> json) =>
       _$$_LxdStoragePoolFromJson(json);
 
-  final Map<String, dynamic> _config;
+  final Map<String, String> _config;
   @override
-  Map<String, dynamic> get config {
+  Map<String, String> get config {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_config);
   }
@@ -200,7 +200,7 @@ class _$_LxdStoragePool implements _LxdStoragePool {
 
 abstract class _LxdStoragePool implements LxdStoragePool {
   const factory _LxdStoragePool(
-      {required final Map<String, dynamic> config,
+      {required final Map<String, String> config,
       required final String description,
       required final String name,
       required final String status}) = _$_LxdStoragePool;
@@ -209,7 +209,7 @@ abstract class _LxdStoragePool implements LxdStoragePool {
       _$_LxdStoragePool.fromJson;
 
   @override
-  Map<String, dynamic> get config => throw _privateConstructorUsedError;
+  Map<String, String> get config => throw _privateConstructorUsedError;
   @override
   String get description => throw _privateConstructorUsedError;
   @override

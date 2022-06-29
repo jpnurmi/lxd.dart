@@ -27,7 +27,7 @@ class LxdInstance with _$LxdInstance {
     /// ```
     ///
     /// See: https://linuxcontainers.org/lxd/docs/master/instances/
-    required Map<String, dynamic> config,
+    required Map<String, String> config,
 
     /// Instance devices
     ///
@@ -66,14 +66,13 @@ class LxdInstance with _$LxdInstance {
     /// Expanded configuration (all profiles and local config merged)
     ///
     /// Example: {"security.nesting": "true"}
-    @JsonKey(includeIfNull: false)
-        required Map<String, dynamic>? expandedConfig,
+    @JsonKey(includeIfNull: false) required Map<String, String>? expandedConfig,
 
     /// Expanded devices (all profiles and local devices merged)
     ///
     /// Example: {"root": {"type": "disk", "pool": "default", "path": "/"}}
     @JsonKey(includeIfNull: false)
-        required Map<String, dynamic>? expandedDevices,
+        required Map<String, String>? expandedDevices,
 
     /// Instance name
     ///

@@ -1159,7 +1159,7 @@ mixin _$LxdImageMetadata {
   /// Descriptive properties
   ///
   /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
-  Map<String, dynamic> get properties =>
+  Map<String, String> get properties =>
       throw _privateConstructorUsedError; // Template for files in the image
   Map<String, LxdImageMetadataTemplate> get templates =>
       throw _privateConstructorUsedError;
@@ -1179,7 +1179,7 @@ abstract class $LxdImageMetadataCopyWith<$Res> {
       {String architecture,
       int creationDate,
       int expiryDate,
-      Map<String, dynamic> properties,
+      Map<String, String> properties,
       Map<String, LxdImageMetadataTemplate> templates});
 }
 
@@ -1216,7 +1216,7 @@ class _$LxdImageMetadataCopyWithImpl<$Res>
       properties: properties == freezed
           ? _value.properties
           : properties // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       templates: templates == freezed
           ? _value.templates
           : templates // ignore: cast_nullable_to_non_nullable
@@ -1236,7 +1236,7 @@ abstract class _$$_LxdImageMetadataCopyWith<$Res>
       {String architecture,
       int creationDate,
       int expiryDate,
-      Map<String, dynamic> properties,
+      Map<String, String> properties,
       Map<String, LxdImageMetadataTemplate> templates});
 }
 
@@ -1275,7 +1275,7 @@ class __$$_LxdImageMetadataCopyWithImpl<$Res>
       properties: properties == freezed
           ? _value._properties
           : properties // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
       templates: templates == freezed
           ? _value._templates
           : templates // ignore: cast_nullable_to_non_nullable
@@ -1292,7 +1292,7 @@ class _$_LxdImageMetadata implements _LxdImageMetadata {
       {required this.architecture,
       required this.creationDate,
       required this.expiryDate,
-      required final Map<String, dynamic> properties,
+      required final Map<String, String> properties,
       required final Map<String, LxdImageMetadataTemplate> templates})
       : _properties = properties,
         _templates = templates;
@@ -1321,13 +1321,13 @@ class _$_LxdImageMetadata implements _LxdImageMetadata {
   /// Descriptive properties
   ///
   /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
-  final Map<String, dynamic> _properties;
+  final Map<String, String> _properties;
 
   /// Descriptive properties
   ///
   /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
   @override
-  Map<String, dynamic> get properties {
+  Map<String, String> get properties {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_properties);
   }
@@ -1389,7 +1389,7 @@ abstract class _LxdImageMetadata implements LxdImageMetadata {
           {required final String architecture,
           required final int creationDate,
           required final int expiryDate,
-          required final Map<String, dynamic> properties,
+          required final Map<String, String> properties,
           required final Map<String, LxdImageMetadataTemplate> templates}) =
       _$_LxdImageMetadata;
 
@@ -1419,7 +1419,7 @@ abstract class _LxdImageMetadata implements LxdImageMetadata {
   /// Descriptive properties
   ///
   /// Example: {"os": "Ubuntu", "release": "jammy", "variant": "cloud"}
-  Map<String, dynamic> get properties => throw _privateConstructorUsedError;
+  Map<String, String> get properties => throw _privateConstructorUsedError;
   @override // Template for files in the image
   Map<String, LxdImageMetadataTemplate> get templates =>
       throw _privateConstructorUsedError;
@@ -1451,7 +1451,7 @@ mixin _$LxdImageMetadataTemplate {
   /// Key/value properties to pass to the template
   ///
   /// Example: {"foo": "bar"}
-  Map<String, dynamic> get properties => throw _privateConstructorUsedError;
+  Map<String, String> get properties => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -1468,7 +1468,7 @@ abstract class $LxdImageMetadataTemplateCopyWith<$Res> {
       {List<String> when,
       bool createOnly,
       String template,
-      Map<String, dynamic> properties});
+      Map<String, String> properties});
 }
 
 /// @nodoc
@@ -1503,7 +1503,7 @@ class _$LxdImageMetadataTemplateCopyWithImpl<$Res>
       properties: properties == freezed
           ? _value.properties
           : properties // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
     ));
   }
 }
@@ -1520,7 +1520,7 @@ abstract class _$$_LxdImageMetadataTemplateCopyWith<$Res>
       {List<String> when,
       bool createOnly,
       String template,
-      Map<String, dynamic> properties});
+      Map<String, String> properties});
 }
 
 /// @nodoc
@@ -1558,7 +1558,7 @@ class __$$_LxdImageMetadataTemplateCopyWithImpl<$Res>
       properties: properties == freezed
           ? _value._properties
           : properties // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, String>,
     ));
   }
 }
@@ -1571,7 +1571,7 @@ class _$_LxdImageMetadataTemplate implements _LxdImageMetadataTemplate {
       {required final List<String> when,
       required this.createOnly,
       required this.template,
-      required final Map<String, dynamic> properties})
+      required final Map<String, String> properties})
       : _when = when,
         _properties = properties;
 
@@ -1605,13 +1605,13 @@ class _$_LxdImageMetadataTemplate implements _LxdImageMetadataTemplate {
   /// Key/value properties to pass to the template
   ///
   /// Example: {"foo": "bar"}
-  final Map<String, dynamic> _properties;
+  final Map<String, String> _properties;
 
   /// Key/value properties to pass to the template
   ///
   /// Example: {"foo": "bar"}
   @override
-  Map<String, dynamic> get properties {
+  Map<String, String> get properties {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_properties);
   }
@@ -1660,7 +1660,7 @@ abstract class _LxdImageMetadataTemplate implements LxdImageMetadataTemplate {
           {required final List<String> when,
           required final bool createOnly,
           required final String template,
-          required final Map<String, dynamic> properties}) =
+          required final Map<String, String> properties}) =
       _$_LxdImageMetadataTemplate;
 
   factory _LxdImageMetadataTemplate.fromJson(Map<String, dynamic> json) =
@@ -1685,7 +1685,7 @@ abstract class _LxdImageMetadataTemplate implements LxdImageMetadataTemplate {
   /// Key/value properties to pass to the template
   ///
   /// Example: {"foo": "bar"}
-  Map<String, dynamic> get properties => throw _privateConstructorUsedError;
+  Map<String, String> get properties => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_LxdImageMetadataTemplateCopyWith<_$_LxdImageMetadataTemplate>

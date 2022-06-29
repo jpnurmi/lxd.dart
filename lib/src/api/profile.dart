@@ -9,7 +9,7 @@ part 'profile.g.dart';
 class LxdProfile with _$LxdProfile {
   @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdProfile({
-    required Map<String, dynamic> config,
+    required Map<String, String> config,
     required String description,
     required String name,
   }) = _LxdProfile;

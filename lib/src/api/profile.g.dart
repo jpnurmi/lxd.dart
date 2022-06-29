@@ -8,7 +8,7 @@ part of 'profile.dart';
 
 _$_LxdProfile _$$_LxdProfileFromJson(Map<String, dynamic> json) =>
     _$_LxdProfile(
-      config: json['config'] as Map<String, dynamic>,
+      config: Map<String, String>.from(json['config'] as Map),
       description: json['description'] as String,
       name: json['name'] as String,
     );

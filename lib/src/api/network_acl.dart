@@ -94,7 +94,7 @@ class LxdNetworkAcl with _$LxdNetworkAcl {
     /// ```json
     /// {"user.mykey": "foo"}
     /// ```
-    required Map<String, dynamic> config,
+    required Map<String, String> config,
 
     /// Resources that use the ACL
     required List<String> usedBy,

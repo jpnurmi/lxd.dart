@@ -8,7 +8,7 @@ part of 'network.dart';
 
 _$_LxdNetwork _$$_LxdNetworkFromJson(Map<String, dynamic> json) =>
     _$_LxdNetwork(
-      config: json['config'] as Map<String, dynamic>,
+      config: Map<String, String>.from(json['config'] as Map),
       description: json['description'] as String,
       managed: json['managed'] as bool,
       name: json['name'] as String,

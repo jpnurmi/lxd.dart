@@ -47,7 +47,7 @@ class LxdEventLogging with _$LxdEventLogging {
   const factory LxdEventLogging({
     required String message,
     required String level,
-    required Map<String, dynamic> context,
+    required Map<String, String> context,
   }) = _LxdEventLogging;
 
   factory LxdEventLogging.fromJson(Map<String, dynamic> json) =>

@@ -53,7 +53,8 @@ mixin _$LxdOperation {
   /// Affected resourcs
   ///
   /// Example: {"containers": ["/1.0/containers/foo"], "instances": ["/1.0/instances/foo"]}
-  Map<String, dynamic>? get resources => throw _privateConstructorUsedError;
+  Map<String, List<String>>? get resources =>
+      throw _privateConstructorUsedError;
 
   /// Operation specific metadata
   ///
@@ -110,7 +111,7 @@ abstract class $LxdOperationCopyWith<$Res> {
       DateTime updatedAt,
       String status,
       int statusCode,
-      Map<String, dynamic>? resources,
+      Map<String, List<String>>? resources,
       Map<String, dynamic>? metadata,
       bool mayCancel,
       @JsonKey(name: 'err') String error,
@@ -172,7 +173,7 @@ class _$LxdOperationCopyWithImpl<$Res> implements $LxdOperationCopyWith<$Res> {
       resources: resources == freezed
           ? _value.resources
           : resources // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as Map<String, List<String>>?,
       metadata: metadata == freezed
           ? _value.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
@@ -208,7 +209,7 @@ abstract class _$$_LxdOperationCopyWith<$Res>
       DateTime updatedAt,
       String status,
       int statusCode,
-      Map<String, dynamic>? resources,
+      Map<String, List<String>>? resources,
       Map<String, dynamic>? metadata,
       bool mayCancel,
       @JsonKey(name: 'err') String error,
@@ -273,7 +274,7 @@ class __$$_LxdOperationCopyWithImpl<$Res>
       resources: resources == freezed
           ? _value._resources
           : resources // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as Map<String, List<String>>?,
       metadata: metadata == freezed
           ? _value._metadata
           : metadata // ignore: cast_nullable_to_non_nullable
@@ -306,7 +307,7 @@ class _$_LxdOperation implements _LxdOperation {
       required this.updatedAt,
       required this.status,
       required this.statusCode,
-      required final Map<String, dynamic>? resources,
+      required final Map<String, List<String>>? resources,
       required final Map<String, dynamic>? metadata,
       required this.mayCancel,
       @JsonKey(name: 'err') required this.error,
@@ -357,13 +358,13 @@ class _$_LxdOperation implements _LxdOperation {
   /// Affected resourcs
   ///
   /// Example: {"containers": ["/1.0/containers/foo"], "instances": ["/1.0/instances/foo"]}
-  final Map<String, dynamic>? _resources;
+  final Map<String, List<String>>? _resources;
 
   /// Affected resourcs
   ///
   /// Example: {"containers": ["/1.0/containers/foo"], "instances": ["/1.0/instances/foo"]}
   @override
-  Map<String, dynamic>? get resources {
+  Map<String, List<String>>? get resources {
     final value = _resources;
     if (value == null) return null;
     // ignore: implicit_dynamic_type
@@ -501,7 +502,7 @@ abstract class _LxdOperation implements LxdOperation {
       required final DateTime updatedAt,
       required final String status,
       required final int statusCode,
-      required final Map<String, dynamic>? resources,
+      required final Map<String, List<String>>? resources,
       required final Map<String, dynamic>? metadata,
       required final bool mayCancel,
       @JsonKey(name: 'err') required final String error,
@@ -552,7 +553,8 @@ abstract class _LxdOperation implements LxdOperation {
   /// Affected resourcs
   ///
   /// Example: {"containers": ["/1.0/containers/foo"], "instances": ["/1.0/instances/foo"]}
-  Map<String, dynamic>? get resources => throw _privateConstructorUsedError;
+  Map<String, List<String>>? get resources =>
+      throw _privateConstructorUsedError;
   @override
 
   /// Operation specific metadata
