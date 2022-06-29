@@ -24,7 +24,7 @@ _$_LxdInstance _$$_LxdInstanceFromJson(Map<String, dynamic> json) =>
         (k, e) => MapEntry(k, e as String),
       ),
       expandedDevices: (json['expanded_devices'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
+        (k, e) => MapEntry(k, Map<String, String>.from(e as Map)),
       ),
       name: json['name'] as String,
       status: json['status'] as String,

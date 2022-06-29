@@ -81,7 +81,7 @@ mixin _$LxdInstance {
   ///
   /// Example: {"root": {"type": "disk", "pool": "default", "path": "/"}}
   @JsonKey(includeIfNull: false)
-  Map<String, String>? get expandedDevices =>
+  Map<String, Map<String, String>>? get expandedDevices =>
       throw _privateConstructorUsedError;
 
   /// Instance name
@@ -132,12 +132,15 @@ abstract class $LxdInstanceCopyWith<$Res> {
       Map<String, Map<String, String>> devices,
       bool ephemeral,
       List<String> profiles,
-      @JsonKey(includeIfNull: false) String? restore,
+      @JsonKey(includeIfNull: false)
+          String? restore,
       bool stateful,
       String description,
       DateTime createdAt,
-      @JsonKey(includeIfNull: false) Map<String, String>? expandedConfig,
-      @JsonKey(includeIfNull: false) Map<String, String>? expandedDevices,
+      @JsonKey(includeIfNull: false)
+          Map<String, String>? expandedConfig,
+      @JsonKey(includeIfNull: false)
+          Map<String, Map<String, String>>? expandedDevices,
       String name,
       String status,
       int statusCode,
@@ -220,7 +223,7 @@ class _$LxdInstanceCopyWithImpl<$Res> implements $LxdInstanceCopyWith<$Res> {
       expandedDevices: expandedDevices == freezed
           ? _value.expandedDevices
           : expandedDevices // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
+              as Map<String, Map<String, String>>?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -266,12 +269,15 @@ abstract class _$$_LxdInstanceCopyWith<$Res>
       Map<String, Map<String, String>> devices,
       bool ephemeral,
       List<String> profiles,
-      @JsonKey(includeIfNull: false) String? restore,
+      @JsonKey(includeIfNull: false)
+          String? restore,
       bool stateful,
       String description,
       DateTime createdAt,
-      @JsonKey(includeIfNull: false) Map<String, String>? expandedConfig,
-      @JsonKey(includeIfNull: false) Map<String, String>? expandedDevices,
+      @JsonKey(includeIfNull: false)
+          Map<String, String>? expandedConfig,
+      @JsonKey(includeIfNull: false)
+          Map<String, Map<String, String>>? expandedDevices,
       String name,
       String status,
       int statusCode,
@@ -356,7 +362,7 @@ class __$$_LxdInstanceCopyWithImpl<$Res> extends _$LxdInstanceCopyWithImpl<$Res>
       expandedDevices: expandedDevices == freezed
           ? _value._expandedDevices
           : expandedDevices // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
+              as Map<String, Map<String, String>>?,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -407,7 +413,7 @@ class _$_LxdInstance implements _LxdInstance {
       @JsonKey(includeIfNull: false)
           required final Map<String, String>? expandedConfig,
       @JsonKey(includeIfNull: false)
-          required final Map<String, String>? expandedDevices,
+          required final Map<String, Map<String, String>>? expandedDevices,
       required this.name,
       required this.status,
       required this.statusCode,
@@ -537,14 +543,14 @@ class _$_LxdInstance implements _LxdInstance {
   /// Expanded devices (all profiles and local devices merged)
   ///
   /// Example: {"root": {"type": "disk", "pool": "default", "path": "/"}}
-  final Map<String, String>? _expandedDevices;
+  final Map<String, Map<String, String>>? _expandedDevices;
 
   /// Expanded devices (all profiles and local devices merged)
   ///
   /// Example: {"root": {"type": "disk", "pool": "default", "path": "/"}}
   @override
   @JsonKey(includeIfNull: false)
-  Map<String, String>? get expandedDevices {
+  Map<String, Map<String, String>>? get expandedDevices {
     final value = _expandedDevices;
     if (value == null) return null;
     // ignore: implicit_dynamic_type
@@ -674,7 +680,7 @@ abstract class _LxdInstance implements LxdInstance {
       @JsonKey(includeIfNull: false)
           required final Map<String, String>? expandedConfig,
       @JsonKey(includeIfNull: false)
-          required final Map<String, String>? expandedDevices,
+          required final Map<String, Map<String, String>>? expandedDevices,
       required final String name,
       required final String status,
       required final int statusCode,
@@ -759,7 +765,7 @@ abstract class _LxdInstance implements LxdInstance {
   ///
   /// Example: {"root": {"type": "disk", "pool": "default", "path": "/"}}
   @JsonKey(includeIfNull: false)
-  Map<String, String>? get expandedDevices =>
+  Map<String, Map<String, String>>? get expandedDevices =>
       throw _privateConstructorUsedError;
   @override
 
