@@ -31,7 +31,7 @@ mixin _$LxdEvent {
   /// See [LxdEventLogging], [LxdEventLifecycle] or [LxdOperation]
   ///
   /// Example: {"action": "instance-started", "source": "/1.0/instances/c1", "context": {}}
-  Map<String, dynamic> get metadata => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
 
   /// Originating cluster member
   ///
@@ -56,7 +56,7 @@ abstract class $LxdEventCopyWith<$Res> {
   $Res call(
       {LxdEventType type,
       DateTime timestamp,
-      Map<String, dynamic> metadata,
+      Map<String, dynamic>? metadata,
       String? location,
       String? project});
 }
@@ -89,7 +89,7 @@ class _$LxdEventCopyWithImpl<$Res> implements $LxdEventCopyWith<$Res> {
       metadata: metadata == freezed
           ? _value.metadata
           : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, dynamic>?,
       location: location == freezed
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -111,7 +111,7 @@ abstract class _$$_LxdEventCopyWith<$Res> implements $LxdEventCopyWith<$Res> {
   $Res call(
       {LxdEventType type,
       DateTime timestamp,
-      Map<String, dynamic> metadata,
+      Map<String, dynamic>? metadata,
       String? location,
       String? project});
 }
@@ -146,7 +146,7 @@ class __$$_LxdEventCopyWithImpl<$Res> extends _$LxdEventCopyWithImpl<$Res>
       metadata: metadata == freezed
           ? _value._metadata
           : metadata // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, dynamic>?,
       location: location == freezed
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -166,7 +166,7 @@ class _$_LxdEvent implements _LxdEvent {
   const _$_LxdEvent(
       {required this.type,
       required this.timestamp,
-      required final Map<String, dynamic> metadata,
+      required final Map<String, dynamic>? metadata,
       this.location,
       this.project})
       : _metadata = metadata;
@@ -187,7 +187,7 @@ class _$_LxdEvent implements _LxdEvent {
   /// See [LxdEventLogging], [LxdEventLifecycle] or [LxdOperation]
   ///
   /// Example: {"action": "instance-started", "source": "/1.0/instances/c1", "context": {}}
-  final Map<String, dynamic> _metadata;
+  final Map<String, dynamic>? _metadata;
 
   /// JSON encoded metadata
   ///
@@ -195,9 +195,11 @@ class _$_LxdEvent implements _LxdEvent {
   ///
   /// Example: {"action": "instance-started", "source": "/1.0/instances/c1", "context": {}}
   @override
-  Map<String, dynamic> get metadata {
+  Map<String, dynamic>? get metadata {
+    final value = _metadata;
+    if (value == null) return null;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_metadata);
+    return EqualUnmodifiableMapView(value);
   }
 
   /// Originating cluster member
@@ -254,7 +256,7 @@ abstract class _LxdEvent implements LxdEvent {
   const factory _LxdEvent(
       {required final LxdEventType type,
       required final DateTime timestamp,
-      required final Map<String, dynamic> metadata,
+      required final Map<String, dynamic>? metadata,
       final String? location,
       final String? project}) = _$_LxdEvent;
 
@@ -275,7 +277,7 @@ abstract class _LxdEvent implements LxdEvent {
   /// See [LxdEventLogging], [LxdEventLifecycle] or [LxdOperation]
   ///
   /// Example: {"action": "instance-started", "source": "/1.0/instances/c1", "context": {}}
-  Map<String, dynamic> get metadata => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get metadata => throw _privateConstructorUsedError;
   @override
 
   /// Originating cluster member

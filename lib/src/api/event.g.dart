@@ -9,7 +9,7 @@ part of 'event.dart';
 _$_LxdEvent _$$_LxdEventFromJson(Map<String, dynamic> json) => _$_LxdEvent(
       type: $enumDecode(_$LxdEventTypeEnumMap, json['type']),
       timestamp: DateTime.parse(json['timestamp'] as String),
-      metadata: json['metadata'] as Map<String, dynamic>,
+      metadata: json['metadata'] as Map<String, dynamic>?,
       location: json['location'] as String?,
       project: json['project'] as String?,
     );

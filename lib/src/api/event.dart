@@ -23,7 +23,7 @@ class LxdEvent with _$LxdEvent {
     /// See [LxdEventLogging], [LxdEventLifecycle] or [LxdOperation]
     ///
     /// Example: {"action": "instance-started", "source": "/1.0/instances/c1", "context": {}}
-    required Map<String, dynamic> metadata,
+    required Map<String, dynamic>? metadata,
 
     /// Originating cluster member
     ///
