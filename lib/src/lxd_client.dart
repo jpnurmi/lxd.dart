@@ -15,6 +15,7 @@ import 'api/profile.dart';
 import 'api/project.dart';
 import 'api/resource.dart';
 import 'api/storage_pool.dart';
+import 'enums.dart';
 import 'exception.dart';
 import 'response.dart';
 
@@ -174,14 +175,10 @@ class LxdClient {
 
   /// Gets the fingerprints of the images provided by the LXD server.
   Future<List<String>> getImages({String? project, String? filter}) async {
-    var parameters = <String, String>{};
-    if (project != null) {
-      parameters['project'] = project;
-    }
-    if (filter != null) {
-      parameters['filter'] = filter;
-    }
-    var imagePaths = await _requestSync('GET', '/1.0/images', parameters);
+    var imagePaths = await _requestSync('GET', '/1.0/images', queryParameters: {
+      if (project != null) 'project': project,
+      if (filter != null) 'filter': filter,
+    });
     var fingerprints = <String>[];
     for (var path in imagePaths) {
       if (path.startsWith(_imagePath)) {
@@ -240,32 +237,38 @@ class LxdClient {
     String? instanceType,
     LxdImageType? type,
   }) async {
-    final body = {
-      if (architecture != null) 'architecture': architecture,
-      if (config != null) 'config': config,
-      if (devices != null) 'devices': devices,
-      if (ephemeral != null) 'ephemeral': ephemeral,
-      if (profiles != null) 'profiles': profiles,
-      if (restore != null) 'restore': restore,
-      if (stateful != null) 'stateful': stateful,
-      if (description != null) 'description': description,
-      if (name != null) 'name': name,
-      'source': {
-        ...source.toJson(), // TODO: InstanceSource
-        'type': 'image',
-        if (server != null) 'protocol': 'simplestreams',
-        if (server != null) 'server': server,
+    return await _requestAsync(
+      'POST',
+      '/1.0/instances',
+      body: {
+        if (architecture != null) 'architecture': architecture,
+        if (config != null) 'config': config,
+        if (devices != null) 'devices': devices,
+        if (ephemeral != null) 'ephemeral': ephemeral,
+        if (profiles != null) 'profiles': profiles,
+        if (restore != null) 'restore': restore,
+        if (stateful != null) 'stateful': stateful,
+        if (description != null) 'description': description,
+        if (name != null) 'name': name,
+        'source': {
+          ...source.toJson(), // TODO: InstanceSource
+          'type': 'image',
+          if (server != null) 'protocol': 'simplestreams',
+          if (server != null) 'server': server,
+        },
+        if (instanceType != null) 'type': instanceType,
+        if (type != null) 'type': type.name,
       },
-      if (instanceType != null) 'type': instanceType,
-      if (type != null) 'type': type.name,
-    };
-    return await _requestAsync('POST', '/1.0/instances', body);
+    );
   }
 
   /// Starts the instance with [name].
   Future<LxdOperation> startInstance(String name, {bool force = false}) async {
-    return await _requestAsync('PUT', '/1.0/instances/$name/state',
-        {'action': 'start', 'force': force});
+    return await _requestAsync(
+      'PUT',
+      '/1.0/instances/$name/state',
+      body: {'action': 'start', 'force': force},
+    );
   }
 
   /// Executes a command in the instance with [name].
@@ -283,7 +286,7 @@ class LxdClient {
     bool? waitForWebSocket,
   }) async {
     // TODO: which parameters are required?
-    return await _requestAsync('POST', '/1.0/instances/$name/exec', {
+    return await _requestAsync('POST', '/1.0/instances/$name/exec', body: {
       'command': command,
       if (workingDirectory != null) 'cwd': workingDirectory,
       if (environment != null) 'environment': environment,
@@ -299,20 +302,29 @@ class LxdClient {
 
   Future<LxdOperation> updateInstance(LxdInstance instance) async {
     return await _requestAsync(
-        'PUT', '/1.0/instances/${instance.name}', instance.toJson());
+      'PUT',
+      '/1.0/instances/${instance.name}',
+      body: instance.toJson(),
+    );
   }
 
   /// Stops the instance with [name].
   Future<LxdOperation> stopInstance(String name, {bool force = false}) async {
-    return await _requestAsync('PUT', '/1.0/instances/$name/state',
-        {'action': 'stop', 'force': force});
+    return await _requestAsync(
+      'PUT',
+      '/1.0/instances/$name/state',
+      body: {'action': 'stop', 'force': force},
+    );
   }
 
   /// Restarts the instance with [name].
   Future<LxdOperation> restartInstance(String name,
       {bool force = false}) async {
-    return await _requestAsync('PUT', '/1.0/instances/$name/state',
-        {'action': 'restart', 'force': force});
+    return await _requestAsync(
+      'PUT',
+      '/1.0/instances/$name/state',
+      body: {'action': 'restart', 'force': force},
+    );
   }
 
   /// Deletes the instance with [name].
@@ -341,26 +353,42 @@ class LxdClient {
     required String path,
     String? project,
   }) {
-    return _requestSync('DELETE', '/1.0/instances/$instance/files', {
-      'path': path,
-      if (project != null) 'project': project,
-    });
+    return _requestSync(
+      'DELETE',
+      '/1.0/instances/$instance/files',
+      queryParameters: {
+        'path': path,
+        if (project != null) 'project': project,
+      },
+    );
   }
 
   Future<void> pushFile(
     String instance, {
     required String path,
     String? project,
-    required String data,
+    String? data,
+    int? uid,
+    int? gid,
+    String? mode,
+    LxdFileType? type,
+    LxdWriteMode? write,
   }) {
     return _requestSync(
       'POST',
       '/1.0/instances/$instance/files',
-      {
+      queryParameters: {
         'path': path,
         if (project != null) 'project': project,
       },
-      data,
+      headers: {
+        if (uid != null) 'X-LXD-uid': uid,
+        if (gid != null) 'X-LXD-gid': gid,
+        if (mode != null) 'X-LXD-mode': mode,
+        if (type != null) 'X-LXD-type': type.name,
+        if (write != null) 'X-LXD-write': write.name,
+      },
+      body: data,
     );
   }
 
@@ -480,8 +508,13 @@ class LxdClient {
   }
 
   /// Does a synchronous request to lxd.
-  Future<dynamic> _requestSync(String method, String path,
-      [Map<String, String> queryParameters = const {}, dynamic body]) async {
+  Future<dynamic> _requestSync(
+    String method,
+    String path, {
+    Map<String, String> queryParameters = const {},
+    Map<String, Object> headers = const {},
+    dynamic body,
+  }) async {
     // Get host information first.
     if (method != 'GET' || path != '/1.0') {
       await _connect();
@@ -491,6 +524,9 @@ class LxdClient {
       method,
       _url.resolve(path).replace(queryParameters: queryParameters),
     );
+    for (final header in headers.entries) {
+      request.headers.add(header.key, header.value);
+    }
     if (body != null) request.write(body);
     await request.close();
     var lxdResponse = await _parseResponse<LxdSyncResponse>(await request.done);
@@ -498,8 +534,11 @@ class LxdClient {
   }
 
   /// Does an asynchronous request to lxd.
-  Future<dynamic> _requestAsync(String method, String path,
-      [dynamic body]) async {
+  Future<dynamic> _requestAsync(
+    String method,
+    String path, {
+    dynamic body,
+  }) async {
     await _connect();
     var request = await _client.openUrl(method, _url.resolve(path));
     request.headers.contentType = ContentType('application', 'json');

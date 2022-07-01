@@ -10,6 +10,7 @@ export 'src/api/profile.dart';
 export 'src/api/project.dart';
 export 'src/api/resource.dart';
 export 'src/api/storage_pool.dart';
+export 'src/enums.dart';
 export 'src/exception.dart';
 export 'src/lxd_client.dart';
 export 'src/status_code.dart';
