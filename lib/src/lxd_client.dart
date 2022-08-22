@@ -257,7 +257,15 @@ class LxdClient {
           if (server != null) 'server': server,
         },
         if (instanceType != null) 'type': instanceType,
-        if (type != null) 'type': type.name,
+        if (type != null)
+          'type': () {
+            switch (type) {
+              case LxdImageType.container:
+                return 'container';
+              case LxdImageType.virtualMachine:
+                return 'virtual-machine';
+            }
+          }(),
       },
     );
   }
