@@ -114,8 +114,11 @@ class LxdClient {
   }
 
   /// Wait for the operation with [id] to complete.
-  Future<LxdOperation> waitOperation(String id) async {
-    var response = await _requestSync('GET', '/1.0/operations/$id/wait');
+  Future<LxdOperation> waitOperation(String id, {Duration? timeout}) async {
+    var response =
+        await _requestSync('GET', '/1.0/operations/$id/wait', queryParameters: {
+      if (timeout != null) 'timeout': timeout.inSeconds.toString(),
+    });
     return LxdOperation.fromJson(response);
   }
 
