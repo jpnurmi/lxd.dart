@@ -10,19 +10,35 @@ _$_LxdInstanceState _$$_LxdInstanceStateFromJson(Map<String, dynamic> json) =>
     _$_LxdInstanceState(
       status: $enumDecode(_$LxdInstanceStatusEnumMap, json['status']),
       statusCode: json['status_code'] as int,
+      disk: (json['disk'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, LxdInstanceDiskState.fromJson(e as Map<String, dynamic>)),
+      ),
+      memory: json['memory'] == null
+          ? null
+          : LxdInstanceMemoryState.fromJson(
+              json['memory'] as Map<String, dynamic>),
       network: (json['network'] as Map<String, dynamic>?)?.map(
-        (k, e) =>
-            MapEntry(k, LxdNetworkState.fromJson(e as Map<String, dynamic>)),
+        (k, e) => MapEntry(
+            k, LxdInstanceNetworkState.fromJson(e as Map<String, dynamic>)),
       ),
       pid: json['pid'] as int,
+      processes: json['processes'] as int? ?? -1,
+      cpu: json['cpu'] == null
+          ? null
+          : LxdInstanceCpuState.fromJson(json['cpu'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_LxdInstanceStateToJson(_$_LxdInstanceState instance) =>
     <String, dynamic>{
       'status': _$LxdInstanceStatusEnumMap[instance.status],
       'status_code': instance.statusCode,
+      'disk': instance.disk?.map((k, e) => MapEntry(k, e.toJson())),
+      'memory': instance.memory?.toJson(),
       'network': instance.network?.map((k, e) => MapEntry(k, e.toJson())),
       'pid': instance.pid,
+      'processes': instance.processes,
+      'cpu': instance.cpu?.toJson(),
     };
 
 const _$LxdInstanceStatusEnumMap = {
@@ -136,7 +152,7 @@ _$_LxdInstanceNetworkCounters _$$_LxdInstanceNetworkCountersFromJson(
     _$_LxdInstanceNetworkCounters(
       bytesReceived: json['bytes_received'] as int,
       bytesSent: json['bytes_sent'] as int,
-      acketsReceived: json['ackets_received'] as int,
+      packetsReceived: json['packets_received'] as int,
       packetsSent: json['packets_sent'] as int,
       errorsReceived: json['errors_received'] as int,
       errorsSent: json['errors_sent'] as int,
@@ -149,7 +165,7 @@ Map<String, dynamic> _$$_LxdInstanceNetworkCountersToJson(
     <String, dynamic>{
       'bytes_received': instance.bytesReceived,
       'bytes_sent': instance.bytesSent,
-      'ackets_received': instance.acketsReceived,
+      'packets_received': instance.packetsReceived,
       'packets_sent': instance.packetsSent,
       'errors_received': instance.errorsReceived,
       'errors_sent': instance.errorsSent,

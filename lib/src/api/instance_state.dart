@@ -2,8 +2,6 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'network.dart';
-
 part 'instance_state.freezed.dart';
 part 'instance_state.g.dart';
 
@@ -33,8 +31,24 @@ class LxdInstanceState with _$LxdInstanceState {
 
     /// Numeric status code (101, 102, 110, 112)
     required int statusCode,
-    Map<String, LxdNetworkState>? network,
+
+    /// Disk usage
+    Map<String, LxdInstanceDiskState>? disk,
+
+    /// Memory usage information
+    LxdInstanceMemoryState? memory,
+
+    /// Network usage
+    Map<String, LxdInstanceNetworkState>? network,
+
+    /// PID of the runtime
     required int pid,
+
+    /// Number of processes in the instance
+    @Default(-1) int processes,
+
+    /// CPU usage information
+    LxdInstanceCpuState? cpu,
   }) = _LxdInstanceState;
 
   factory LxdInstanceState.fromJson(Map<String, dynamic> json) =>
@@ -204,7 +218,7 @@ class LxdInstanceNetworkCounters with _$LxdInstanceNetworkCounters {
     /// Number of packets received
     ///
     /// Example: 1748
-    required int acketsReceived,
+    required int packetsReceived,
 
     /// Number of packets sent
     ///

@@ -16,12 +16,12 @@ void main() async {
         continue;
       }
       for (var address in network[interface]!.addresses) {
-        if (address.scope == 'link' || address.scope == 'local') {
+        if (address.scope != LxdNetworkScope.global) {
           continue;
         }
-        if (address.family == 'inet') {
+        if (address.family == LxdNetworkFamily.inet) {
           addresses4.add('${address.address} ($interface)');
-        } else if (address.family == 'inet6') {
+        } else if (address.family == LxdNetworkFamily.inet6) {
           addresses6.add('${address.address} ($interface)');
         }
       }

@@ -12,9 +12,9 @@ void main() {
       'disk': {},
       'memory': {
         'usage': 89337856,
-        'usage_peak': 0,
-        'swap_usage': 0,
-        'swap_usage_peak': 0
+        'usage_peak': 11,
+        'swap_usage': 22,
+        'swap_usage_peak': 33
       },
       'network': {
         'eth0': {
@@ -31,10 +31,10 @@ void main() {
             'bytes_sent': 10888579,
             'packets_received': 1748,
             'packets_sent': 964,
-            'errors_received': 0,
-            'errors_sent': 0,
-            'packets_dropped_outbound': 0,
-            'packets_dropped_inbound': 0
+            'errors_received': 11,
+            'errors_sent': 22,
+            'packets_dropped_outbound': 33,
+            'packets_dropped_inbound': 44
           },
           'hwaddr': '00:16:3e:0c:ee:dd',
           'host_name': 'veth4bd95d5a',
@@ -60,22 +60,41 @@ void main() {
     expect(
         eth.addresses,
         equals([
-          LxdNetworkAddress(
+          LxdInstanceNetworkAddress(
               address: 'fd42:4c81:5770:1eaf:216:3eff:fe0c:eedd',
-              family: 'inet6',
+              family: LxdNetworkFamily.inet6,
               netmask: '64',
-              scope: 'global')
+              scope: LxdNetworkScope.global)
         ]));
-    expect(eth.counters.bytesReceived, equals(192021));
-    expect(eth.counters.bytesSent, equals(10888579));
-    expect(eth.counters.packetsReceived, equals(1748));
-    expect(eth.counters.packetsSent, equals(964));
+    expect(
+        eth.counters,
+        equals(LxdInstanceNetworkCounters(
+          bytesReceived: 192021,
+          bytesSent: 10888579,
+          packetsReceived: 1748,
+          packetsSent: 964,
+          errorsReceived: 11,
+          errorsSent: 22,
+          packetsDroppedOutbound: 33,
+          packetsDroppedInbound: 44,
+        )));
+
     expect(eth.hwaddr, equals('00:16:3e:0c:ee:dd'));
     expect(eth.mtu, equals(1500));
     expect(eth.state, equals('up'));
     expect(eth.type, equals('broadcast'));
     expect(state.pid, equals(7281));
+    expect(state.processes, equals(46));
     expect(state.status, equals(LxdInstanceStatus.running));
     expect(state.statusCode, equals(0));
+    expect(state.cpu, equals(LxdInstanceCpuState(usage: 7123197000)));
+    expect(
+        state.memory,
+        equals(LxdInstanceMemoryState(
+          usage: 89337856,
+          usagePeak: 11,
+          swapUsage: 22,
+          swapUsagePeak: 33,
+        )));
   });
 }

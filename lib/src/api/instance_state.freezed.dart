@@ -25,9 +25,26 @@ mixin _$LxdInstanceState {
 
   /// Numeric status code (101, 102, 110, 112)
   int get statusCode => throw _privateConstructorUsedError;
-  Map<String, LxdNetworkState>? get network =>
+
+  /// Disk usage
+  Map<String, LxdInstanceDiskState>? get disk =>
       throw _privateConstructorUsedError;
+
+  /// Memory usage information
+  LxdInstanceMemoryState? get memory => throw _privateConstructorUsedError;
+
+  /// Network usage
+  Map<String, LxdInstanceNetworkState>? get network =>
+      throw _privateConstructorUsedError;
+
+  /// PID of the runtime
   int get pid => throw _privateConstructorUsedError;
+
+  /// Number of processes in the instance
+  int get processes => throw _privateConstructorUsedError;
+
+  /// CPU usage information
+  LxdInstanceCpuState? get cpu => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,8 +60,15 @@ abstract class $LxdInstanceStateCopyWith<$Res> {
   $Res call(
       {LxdInstanceStatus status,
       int statusCode,
-      Map<String, LxdNetworkState>? network,
-      int pid});
+      Map<String, LxdInstanceDiskState>? disk,
+      LxdInstanceMemoryState? memory,
+      Map<String, LxdInstanceNetworkState>? network,
+      int pid,
+      int processes,
+      LxdInstanceCpuState? cpu});
+
+  $LxdInstanceMemoryStateCopyWith<$Res>? get memory;
+  $LxdInstanceCpuStateCopyWith<$Res>? get cpu;
 }
 
 /// @nodoc
@@ -60,8 +84,12 @@ class _$LxdInstanceStateCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? statusCode = freezed,
+    Object? disk = freezed,
+    Object? memory = freezed,
     Object? network = freezed,
     Object? pid = freezed,
+    Object? processes = freezed,
+    Object? cpu = freezed,
   }) {
     return _then(_value.copyWith(
       status: status == freezed
@@ -72,15 +100,53 @@ class _$LxdInstanceStateCopyWithImpl<$Res>
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
               as int,
+      disk: disk == freezed
+          ? _value.disk
+          : disk // ignore: cast_nullable_to_non_nullable
+              as Map<String, LxdInstanceDiskState>?,
+      memory: memory == freezed
+          ? _value.memory
+          : memory // ignore: cast_nullable_to_non_nullable
+              as LxdInstanceMemoryState?,
       network: network == freezed
           ? _value.network
           : network // ignore: cast_nullable_to_non_nullable
-              as Map<String, LxdNetworkState>?,
+              as Map<String, LxdInstanceNetworkState>?,
       pid: pid == freezed
           ? _value.pid
           : pid // ignore: cast_nullable_to_non_nullable
               as int,
+      processes: processes == freezed
+          ? _value.processes
+          : processes // ignore: cast_nullable_to_non_nullable
+              as int,
+      cpu: cpu == freezed
+          ? _value.cpu
+          : cpu // ignore: cast_nullable_to_non_nullable
+              as LxdInstanceCpuState?,
     ));
+  }
+
+  @override
+  $LxdInstanceMemoryStateCopyWith<$Res>? get memory {
+    if (_value.memory == null) {
+      return null;
+    }
+
+    return $LxdInstanceMemoryStateCopyWith<$Res>(_value.memory!, (value) {
+      return _then(_value.copyWith(memory: value));
+    });
+  }
+
+  @override
+  $LxdInstanceCpuStateCopyWith<$Res>? get cpu {
+    if (_value.cpu == null) {
+      return null;
+    }
+
+    return $LxdInstanceCpuStateCopyWith<$Res>(_value.cpu!, (value) {
+      return _then(_value.copyWith(cpu: value));
+    });
   }
 }
 
@@ -94,8 +160,17 @@ abstract class _$$_LxdInstanceStateCopyWith<$Res>
   $Res call(
       {LxdInstanceStatus status,
       int statusCode,
-      Map<String, LxdNetworkState>? network,
-      int pid});
+      Map<String, LxdInstanceDiskState>? disk,
+      LxdInstanceMemoryState? memory,
+      Map<String, LxdInstanceNetworkState>? network,
+      int pid,
+      int processes,
+      LxdInstanceCpuState? cpu});
+
+  @override
+  $LxdInstanceMemoryStateCopyWith<$Res>? get memory;
+  @override
+  $LxdInstanceCpuStateCopyWith<$Res>? get cpu;
 }
 
 /// @nodoc
@@ -113,8 +188,12 @@ class __$$_LxdInstanceStateCopyWithImpl<$Res>
   $Res call({
     Object? status = freezed,
     Object? statusCode = freezed,
+    Object? disk = freezed,
+    Object? memory = freezed,
     Object? network = freezed,
     Object? pid = freezed,
+    Object? processes = freezed,
+    Object? cpu = freezed,
   }) {
     return _then(_$_LxdInstanceState(
       status: status == freezed
@@ -125,14 +204,30 @@ class __$$_LxdInstanceStateCopyWithImpl<$Res>
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
               as int,
+      disk: disk == freezed
+          ? _value._disk
+          : disk // ignore: cast_nullable_to_non_nullable
+              as Map<String, LxdInstanceDiskState>?,
+      memory: memory == freezed
+          ? _value.memory
+          : memory // ignore: cast_nullable_to_non_nullable
+              as LxdInstanceMemoryState?,
       network: network == freezed
           ? _value._network
           : network // ignore: cast_nullable_to_non_nullable
-              as Map<String, LxdNetworkState>?,
+              as Map<String, LxdInstanceNetworkState>?,
       pid: pid == freezed
           ? _value.pid
           : pid // ignore: cast_nullable_to_non_nullable
               as int,
+      processes: processes == freezed
+          ? _value.processes
+          : processes // ignore: cast_nullable_to_non_nullable
+              as int,
+      cpu: cpu == freezed
+          ? _value.cpu
+          : cpu // ignore: cast_nullable_to_non_nullable
+              as LxdInstanceCpuState?,
     ));
   }
 }
@@ -144,9 +239,14 @@ class _$_LxdInstanceState implements _LxdInstanceState {
   const _$_LxdInstanceState(
       {required this.status,
       required this.statusCode,
-      final Map<String, LxdNetworkState>? network,
-      required this.pid})
-      : _network = network;
+      final Map<String, LxdInstanceDiskState>? disk,
+      this.memory,
+      final Map<String, LxdInstanceNetworkState>? network,
+      required this.pid,
+      this.processes = -1,
+      this.cpu})
+      : _disk = disk,
+        _network = network;
 
   factory _$_LxdInstanceState.fromJson(Map<String, dynamic> json) =>
       _$$_LxdInstanceStateFromJson(json);
@@ -158,21 +258,51 @@ class _$_LxdInstanceState implements _LxdInstanceState {
   /// Numeric status code (101, 102, 110, 112)
   @override
   final int statusCode;
-  final Map<String, LxdNetworkState>? _network;
+
+  /// Disk usage
+  final Map<String, LxdInstanceDiskState>? _disk;
+
+  /// Disk usage
   @override
-  Map<String, LxdNetworkState>? get network {
+  Map<String, LxdInstanceDiskState>? get disk {
+    final value = _disk;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  /// Memory usage information
+  @override
+  final LxdInstanceMemoryState? memory;
+
+  /// Network usage
+  final Map<String, LxdInstanceNetworkState>? _network;
+
+  /// Network usage
+  @override
+  Map<String, LxdInstanceNetworkState>? get network {
     final value = _network;
     if (value == null) return null;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
 
+  /// PID of the runtime
   @override
   final int pid;
 
+  /// Number of processes in the instance
+  @override
+  @JsonKey()
+  final int processes;
+
+  /// CPU usage information
+  @override
+  final LxdInstanceCpuState? cpu;
+
   @override
   String toString() {
-    return 'LxdInstanceState(status: $status, statusCode: $statusCode, network: $network, pid: $pid)';
+    return 'LxdInstanceState(status: $status, statusCode: $statusCode, disk: $disk, memory: $memory, network: $network, pid: $pid, processes: $processes, cpu: $cpu)';
   }
 
   @override
@@ -183,8 +313,12 @@ class _$_LxdInstanceState implements _LxdInstanceState {
             const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality()
                 .equals(other.statusCode, statusCode) &&
+            const DeepCollectionEquality().equals(other._disk, _disk) &&
+            const DeepCollectionEquality().equals(other.memory, memory) &&
             const DeepCollectionEquality().equals(other._network, _network) &&
-            const DeepCollectionEquality().equals(other.pid, pid));
+            const DeepCollectionEquality().equals(other.pid, pid) &&
+            const DeepCollectionEquality().equals(other.processes, processes) &&
+            const DeepCollectionEquality().equals(other.cpu, cpu));
   }
 
   @JsonKey(ignore: true)
@@ -193,8 +327,12 @@ class _$_LxdInstanceState implements _LxdInstanceState {
       runtimeType,
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(statusCode),
+      const DeepCollectionEquality().hash(_disk),
+      const DeepCollectionEquality().hash(memory),
       const DeepCollectionEquality().hash(_network),
-      const DeepCollectionEquality().hash(pid));
+      const DeepCollectionEquality().hash(pid),
+      const DeepCollectionEquality().hash(processes),
+      const DeepCollectionEquality().hash(cpu));
 
   @JsonKey(ignore: true)
   @override
@@ -211,8 +349,12 @@ abstract class _LxdInstanceState implements LxdInstanceState {
   const factory _LxdInstanceState(
       {required final LxdInstanceStatus status,
       required final int statusCode,
-      final Map<String, LxdNetworkState>? network,
-      required final int pid}) = _$_LxdInstanceState;
+      final Map<String, LxdInstanceDiskState>? disk,
+      final LxdInstanceMemoryState? memory,
+      final Map<String, LxdInstanceNetworkState>? network,
+      required final int pid,
+      final int processes,
+      final LxdInstanceCpuState? cpu}) = _$_LxdInstanceState;
 
   factory _LxdInstanceState.fromJson(Map<String, dynamic> json) =
       _$_LxdInstanceState.fromJson;
@@ -226,10 +368,31 @@ abstract class _LxdInstanceState implements LxdInstanceState {
   /// Numeric status code (101, 102, 110, 112)
   int get statusCode => throw _privateConstructorUsedError;
   @override
-  Map<String, LxdNetworkState>? get network =>
+
+  /// Disk usage
+  Map<String, LxdInstanceDiskState>? get disk =>
       throw _privateConstructorUsedError;
   @override
+
+  /// Memory usage information
+  LxdInstanceMemoryState? get memory => throw _privateConstructorUsedError;
+  @override
+
+  /// Network usage
+  Map<String, LxdInstanceNetworkState>? get network =>
+      throw _privateConstructorUsedError;
+  @override
+
+  /// PID of the runtime
   int get pid => throw _privateConstructorUsedError;
+  @override
+
+  /// Number of processes in the instance
+  int get processes => throw _privateConstructorUsedError;
+  @override
+
+  /// CPU usage information
+  LxdInstanceCpuState? get cpu => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_LxdInstanceStateCopyWith<_$_LxdInstanceState> get copyWith =>
@@ -1389,7 +1552,7 @@ mixin _$LxdInstanceNetworkCounters {
   /// Number of packets received
   ///
   /// Example: 1748
-  int get acketsReceived => throw _privateConstructorUsedError;
+  int get packetsReceived => throw _privateConstructorUsedError;
 
   /// Number of packets sent
   ///
@@ -1430,7 +1593,7 @@ abstract class $LxdInstanceNetworkCountersCopyWith<$Res> {
   $Res call(
       {int bytesReceived,
       int bytesSent,
-      int acketsReceived,
+      int packetsReceived,
       int packetsSent,
       int errorsReceived,
       int errorsSent,
@@ -1451,7 +1614,7 @@ class _$LxdInstanceNetworkCountersCopyWithImpl<$Res>
   $Res call({
     Object? bytesReceived = freezed,
     Object? bytesSent = freezed,
-    Object? acketsReceived = freezed,
+    Object? packetsReceived = freezed,
     Object? packetsSent = freezed,
     Object? errorsReceived = freezed,
     Object? errorsSent = freezed,
@@ -1467,9 +1630,9 @@ class _$LxdInstanceNetworkCountersCopyWithImpl<$Res>
           ? _value.bytesSent
           : bytesSent // ignore: cast_nullable_to_non_nullable
               as int,
-      acketsReceived: acketsReceived == freezed
-          ? _value.acketsReceived
-          : acketsReceived // ignore: cast_nullable_to_non_nullable
+      packetsReceived: packetsReceived == freezed
+          ? _value.packetsReceived
+          : packetsReceived // ignore: cast_nullable_to_non_nullable
               as int,
       packetsSent: packetsSent == freezed
           ? _value.packetsSent
@@ -1506,7 +1669,7 @@ abstract class _$$_LxdInstanceNetworkCountersCopyWith<$Res>
   $Res call(
       {int bytesReceived,
       int bytesSent,
-      int acketsReceived,
+      int packetsReceived,
       int packetsSent,
       int errorsReceived,
       int errorsSent,
@@ -1531,7 +1694,7 @@ class __$$_LxdInstanceNetworkCountersCopyWithImpl<$Res>
   $Res call({
     Object? bytesReceived = freezed,
     Object? bytesSent = freezed,
-    Object? acketsReceived = freezed,
+    Object? packetsReceived = freezed,
     Object? packetsSent = freezed,
     Object? errorsReceived = freezed,
     Object? errorsSent = freezed,
@@ -1547,9 +1710,9 @@ class __$$_LxdInstanceNetworkCountersCopyWithImpl<$Res>
           ? _value.bytesSent
           : bytesSent // ignore: cast_nullable_to_non_nullable
               as int,
-      acketsReceived: acketsReceived == freezed
-          ? _value.acketsReceived
-          : acketsReceived // ignore: cast_nullable_to_non_nullable
+      packetsReceived: packetsReceived == freezed
+          ? _value.packetsReceived
+          : packetsReceived // ignore: cast_nullable_to_non_nullable
               as int,
       packetsSent: packetsSent == freezed
           ? _value.packetsSent
@@ -1582,7 +1745,7 @@ class _$_LxdInstanceNetworkCounters implements _LxdInstanceNetworkCounters {
   const _$_LxdInstanceNetworkCounters(
       {required this.bytesReceived,
       required this.bytesSent,
-      required this.acketsReceived,
+      required this.packetsReceived,
       required this.packetsSent,
       required this.errorsReceived,
       required this.errorsSent,
@@ -1608,7 +1771,7 @@ class _$_LxdInstanceNetworkCounters implements _LxdInstanceNetworkCounters {
   ///
   /// Example: 1748
   @override
-  final int acketsReceived;
+  final int packetsReceived;
 
   /// Number of packets sent
   ///
@@ -1642,7 +1805,7 @@ class _$_LxdInstanceNetworkCounters implements _LxdInstanceNetworkCounters {
 
   @override
   String toString() {
-    return 'LxdInstanceNetworkCounters(bytesReceived: $bytesReceived, bytesSent: $bytesSent, acketsReceived: $acketsReceived, packetsSent: $packetsSent, errorsReceived: $errorsReceived, errorsSent: $errorsSent, packetsDroppedOutbound: $packetsDroppedOutbound, packetsDroppedInbound: $packetsDroppedInbound)';
+    return 'LxdInstanceNetworkCounters(bytesReceived: $bytesReceived, bytesSent: $bytesSent, packetsReceived: $packetsReceived, packetsSent: $packetsSent, errorsReceived: $errorsReceived, errorsSent: $errorsSent, packetsDroppedOutbound: $packetsDroppedOutbound, packetsDroppedInbound: $packetsDroppedInbound)';
   }
 
   @override
@@ -1654,7 +1817,7 @@ class _$_LxdInstanceNetworkCounters implements _LxdInstanceNetworkCounters {
                 .equals(other.bytesReceived, bytesReceived) &&
             const DeepCollectionEquality().equals(other.bytesSent, bytesSent) &&
             const DeepCollectionEquality()
-                .equals(other.acketsReceived, acketsReceived) &&
+                .equals(other.packetsReceived, packetsReceived) &&
             const DeepCollectionEquality()
                 .equals(other.packetsSent, packetsSent) &&
             const DeepCollectionEquality()
@@ -1673,7 +1836,7 @@ class _$_LxdInstanceNetworkCounters implements _LxdInstanceNetworkCounters {
       runtimeType,
       const DeepCollectionEquality().hash(bytesReceived),
       const DeepCollectionEquality().hash(bytesSent),
-      const DeepCollectionEquality().hash(acketsReceived),
+      const DeepCollectionEquality().hash(packetsReceived),
       const DeepCollectionEquality().hash(packetsSent),
       const DeepCollectionEquality().hash(errorsReceived),
       const DeepCollectionEquality().hash(errorsSent),
@@ -1697,7 +1860,7 @@ abstract class _LxdInstanceNetworkCounters
   const factory _LxdInstanceNetworkCounters(
           {required final int bytesReceived,
           required final int bytesSent,
-          required final int acketsReceived,
+          required final int packetsReceived,
           required final int packetsSent,
           required final int errorsReceived,
           required final int errorsSent,
@@ -1725,7 +1888,7 @@ abstract class _LxdInstanceNetworkCounters
   /// Number of packets received
   ///
   /// Example: 1748
-  int get acketsReceived => throw _privateConstructorUsedError;
+  int get packetsReceived => throw _privateConstructorUsedError;
   @override
 
   /// Number of packets sent
