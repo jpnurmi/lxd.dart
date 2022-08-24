@@ -274,11 +274,19 @@ class LxdClient {
   }
 
   /// Starts the instance with [name].
-  Future<LxdOperation> startInstance(String name, {bool force = false}) async {
+  Future<LxdOperation> startInstance(
+    String name, {
+    bool force = false,
+    Duration? timeout,
+  }) async {
     return await _requestAsync(
       'PUT',
       '/1.0/instances/$name/state',
-      body: {'action': 'start', 'force': force},
+      body: {
+        'action': 'start',
+        'force': force,
+        if (timeout != null) 'timeout': timeout.inSeconds,
+      },
     );
   }
 
@@ -320,21 +328,36 @@ class LxdClient {
   }
 
   /// Stops the instance with [name].
-  Future<LxdOperation> stopInstance(String name, {bool force = false}) async {
+  Future<LxdOperation> stopInstance(
+    String name, {
+    bool force = false,
+    Duration? timeout,
+  }) async {
     return await _requestAsync(
       'PUT',
       '/1.0/instances/$name/state',
-      body: {'action': 'stop', 'force': force},
+      body: {
+        'action': 'stop',
+        'force': force,
+        if (timeout != null) 'timeout': timeout.inSeconds,
+      },
     );
   }
 
   /// Restarts the instance with [name].
-  Future<LxdOperation> restartInstance(String name,
-      {bool force = false}) async {
+  Future<LxdOperation> restartInstance(
+    String name, {
+    bool force = false,
+    Duration? timeout,
+  }) async {
     return await _requestAsync(
       'PUT',
       '/1.0/instances/$name/state',
-      body: {'action': 'restart', 'force': force},
+      body: {
+        'action': 'restart',
+        'force': force,
+        if (timeout != null) 'timeout': timeout.inSeconds,
+      },
     );
   }
 
