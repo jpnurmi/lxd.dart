@@ -274,19 +274,11 @@ class LxdClient {
   }
 
   /// Starts the instance with [name].
-  Future<LxdOperation> startInstance(
-    String name, {
-    bool force = false,
-    Duration? timeout,
-  }) async {
+  Future<LxdOperation> startInstance(String name, {bool force = false}) async {
     return await _requestAsync(
       'PUT',
       '/1.0/instances/$name/state',
-      body: {
-        'action': 'start',
-        'force': force,
-        if (timeout != null) 'timeout': timeout.inSeconds,
-      },
+      body: {'action': 'start', 'force': force},
     );
   }
 
