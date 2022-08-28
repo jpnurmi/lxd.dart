@@ -19,55 +19,52 @@
 /// - 200 to 399: positive action result
 /// - 400 to 599: negative action result
 /// - 600 to 999: future use
-enum LxdStatusCode {
+class LxdStatusCode {
   /// Operation created
-  operationCreated(100),
+  static const operationCreated = 100;
 
   /// Started
-  started(101),
+  static const started = 101;
 
   /// Stopped
-  stopped(102),
+  static const stopped = 102;
 
   /// Running
-  running(103),
+  static const running = 103;
 
   /// Cancelling
-  cancelling(104),
+  static const cancelling = 104;
 
   /// Pending
-  pending(105),
+  static const pending = 105;
 
   /// Starting
-  starting(106),
+  static const starting = 106;
 
   /// Stopping
-  stopping(107),
+  static const stopping = 107;
 
   /// Aborting
-  aborting(108),
+  static const aborting = 108;
 
   /// Freezing
-  freezing(109),
+  static const freezing = 109;
 
   /// Frozen
-  frozen(110),
+  static const frozen = 110;
 
   /// Thawed
-  thawed(111),
+  static const thawed = 111;
 
   /// Error
-  error(112),
+  static const error = 112;
 
   /// Success
-  success(200),
+  static const success = 200;
 
   /// Failure
-  failure(400),
+  static const failure = 400;
 
   /// Cancelled
-  cancelled(401);
-
-  const LxdStatusCode(this.value);
-  final int value;
+  static const cancelled = 401;
 }
