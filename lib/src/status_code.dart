@@ -19,7 +19,9 @@
 /// - 200 to 399: positive action result
 /// - 400 to 599: negative action result
 /// - 600 to 999: future use
-class LxdStatusCode {
+abstract class LxdStatusCode {
+  LxdStatusCode._();
+
   /// Operation created
   static const operationCreated = 100;
 
