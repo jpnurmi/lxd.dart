@@ -87,7 +87,8 @@ void main() {
         'type': 'image',
         'protocol': 'simplestreams',
         'server': 'https://example.com',
-      }
+      },
+      'type': 'container',
     };
 
     final http = mockHttpClient();
