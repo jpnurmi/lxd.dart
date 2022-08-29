@@ -7,7 +7,6 @@ part 'network.g.dart';
 
 @freezed
 class LxdNetwork with _$LxdNetwork {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetwork({
     required Map<String, String> config,
     required String description,
@@ -23,7 +22,6 @@ class LxdNetwork with _$LxdNetwork {
 
 @freezed
 class LxdNetworkLease with _$LxdNetworkLease {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetworkLease({
     required String address,
     required String hostname,
@@ -38,7 +36,6 @@ class LxdNetworkLease with _$LxdNetworkLease {
 
 @freezed
 class LxdNetworkState with _$LxdNetworkState {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetworkState({
     required List<LxdNetworkAddress> addresses,
     required LxdNetworkCounters counters,
@@ -54,7 +51,6 @@ class LxdNetworkState with _$LxdNetworkState {
 
 @freezed
 class LxdNetworkAddress with _$LxdNetworkAddress {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetworkAddress({
     required String address,
     required String family,
@@ -68,7 +64,6 @@ class LxdNetworkAddress with _$LxdNetworkAddress {
 
 @freezed
 class LxdNetworkCounters with _$LxdNetworkCounters {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetworkCounters({
     required int bytesReceived,
     required int bytesSent,

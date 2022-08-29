@@ -352,8 +352,7 @@ class __$$_LxdImageCopyWithImpl<$Res> extends _$LxdImageCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdImage implements _LxdImage {
   const _$_LxdImage(
       {this.autoUpdate = false,
@@ -768,8 +767,7 @@ class __$$_LxdImageAliasCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdImageAlias implements _LxdImageAlias {
   const _$_LxdImageAlias({required this.name, this.description});
 
@@ -1002,8 +1000,7 @@ class __$$_LxdImageSourceCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdImageSource implements _LxdImageSource {
   const _$_LxdImageSource(
       {required this.alias,
@@ -1285,8 +1282,7 @@ class __$$_LxdImageMetadataCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdImageMetadata implements _LxdImageMetadata {
   const _$_LxdImageMetadata(
       {required this.architecture,
@@ -1564,8 +1560,7 @@ class __$$_LxdImageMetadataTemplateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdImageMetadataTemplate implements _LxdImageMetadataTemplate {
   const _$_LxdImageMetadataTemplate(
       {required final List<String> when,

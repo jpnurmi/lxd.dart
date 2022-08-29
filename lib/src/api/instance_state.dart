@@ -24,7 +24,6 @@ enum LxdInstanceStatus {
 /// API extension: instances
 @freezed
 class LxdInstanceState with _$LxdInstanceState {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstanceState({
     /// Current status
     required LxdInstanceStatus status,
@@ -60,7 +59,6 @@ class LxdInstanceState with _$LxdInstanceState {
 /// API extension: instances
 @freezed
 class LxdInstanceDiskState with _$LxdInstanceDiskState {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstanceDiskState({
     /// Disk usage in bytes
     ///
@@ -77,7 +75,6 @@ class LxdInstanceDiskState with _$LxdInstanceDiskState {
 /// API extension: instances
 @freezed
 class LxdInstanceCpuState with _$LxdInstanceCpuState {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstanceCpuState({
     /// CPU usage in nanoseconds
     ///
@@ -94,7 +91,6 @@ class LxdInstanceCpuState with _$LxdInstanceCpuState {
 /// API extension: instances
 @freezed
 class LxdInstanceMemoryState with _$LxdInstanceMemoryState {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstanceMemoryState({
     /// Memory usage in bytes
     ///
@@ -126,7 +122,6 @@ class LxdInstanceMemoryState with _$LxdInstanceMemoryState {
 /// API extension: instances
 @freezed
 class LxdInstanceNetworkState with _$LxdInstanceNetworkState {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstanceNetworkState({
     /// List of IP addresses
     required List<LxdInstanceNetworkAddress> addresses,
@@ -174,7 +169,6 @@ enum LxdNetworkScope { local, link, global }
 /// API extension: instances
 @freezed
 class LxdInstanceNetworkAddress with _$LxdInstanceNetworkAddress {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstanceNetworkAddress({
     /// Network family
     required LxdNetworkFamily family,
@@ -203,7 +197,6 @@ class LxdInstanceNetworkAddress with _$LxdInstanceNetworkAddress {
 /// API extension: instances
 @freezed
 class LxdInstanceNetworkCounters with _$LxdInstanceNetworkCounters {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstanceNetworkCounters({
     /// Number of bytes received
     ///

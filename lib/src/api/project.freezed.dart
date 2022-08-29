@@ -113,8 +113,7 @@ class __$$_LxdProjectCopyWithImpl<$Res> extends _$LxdProjectCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdProject implements _LxdProject {
   const _$_LxdProject(
       {required final Map<String, String> config,

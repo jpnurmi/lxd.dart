@@ -233,8 +233,7 @@ class __$$_LxdInstanceStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdInstanceState implements _LxdInstanceState {
   const _$_LxdInstanceState(
       {required this.status,
@@ -481,8 +480,7 @@ class __$$_LxdInstanceDiskStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdInstanceDiskState implements _LxdInstanceDiskState {
   const _$_LxdInstanceDiskState({required this.usage});
 
@@ -626,8 +624,7 @@ class __$$_LxdInstanceCpuStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdInstanceCpuState implements _LxdInstanceCpuState {
   const _$_LxdInstanceCpuState({required this.usage});
 
@@ -818,8 +815,7 @@ class __$$_LxdInstanceMemoryStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdInstanceMemoryState implements _LxdInstanceMemoryState {
   const _$_LxdInstanceMemoryState(
       {required this.usage,
@@ -1129,8 +1125,7 @@ class __$$_LxdInstanceNetworkStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdInstanceNetworkState implements _LxdInstanceNetworkState {
   const _$_LxdInstanceNetworkState(
       {required final List<LxdInstanceNetworkAddress> addresses,
@@ -1427,8 +1422,7 @@ class __$$_LxdInstanceNetworkAddressCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdInstanceNetworkAddress implements _LxdInstanceNetworkAddress {
   const _$_LxdInstanceNetworkAddress(
       {required this.family,
@@ -1739,8 +1733,7 @@ class __$$_LxdInstanceNetworkCountersCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdInstanceNetworkCounters implements _LxdInstanceNetworkCounters {
   const _$_LxdInstanceNetworkCounters(
       {required this.bytesReceived,

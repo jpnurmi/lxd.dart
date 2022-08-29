@@ -10,7 +10,6 @@ enum LxdEventType { operation, logging, lifecycle }
 /// Represents an event entry (over websocket)
 @freezed
 class LxdEvent with _$LxdEvent {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdEvent({
     /// Event type
     required LxdEventType type,
@@ -43,7 +42,6 @@ class LxdEvent with _$LxdEvent {
 /// Represents a logging type event entry (admin only)
 @freezed
 class LxdEventLogging with _$LxdEventLogging {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdEventLogging({
     required String message,
     required String level,
@@ -59,7 +57,6 @@ class LxdEventLogging with _$LxdEventLogging {
 /// API extension: event_lifecycle
 @freezed
 class LxdEventLifecycle with _$LxdEventLifecycle {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdEventLifecycle({
     required String action,
     required String source,
@@ -78,7 +75,6 @@ class LxdEventLifecycle with _$LxdEventLifecycle {
 /// API extension: event_lifecycle_requestor
 @freezed
 class LxdEventLifecycleRequestor with _$LxdEventLifecycleRequestor {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdEventLifecycleRequestor({
     required String username,
     required String protocol,

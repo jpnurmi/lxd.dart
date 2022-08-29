@@ -12,7 +12,6 @@ enum LxdImageType { container, virtualMachine }
 /// Represents an LXD image
 @freezed
 class LxdImage with _$LxdImage {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdImage({
     /// Whether the image should auto-update when a new build is available
     @Default(false) bool autoUpdate,
@@ -89,7 +88,6 @@ class LxdImage with _$LxdImage {
 /// Represents an alias from the alias list of an LXD image
 @freezed
 class LxdImageAlias with _$LxdImageAlias {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdImageAlias({
     /// Name of the alias
     ///
@@ -109,7 +107,6 @@ class LxdImageAlias with _$LxdImageAlias {
 /// Represents the source of an LXD image
 @freezed
 class LxdImageSource with _$LxdImageSource {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdImageSource({
     /// Source alias to download from
     ///
@@ -145,7 +142,6 @@ class LxdImageSource with _$LxdImageSource {
 /// Represents LXD image metadata (used in image tarball)
 @freezed
 class LxdImageMetadata with _$LxdImageMetadata {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdImageMetadata({
     /// Architecture name
     ///
@@ -178,7 +174,6 @@ class LxdImageMetadata with _$LxdImageMetadata {
 /// Represents a template entry in image metadata (used in image tarball)
 @freezed
 class LxdImageMetadataTemplate with _$LxdImageMetadataTemplate {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdImageMetadataTemplate({
     /// When to trigger the template (create, copy or start)
     ///

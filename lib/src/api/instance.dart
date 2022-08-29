@@ -12,7 +12,6 @@ enum LxdInstanceType { container, virtualMachine }
 /// Represents an LXD instance
 @freezed
 class LxdInstance with _$LxdInstance {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdInstance({
     /// Architecture name
     ///

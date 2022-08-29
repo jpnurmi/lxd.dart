@@ -7,7 +7,6 @@ part 'storage_pool.g.dart';
 
 @freezed
 class LxdStoragePool with _$LxdStoragePool {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdStoragePool({
     required Map<String, String> config,
     required String description,

@@ -10,7 +10,6 @@ part 'network_acl.g.dart';
 /// API extension: network_acl
 @freezed
 class LxdNetworkAclRule with _$LxdNetworkAclRule {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetworkAclRule({
     /// Action to perform on rule match
     ///
@@ -70,7 +69,6 @@ class LxdNetworkAclRule with _$LxdNetworkAclRule {
 // Represents an LXD network ACL.
 @freezed
 class LxdNetworkAcl with _$LxdNetworkAcl {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdNetworkAcl({
     /// Name of the ACL
     ///

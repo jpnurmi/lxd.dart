@@ -23,7 +23,6 @@ enum LxdCertificateType {
 /// Represents an LXD certificate
 @freezed
 class LxdCertificate with _$LxdCertificate {
-  @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
   const factory LxdCertificate({
     /// Name associated with the certificate
     ///

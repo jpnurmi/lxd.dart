@@ -9,7 +9,6 @@ part 'response.g.dart';
 class LxdResponse with _$LxdResponse {
   // Response retuned when a sync request is completed.
   @FreezedUnionValue('sync')
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory LxdResponse.sync({
     required String status,
     required int statusCode,
@@ -18,7 +17,6 @@ class LxdResponse with _$LxdResponse {
 
   // Response retuned when an async request has been started.
   @FreezedUnionValue('async')
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory LxdResponse.async({
     required String status,
     required int statusCode,
@@ -28,7 +26,6 @@ class LxdResponse with _$LxdResponse {
 
   // Response retuned when an error occurred.
   @FreezedUnionValue('error')
-  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory LxdResponse.error({
     required String error,
     required int errorCode,

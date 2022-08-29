@@ -160,8 +160,7 @@ class __$$_LxdEventCopyWithImpl<$Res> extends _$LxdEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdEvent implements _LxdEvent {
   const _$_LxdEvent(
       {required this.type,
@@ -397,8 +396,7 @@ class __$$_LxdEventLoggingCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdEventLogging implements _LxdEventLogging {
   const _$_LxdEventLogging(
       {required this.message,
@@ -615,8 +613,7 @@ class __$$_LxdEventLifecycleCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdEventLifecycle implements _LxdEventLifecycle {
   const _$_LxdEventLifecycle(
       {required this.action,
@@ -820,8 +817,7 @@ class __$$_LxdEventLifecycleRequestorCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdEventLifecycleRequestor implements _LxdEventLifecycleRequestor {
   const _$_LxdEventLifecycleRequestor(
       {required this.username, required this.protocol, required this.address});

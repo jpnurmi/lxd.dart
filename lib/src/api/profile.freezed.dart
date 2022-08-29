@@ -113,8 +113,7 @@ class __$$_LxdProfileCopyWithImpl<$Res> extends _$LxdProfileCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdProfile implements _LxdProfile {
   const _$_LxdProfile(
       {required final Map<String, String> config,

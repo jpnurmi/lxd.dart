@@ -396,8 +396,7 @@ class __$$_LxdInstanceCopyWithImpl<$Res> extends _$LxdInstanceCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdInstance implements _LxdInstance {
   const _$_LxdInstance(
       {required this.architecture,

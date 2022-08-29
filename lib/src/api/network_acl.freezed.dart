@@ -259,8 +259,7 @@ class __$$_LxdNetworkAclRuleCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdNetworkAclRule implements _LxdNetworkAclRule {
   const _$_LxdNetworkAclRule(
       {required this.action,
@@ -654,8 +653,7 @@ class __$$_LxdNetworkAclCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$_LxdNetworkAcl implements _LxdNetworkAcl {
   const _$_LxdNetworkAcl(
       {required this.name,

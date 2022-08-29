@@ -150,8 +150,7 @@ class __$$LxdSyncResponseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$LxdSyncResponse implements LxdSyncResponse {
   const _$LxdSyncResponse(
       {required this.status,
@@ -358,8 +357,7 @@ class __$$LxdAsyncResponseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$LxdAsyncResponse implements LxdAsyncResponse {
   const _$LxdAsyncResponse(
       {required this.status,
@@ -569,8 +567,7 @@ class __$$LxdErrorResponseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@JsonSerializable(fieldRename: FieldRename.snake)
+@JsonSerializable()
 class _$LxdErrorResponse implements LxdErrorResponse {
   const _$LxdErrorResponse(
       {required this.error,
