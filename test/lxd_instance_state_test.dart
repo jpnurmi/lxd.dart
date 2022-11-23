@@ -49,12 +49,12 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/instances/foo/state', {});
+    final uri = unixDomainUrl('/1.0/instances/foo/state', {'project': 'baz'});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final state = await client.getInstanceState('foo');
+    final state = await client.getInstanceState('foo', project: 'baz');
     expect(state.network!.keys, equals(['eth0']));
     final eth = state.network!['eth0']!;
     expect(

@@ -208,8 +208,15 @@ class LxdClient {
   }
 
   /// Gets the names of the instances provided by the LXD server.
-  Future<List<String>> getInstances() async {
-    var instancePaths = await _requestSync('GET', '/1.0/instances');
+  Future<List<String>> getInstances({String? project, String? filter}) async {
+    var instancePaths = await _requestSync(
+      'GET',
+      '/1.0/instances',
+      queryParameters: {
+        if (project != null) 'project': project,
+        if (filter != null) 'filter': filter,
+      },
+    );
     var instanceNames = <String>[];
     for (var path in instancePaths) {
       if (path.startsWith(_instancePath)) {
@@ -220,20 +227,35 @@ class LxdClient {
   }
 
   /// Gets information on the instance with [name].
-  Future<LxdInstance> getInstance(String name) async {
-    var instance = await _requestSync('GET', '/1.0/instances/$name');
+  Future<LxdInstance> getInstance(String name, {String? project}) async {
+    var instance = await _requestSync(
+      'GET',
+      '/1.0/instances/$name',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
     return LxdInstance.fromJson(instance);
   }
 
   /// Gets runtime state of the instance with [name].
-  Future<LxdInstanceState> getInstanceState(String name) async {
-    var state = await _requestSync('GET', '/1.0/instances/$name/state');
+  Future<LxdInstanceState> getInstanceState(
+    String name, {
+    String? project,
+  }) async {
+    var state = await _requestSync(
+      'GET',
+      '/1.0/instances/$name/state',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
     return LxdInstanceState.fromJson(state);
   }
 
   /// Creates a new instance from [image].
   Future<LxdOperation> createInstance({
-    // InstancePut
+    String? project,
     String? architecture,
     Map<String, String>? config,
     Map<String, Map<String, String>>? devices,
@@ -242,10 +264,8 @@ class LxdClient {
     String? restore,
     bool? stateful,
     String? description,
-    // InstancesPost
     String? name,
-    // TODO: InstanceSource
-    required LxdImage source,
+    required LxdImage source, // TODO: InstanceSource
     String? server,
     String? instanceType,
     LxdImageType? type,
@@ -253,6 +273,9 @@ class LxdClient {
     return await _requestAsync(
       'POST',
       '/1.0/instances',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
       body: {
         if (architecture != null) 'architecture': architecture,
         if (config != null) 'config': config,
@@ -283,10 +306,17 @@ class LxdClient {
   }
 
   /// Starts the instance with [name].
-  Future<LxdOperation> startInstance(String name, {bool force = false}) async {
+  Future<LxdOperation> startInstance(
+    String name, {
+    String? project,
+    bool force = false,
+  }) async {
     return await _requestAsync(
       'PUT',
       '/1.0/instances/$name/state',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
       body: {'action': 'start', 'force': force},
     );
   }
@@ -294,6 +324,7 @@ class LxdClient {
   /// Executes a command in the instance with [name].
   Future<LxdOperation> execInstance(
     String name, {
+    String? project,
     required List<String> command,
     String? workingDirectory,
     Map<String, String>? environment,
@@ -306,24 +337,37 @@ class LxdClient {
     bool? waitForWebSocket,
   }) async {
     // TODO: which parameters are required?
-    return await _requestAsync('POST', '/1.0/instances/$name/exec', body: {
-      'command': command,
-      if (workingDirectory != null) 'cwd': workingDirectory,
-      if (environment != null) 'environment': environment,
-      if (user != null) 'user': user,
-      if (group != null) 'group': group,
-      if (interactive != null) 'interactive': interactive,
-      if (recordOutput != null) 'record-output': recordOutput,
-      if (width != null) 'width': width,
-      if (height != null) 'height': height,
-      if (waitForWebSocket != null) 'wait-for-websocket': waitForWebSocket,
-    });
+    return await _requestAsync(
+      'POST',
+      '/1.0/instances/$name/exec',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+      body: {
+        'command': command,
+        if (workingDirectory != null) 'cwd': workingDirectory,
+        if (environment != null) 'environment': environment,
+        if (user != null) 'user': user,
+        if (group != null) 'group': group,
+        if (interactive != null) 'interactive': interactive,
+        if (recordOutput != null) 'record-output': recordOutput,
+        if (width != null) 'width': width,
+        if (height != null) 'height': height,
+        if (waitForWebSocket != null) 'wait-for-websocket': waitForWebSocket,
+      },
+    );
   }
 
-  Future<LxdOperation> updateInstance(LxdInstance instance) async {
+  Future<LxdOperation> updateInstance(
+    LxdInstance instance, {
+    String? project,
+  }) async {
     return await _requestAsync(
       'PUT',
       '/1.0/instances/${instance.name}',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
       body: instance.toJson(),
     );
   }
@@ -331,12 +375,16 @@ class LxdClient {
   /// Stops the instance with [name].
   Future<LxdOperation> stopInstance(
     String name, {
+    String? project,
     bool force = false,
     Duration? timeout,
   }) async {
     return await _requestAsync(
       'PUT',
       '/1.0/instances/$name/state',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
       body: {
         'action': 'stop',
         'force': force,
@@ -348,12 +396,16 @@ class LxdClient {
   /// Restarts the instance with [name].
   Future<LxdOperation> restartInstance(
     String name, {
+    String? project,
     bool force = false,
     Duration? timeout,
   }) async {
     return await _requestAsync(
       'PUT',
       '/1.0/instances/$name/state',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
       body: {
         'action': 'restart',
         'force': force,
@@ -363,8 +415,14 @@ class LxdClient {
   }
 
   /// Deletes the instance with [name].
-  Future<LxdOperation> deleteInstance(String name) async {
-    return await _requestAsync('DELETE', '/1.0/instances/$name');
+  Future<LxdOperation> deleteInstance(String name, {String? project}) async {
+    return await _requestAsync(
+      'DELETE',
+      '/1.0/instances/$name',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
   }
 
   Future<String> pullFile(

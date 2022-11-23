@@ -9,12 +9,12 @@ import 'lxd_http.dart';
 void main() {
   test('get instances', () async {
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/instances', {});
+    final uri = unixDomainUrl('/1.0/instances', {'project': 'baz'});
     final request = mockResponse(['/1.0/instances/foo', '/1.0/instances/bar']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final instances = await client.getInstances();
+    final instances = await client.getInstances(project: 'baz');
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 
@@ -41,12 +41,12 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/instances/foo', {});
+    final uri = unixDomainUrl('/1.0/instances/foo', {'project': 'baz'});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final instance = await client.getInstance('foo');
+    final instance = await client.getInstance('foo', project: 'baz');
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 
@@ -92,12 +92,13 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/instances');
+    final uri = unixDomainUrl('/1.0/instances', {'project': 'baz'});
     final request = mockOperation(id: 'ID');
     when(http.openUrl('POST', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
     var operation = await client.createInstance(
+      project: 'baz',
       description: 'Test Image',
       source: image,
       server: 'https://example.com',
@@ -112,12 +113,12 @@ void main() {
 
   test('start instance', () async {
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/instances/foo/state');
+    final uri = unixDomainUrl('/1.0/instances/foo/state', {'project': 'baz'});
     final request = mockOperation(id: 'ID');
     when(http.openUrl('PUT', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final operation = await client.startInstance('foo');
+    final operation = await client.startInstance('foo', project: 'baz');
     verify(http.openUrl('PUT', uri)).called(1);
     verify(request.write(jsonEncode({'action': 'start', 'force': false})));
     verify(request.close()).called(1);
@@ -127,12 +128,12 @@ void main() {
 
   test('stop instance', () async {
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/instances/foo/state');
+    final uri = unixDomainUrl('/1.0/instances/foo/state', {'project': 'baz'});
     final request = mockOperation(id: 'ID');
     when(http.openUrl('PUT', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final operation = await client.stopInstance('foo');
+    final operation = await client.stopInstance('foo', project: 'baz');
     verify(http.openUrl('PUT', uri)).called(1);
     verify(request.write(jsonEncode({'action': 'stop', 'force': false})));
     verify(request.close()).called(1);
@@ -142,12 +143,12 @@ void main() {
 
   test('restart instance', () async {
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/instances/foo/state');
+    final uri = unixDomainUrl('/1.0/instances/foo/state', {'project': 'baz'});
     final request = mockOperation(id: 'ID');
     when(http.openUrl('PUT', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final operation = await client.restartInstance('foo');
+    final operation = await client.restartInstance('foo', project: 'baz');
     verify(http.openUrl('PUT', uri)).called(1);
     verify(request.write(jsonEncode({'action': 'restart', 'force': false})));
     verify(request.close()).called(1);
@@ -157,12 +158,12 @@ void main() {
 
   test('delete instance', () async {
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/instances/foo');
+    final uri = unixDomainUrl('/1.0/instances/foo', {'project': 'baz'});
     final request = mockOperation(id: 'ID');
     when(http.openUrl('DELETE', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final operation = await client.deleteInstance('foo');
+    final operation = await client.deleteInstance('foo', project: 'baz');
     verify(http.openUrl('DELETE', uri)).called(1);
     verify(request.close()).called(1);
 
