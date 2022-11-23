@@ -532,14 +532,26 @@ class LxdClient {
   }
 
   /// Gets information on the network ACL with [name].
-  Future<LxdNetworkAcl> getNetworkAcl(String name) async {
-    var acl = await _requestSync('GET', '/1.0/network-acls/$name');
+  Future<LxdNetworkAcl> getNetworkAcl(String name, {String? project}) async {
+    var acl = await _requestSync(
+      'GET',
+      '/1.0/network-acls/$name',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
     return LxdNetworkAcl.fromJson(acl);
   }
 
   /// Gets the names of the profiles provided by the LXD server.
-  Future<List<String>> getProfiles() async {
-    var profilePaths = await _requestSync('GET', '/1.0/profiles');
+  Future<List<String>> getProfiles({String? project}) async {
+    var profilePaths = await _requestSync(
+      'GET',
+      '/1.0/profiles',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
     var profileNames = <String>[];
     for (var path in profilePaths) {
       if (path.startsWith(_profilePath)) {
@@ -550,8 +562,14 @@ class LxdClient {
   }
 
   /// Gets information on the profile with [name].
-  Future<LxdProfile> getProfile(String name) async {
-    var profile = await _requestSync('GET', '/1.0/profiles/$name');
+  Future<LxdProfile> getProfile(String name, {String? project}) async {
+    var profile = await _requestSync(
+      'GET',
+      '/1.0/profiles/$name',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
     return LxdProfile.fromJson(profile);
   }
 

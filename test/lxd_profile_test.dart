@@ -7,12 +7,12 @@ import 'lxd_http.dart';
 void main() {
   test('get profiles', () async {
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/profiles', {});
+    final uri = unixDomainUrl('/1.0/profiles', {'project': 'baz'});
     final request = mockResponse(['/1.0/profiles/foo', '/1.0/profiles/bar']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final profiles = await client.getProfiles();
+    final profiles = await client.getProfiles(project: 'baz');
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 
@@ -27,12 +27,12 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/profiles/foo', {});
+    final uri = unixDomainUrl('/1.0/profiles/foo', {'project': 'baz'});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final profile = await client.getProfile('foo');
+    final profile = await client.getProfile('foo', project: 'baz');
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 
