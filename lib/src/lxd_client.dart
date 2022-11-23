@@ -178,10 +178,14 @@ class LxdClient {
 
   /// Gets the fingerprints of the images provided by the LXD server.
   Future<List<String>> getImages({String? project, String? filter}) async {
-    var imagePaths = await _requestSync('GET', '/1.0/images', queryParameters: {
-      if (project != null) 'project': project,
-      if (filter != null) 'filter': filter,
-    });
+    final imagePaths = await _requestSync(
+      'GET',
+      '/1.0/images',
+      queryParameters: {
+        if (project != null) 'project': project,
+        if (filter != null) 'filter': filter,
+      },
+    );
     var fingerprints = <String>[];
     for (var path in imagePaths) {
       if (path.startsWith(_imagePath)) {
@@ -192,8 +196,14 @@ class LxdClient {
   }
 
   /// Gets information on an image with [fingerprint].
-  Future<LxdImage> getImage(String fingerprint) async {
-    var image = await _requestSync('GET', '/1.0/images/$fingerprint');
+  Future<LxdImage> getImage(String fingerprint, {String? project}) async {
+    var image = await _requestSync(
+      'GET',
+      '/1.0/images/$fingerprint',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
     return LxdImage.fromJson(image);
   }
 
@@ -562,10 +572,14 @@ class LxdClient {
   Future<dynamic> _requestAsync(
     String method,
     String path, {
+    Map<String, String> queryParameters = const {},
     dynamic body,
   }) async {
     await _connect();
-    var request = await _client.openUrl(method, _url.resolve(path));
+    var request = await _client.openUrl(
+      method,
+      _url.resolve(path).replace(queryParameters: queryParameters),
+    );
     request.headers.contentType = ContentType('application', 'json');
     request.write(json.encode(body));
     await request.close();
