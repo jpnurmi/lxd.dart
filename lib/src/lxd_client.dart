@@ -592,8 +592,14 @@ class LxdClient {
   }
 
   /// Gets the names of the storage pools provided by the LXD server.
-  Future<List<String>> getStoragePools() async {
-    var poolPaths = await _requestSync('GET', '/1.0/storage-pools');
+  Future<List<String>> getStoragePools({String? project}) async {
+    var poolPaths = await _requestSync(
+      'GET',
+      '/1.0/storage-pools',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
     var poolNames = <String>[];
     for (var path in poolPaths) {
       if (path.startsWith(_storagePoolPath)) {
@@ -604,8 +610,14 @@ class LxdClient {
   }
 
   /// Gets information on the pool with [name].
-  Future<LxdStoragePool> getStoragePool(String name) async {
-    var pool = await _requestSync('GET', '/1.0/storage-pools/$name');
+  Future<LxdStoragePool> getStoragePool(String name, {String? project}) async {
+    var pool = await _requestSync(
+      'GET',
+      '/1.0/storage-pools/$name',
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
     return LxdStoragePool.fromJson(pool);
   }
 
