@@ -17,7 +17,7 @@ import 'api/resource.dart';
 import 'api/storage_pool.dart';
 import 'enums.dart';
 import 'exception.dart';
-import 'id.dart';
+import 'instance_id.dart';
 import 'response.dart';
 
 const _certificatePath = '/1.0/certificates/';
