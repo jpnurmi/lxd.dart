@@ -1,20 +1,18 @@
 import 'package:collection/collection.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:meta/meta.dart';
 
 import 'api/instance.dart';
 
-part 'id.freezed.dart';
-
 /// Identifies an LXD object
-@freezed
-class LxdId with _$LxdId {
-  const factory LxdId(
-    /// Name associated with the object
-    String name, {
+@immutable
+class LxdId {
+  const LxdId(this.name, {this.project});
 
-    /// Project associated with the object
-    String? project,
-  }) = _LxdId;
+  /// Name associated with the object
+  final String name;
+
+  /// Project associated with the object
+  final String? project;
 
   factory LxdId.fromString(String id) {
     final uri = Uri.tryParse(id);
@@ -22,6 +20,15 @@ class LxdId with _$LxdId {
       uri?.pathSegments.lastOrNull ?? id.split('/').last,
       project: uri?.queryParameters['project'],
     );
+  }
+
+  @override
+  int get hashCode => Object.hash(name, project);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is LxdId && other.name == name && other.project == project;
   }
 
   @override
