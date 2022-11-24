@@ -3,21 +3,21 @@ import 'package:meta/meta.dart';
 
 import 'api/instance.dart';
 
-/// Identifies an LXD object
+/// Identifies an LXD instance
 @immutable
-class LxdId {
-  const LxdId(this.name, {this.project});
+class LxdInstanceId {
+  const LxdInstanceId(this.name, {this.project});
 
-  /// Name associated with the object
+  /// Name associated with the instance
   final String name;
 
-  /// Project associated with the object
+  /// Project associated with the instance
   final String? project;
 
-  factory LxdId.fromString(String id) {
-    final uri = Uri.tryParse(id);
-    return LxdId(
-      uri?.pathSegments.lastOrNull ?? id.split('/').last,
+  factory LxdInstanceId.fromPath(String path) {
+    final uri = Uri.tryParse(path);
+    return LxdInstanceId(
+      uri?.pathSegments.lastOrNull ?? path.split('/').last,
       project: uri?.queryParameters['project'],
     );
   }
@@ -28,7 +28,9 @@ class LxdId {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is LxdId && other.name == name && other.project == project;
+    return other is LxdInstanceId &&
+        other.name == name &&
+        other.project == project;
   }
 
   @override
@@ -40,6 +42,6 @@ class LxdId {
   }
 }
 
-extension LxdInstanceId on LxdInstance {
-  LxdId get id => LxdId(name, project: project);
+extension LxdInstanceIdX on LxdInstance {
+  LxdInstanceId get id => LxdInstanceId(name, project: project);
 }

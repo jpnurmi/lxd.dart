@@ -200,7 +200,10 @@ class LxdClient {
   }
 
   /// Gets the names of the instances provided by the LXD server.
-  Future<List<LxdId>> getInstances({String? project, String? filter}) async {
+  Future<List<LxdInstanceId>> getInstances({
+    String? project,
+    String? filter,
+  }) async {
     final instances = await _requestSync(
       'GET',
       '/1.0/instances',
@@ -209,11 +212,11 @@ class LxdClient {
         if (filter != null) 'filter': filter,
       },
     ) as List;
-    return instances.cast<String>().map(LxdId.fromString).toList();
+    return instances.cast<String>().map(LxdInstanceId.fromPath).toList();
   }
 
   /// Gets the names of the instances provided by the LXD server.
-  Future<List<LxdId>> getAllInstances({String? filter}) async {
+  Future<List<LxdInstanceId>> getAllInstances({String? filter}) async {
     final instances = await _requestSync(
       'GET',
       '/1.0/instances',
@@ -222,11 +225,11 @@ class LxdClient {
         'all-projects': 'true',
       },
     ) as List;
-    return instances.cast<String>().map(LxdId.fromString).toList();
+    return instances.cast<String>().map(LxdInstanceId.fromPath).toList();
   }
 
   /// Gets information on the instance with [id].
-  Future<LxdInstance> getInstance(LxdId id) async {
+  Future<LxdInstance> getInstance(LxdInstanceId id) async {
     final instance = await _requestSync(
       'GET',
       '/1.0/instances/${id.name}',
@@ -238,7 +241,7 @@ class LxdClient {
   }
 
   /// Gets runtime state of the instance with [id].
-  Future<LxdInstanceState> getInstanceState(LxdId id) async {
+  Future<LxdInstanceState> getInstanceState(LxdInstanceId id) async {
     final state = await _requestSync(
       'GET',
       '/1.0/instances/${id.name}/state',
@@ -302,7 +305,10 @@ class LxdClient {
   }
 
   /// Starts the instance with [name].
-  Future<LxdOperation> startInstance(LxdId id, {bool force = false}) async {
+  Future<LxdOperation> startInstance(
+    LxdInstanceId id, {
+    bool force = false,
+  }) async {
     return await _requestAsync(
       'PUT',
       '/1.0/instances/${id.name}/state',
@@ -315,7 +321,7 @@ class LxdClient {
 
   /// Executes a command in the instance with [name].
   Future<LxdOperation> execInstance(
-    LxdId id, {
+    LxdInstanceId id, {
     required List<String> command,
     String? workingDirectory,
     Map<String, String>? environment,
@@ -360,9 +366,9 @@ class LxdClient {
     );
   }
 
-  /// Stops the instance with [name].
+  /// Stops the instance with [id].
   Future<LxdOperation> stopInstance(
-    LxdId id, {
+    LxdInstanceId id, {
     bool force = false,
     Duration? timeout,
   }) async {
@@ -380,9 +386,9 @@ class LxdClient {
     );
   }
 
-  /// Restarts the instance with [name].
+  /// Restarts the instance with [id].
   Future<LxdOperation> restartInstance(
-    LxdId id, {
+    LxdInstanceId id, {
     bool force = false,
     Duration? timeout,
   }) async {
@@ -400,8 +406,8 @@ class LxdClient {
     );
   }
 
-  /// Deletes the instance with [name].
-  Future<LxdOperation> deleteInstance(LxdId id) async {
+  /// Deletes the instance with [id].
+  Future<LxdOperation> deleteInstance(LxdInstanceId id) async {
     return await _requestAsync(
       'DELETE',
       '/1.0/instances/${id.name}',
@@ -411,7 +417,7 @@ class LxdClient {
     );
   }
 
-  Future<String> pullFile(LxdId id, {required String path}) async {
+  Future<String> pullFile(LxdInstanceId id, {required String path}) async {
     var request = await _client.openUrl(
       'GET',
       _url.resolve('/1.0/instances/${id.name}/files').replace(queryParameters: {
@@ -423,7 +429,7 @@ class LxdClient {
     return await response.transform(utf8.decoder).join();
   }
 
-  Future<void> deleteFile(LxdId id, {required String path}) {
+  Future<void> deleteFile(LxdInstanceId id, {required String path}) {
     return _requestSync(
       'DELETE',
       '/1.0/instances/${id.name}/files',
@@ -435,7 +441,7 @@ class LxdClient {
   }
 
   Future<void> pushFile(
-    LxdId id, {
+    LxdInstanceId id, {
     required String path,
     String? data,
     int? uid,
