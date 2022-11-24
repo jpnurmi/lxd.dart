@@ -3,11 +3,11 @@ import 'package:lxd/lxd.dart';
 void main() async {
   var client = LxdClient();
 
-  var instanceNames = await client.getInstances();
-  print('NAME STATE IPV4 IPV6 TYPE');
-  for (var name in instanceNames) {
-    var instance = await client.getInstance(name);
-    var state = await client.getInstanceState(name);
+  var instanceIds = await client.getAllInstances();
+  print('PROJECT NAME STATE IPV4 IPV6 TYPE');
+  for (var id in instanceIds) {
+    var instance = await client.getInstance(id);
+    var state = await client.getInstanceState(id);
     var addresses4 = <String>[];
     var addresses6 = <String>[];
     var network = state.network ?? {};
@@ -27,7 +27,7 @@ void main() async {
       }
     }
     print(
-        '${instance.name} ${instance.status} ${addresses4.join(',')} ${addresses6.join(',')} ${instance.type}');
+        '${instance.project} ${instance.name} ${instance.status} ${addresses4.join(',')} ${addresses6.join(',')} ${instance.type}');
   }
 
   client.close();

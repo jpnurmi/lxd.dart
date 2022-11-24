@@ -10,7 +10,8 @@ void main() {
   test('get instances', () async {
     final http = mockHttpClient();
     final uri = unixDomainUrl('/1.0/instances', {'project': 'baz'});
-    final request = mockResponse(['/1.0/instances/foo', '/1.0/instances/bar']);
+    final request = mockResponse(
+        ['/1.0/instances/foo?project=baz', '/1.0/instances/bar?project=baz']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
@@ -18,7 +19,8 @@ void main() {
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 
-    expect(instances, equals(['foo', 'bar']));
+    expect(instances,
+        equals([LxdId('foo', project: 'baz'), LxdId('bar', project: 'baz')]));
   });
 
   test('get instance', () async {
@@ -46,7 +48,7 @@ void main() {
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final instance = await client.getInstance('foo', project: 'baz');
+    final instance = await client.getInstance(LxdId('foo', project: 'baz'));
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 
@@ -118,7 +120,7 @@ void main() {
     when(http.openUrl('PUT', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final operation = await client.startInstance('foo', project: 'baz');
+    final operation = await client.startInstance(LxdId('foo', project: 'baz'));
     verify(http.openUrl('PUT', uri)).called(1);
     verify(request.write(jsonEncode({'action': 'start', 'force': false})));
     verify(request.close()).called(1);
@@ -133,7 +135,7 @@ void main() {
     when(http.openUrl('PUT', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final operation = await client.stopInstance('foo', project: 'baz');
+    final operation = await client.stopInstance(LxdId('foo', project: 'baz'));
     verify(http.openUrl('PUT', uri)).called(1);
     verify(request.write(jsonEncode({'action': 'stop', 'force': false})));
     verify(request.close()).called(1);
@@ -148,7 +150,8 @@ void main() {
     when(http.openUrl('PUT', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final operation = await client.restartInstance('foo', project: 'baz');
+    final operation =
+        await client.restartInstance(LxdId('foo', project: 'baz'));
     verify(http.openUrl('PUT', uri)).called(1);
     verify(request.write(jsonEncode({'action': 'restart', 'force': false})));
     verify(request.close()).called(1);
@@ -163,7 +166,7 @@ void main() {
     when(http.openUrl('DELETE', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final operation = await client.deleteInstance('foo', project: 'baz');
+    final operation = await client.deleteInstance(LxdId('foo', project: 'baz'));
     verify(http.openUrl('DELETE', uri)).called(1);
     verify(request.close()).called(1);
 

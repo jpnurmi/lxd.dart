@@ -54,7 +54,7 @@ void main() {
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final state = await client.getInstanceState('foo', project: 'baz');
+    final state = await client.getInstanceState(LxdId('foo', project: 'baz'));
     expect(state.network!.keys, equals(['eth0']));
     final eth = state.network!['eth0']!;
     expect(

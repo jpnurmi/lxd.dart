@@ -12,5 +12,6 @@ export 'src/api/resource.dart';
 export 'src/api/storage_pool.dart';
 export 'src/enums.dart';
 export 'src/exception.dart';
+export 'src/id.dart';
 export 'src/lxd_client.dart';
 export 'src/status_code.dart';

@@ -9,7 +9,7 @@ void main(List<String> args) async {
 
   var client = LxdClient();
 
-  var operation = await client.deleteInstance(instanceName);
+  var operation = await client.deleteInstance(LxdId(instanceName));
   operation = await client.waitOperation(operation.id);
   if (operation.status == 'Success') {
     print('Deleted $instanceName.');
