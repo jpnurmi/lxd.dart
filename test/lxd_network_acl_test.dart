@@ -7,17 +7,20 @@ import 'lxd_http.dart';
 void main() {
   test('get network acls', () async {
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/network-acls', {});
-    final request =
-        mockResponse(['/1.0/network-acls/foo', '/1.0/network-acls/bar']);
+    final uri = unixDomainUrl('/1.0/network-acls', {'project': 'baz'});
+    final request = mockResponse([
+      '/1.0/network-acls/foo?project=baz',
+      '/1.0/network-acls/bar?project=baz'
+    ]);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final acls = await client.getNetworkAcls();
+    final acls = await client.getNetworkAcls(project: 'baz');
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 
-    expect(acls, equals(['foo', 'bar']));
+    expect(acls,
+        equals([LxdId('foo', project: 'baz'), LxdId('bar', project: 'baz')]));
   });
 
   test('get network acl', () async {
@@ -35,12 +38,12 @@ void main() {
     };
 
     final http = mockHttpClient();
-    final uri = unixDomainUrl('/1.0/network-acls/foo', {});
+    final uri = unixDomainUrl('/1.0/network-acls/foo', {'project': 'baz'});
     final request = mockResponse(response);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final acl = await client.getNetworkAcl('foo');
+    final acl = await client.getNetworkAcl(LxdId('foo', project: 'baz'));
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 

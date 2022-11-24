@@ -23,7 +23,6 @@ import 'response.dart';
 const _certificatePath = '/1.0/certificates/';
 const _imagePath = '/1.0/images/';
 const _networkPath = '/1.0/networks/';
-const _networkAclPath = '/1.0/network-acls/';
 const _operationPath = '/1.0/operations/';
 const _profilePath = '/1.0/profiles/';
 const _projectPath = '/1.0/projects/';
@@ -505,24 +504,24 @@ class LxdClient {
   }
 
   /// Gets the names of the network ACLs provided by the LXD server.
-  Future<List<String>> getNetworkAcls() async {
-    var aclPaths = await _requestSync('GET', '/1.0/network-acls');
-    var aclNames = <String>[];
-    for (var path in aclPaths) {
-      if (path.startsWith(_networkAclPath)) {
-        aclNames.add(path.substring(_networkAclPath.length));
-      }
-    }
-    return aclNames;
-  }
-
-  /// Gets information on the network ACL with [name].
-  Future<LxdNetworkAcl> getNetworkAcl(String name, {String? project}) async {
-    var acl = await _requestSync(
+  Future<List<LxdId>> getNetworkAcls({String? project}) async {
+    final acls = await _requestSync(
       'GET',
-      '/1.0/network-acls/$name',
+      '/1.0/network-acls',
       queryParameters: {
         if (project != null) 'project': project,
+      },
+    ) as List;
+    return acls.cast<String>().map(LxdId.fromString).toList();
+  }
+
+  /// Gets information on the network ACL with [id].
+  Future<LxdNetworkAcl> getNetworkAcl(LxdId id) async {
+    final acl = await _requestSync(
+      'GET',
+      '/1.0/network-acls/${id.name}',
+      queryParameters: {
+        if (id.project != null) 'project': id.project!,
       },
     );
     return LxdNetworkAcl.fromJson(acl);
