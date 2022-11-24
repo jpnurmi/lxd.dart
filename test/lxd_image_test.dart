@@ -8,8 +8,7 @@ void main() {
   test('get images', () async {
     final http = mockHttpClient();
     final uri = unixDomainUrl('/1.0/images', {'project': 'baz'});
-    final request = mockResponse(
-        ['/1.0/images/foo?project=baz', '/1.0/images/bar?project=baz']);
+    final request = mockResponse(['/1.0/images/foo', '/1.0/images/bar']);
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
@@ -17,8 +16,7 @@ void main() {
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 
-    expect(images,
-        equals([LxdId('foo', project: 'baz'), LxdId('bar', project: 'baz')]));
+    expect(images, equals(['foo', 'bar']));
   });
 
   test('get image', () async {
@@ -65,7 +63,7 @@ void main() {
     when(http.openUrl('GET', uri)).thenAnswer((_) async => request);
 
     final client = LxdClient(client: http);
-    final image = await client.getImage(LxdId('foo', project: 'baz'));
+    final image = await client.getImage('foo', project: 'baz');
     verify(http.openUrl('GET', uri)).called(1);
     verify(request.close()).called(1);
 

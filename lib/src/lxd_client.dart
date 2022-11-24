@@ -175,7 +175,7 @@ class LxdClient {
   }
 
   /// Gets the fingerprints of the images provided by the LXD server.
-  Future<List<LxdId>> getImages({String? project, String? filter}) async {
+  Future<List<String>> getImages({String? project, String? filter}) async {
     final images = await _requestSync(
       'GET',
       '/1.0/images',
@@ -184,16 +184,16 @@ class LxdClient {
         if (filter != null) 'filter': filter,
       },
     ) as List;
-    return images.cast<String>().map(LxdId.fromString).toList();
+    return images.cast<String>().map((p) => p.split('/').last).toList();
   }
 
   /// Gets information on an image with [id].
-  Future<LxdImage> getImage(LxdId id) async {
+  Future<LxdImage> getImage(String fingerprint, {String? project}) async {
     var image = await _requestSync(
       'GET',
-      '/1.0/images/${id.name}',
+      '/1.0/images/$fingerprint',
       queryParameters: {
-        if (id.project != null) 'project': id.project!,
+        if (project != null) 'project': project,
       },
     );
     return LxdImage.fromJson(image);
@@ -497,7 +497,7 @@ class LxdClient {
   }
 
   /// Gets the names of the network ACLs provided by the LXD server.
-  Future<List<LxdId>> getNetworkAcls({String? project}) async {
+  Future<List<String>> getNetworkAcls({String? project}) async {
     final acls = await _requestSync(
       'GET',
       '/1.0/network-acls',
@@ -505,16 +505,16 @@ class LxdClient {
         if (project != null) 'project': project,
       },
     ) as List;
-    return acls.cast<String>().map(LxdId.fromString).toList();
+    return acls.cast<String>().map((s) => s.split('/').last).toList();
   }
 
   /// Gets information on the network ACL with [id].
-  Future<LxdNetworkAcl> getNetworkAcl(LxdId id) async {
+  Future<LxdNetworkAcl> getNetworkAcl(String name, {String? project}) async {
     final acl = await _requestSync(
       'GET',
-      '/1.0/network-acls/${id.name}',
+      '/1.0/network-acls/$name',
       queryParameters: {
-        if (id.project != null) 'project': id.project!,
+        if (project != null) 'project': project,
       },
     );
     return LxdNetworkAcl.fromJson(acl);
