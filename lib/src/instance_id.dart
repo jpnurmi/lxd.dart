@@ -37,7 +37,8 @@ class LxdInstanceId {
   String toString() {
     return Uri(
       path: name,
-      queryParameters: {if (project != null) 'project': project},
+      queryParameters:
+          project?.isNotEmpty == true ? {'project': project} : null,
     ).toString();
   }
 }
