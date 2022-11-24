@@ -21,7 +21,6 @@ import 'id.dart';
 import 'response.dart';
 
 const _certificatePath = '/1.0/certificates/';
-const _imagePath = '/1.0/images/';
 const _networkPath = '/1.0/networks/';
 const _operationPath = '/1.0/operations/';
 const _profilePath = '/1.0/profiles/';
@@ -176,31 +175,25 @@ class LxdClient {
   }
 
   /// Gets the fingerprints of the images provided by the LXD server.
-  Future<List<String>> getImages({String? project, String? filter}) async {
-    final imagePaths = await _requestSync(
+  Future<List<LxdId>> getImages({String? project, String? filter}) async {
+    final images = await _requestSync(
       'GET',
       '/1.0/images',
       queryParameters: {
         if (project != null) 'project': project,
         if (filter != null) 'filter': filter,
       },
-    );
-    var fingerprints = <String>[];
-    for (var path in imagePaths) {
-      if (path.startsWith(_imagePath)) {
-        fingerprints.add(path.substring(_imagePath.length));
-      }
-    }
-    return fingerprints;
+    ) as List;
+    return images.cast<String>().map(LxdId.fromString).toList();
   }
 
-  /// Gets information on an image with [fingerprint].
-  Future<LxdImage> getImage(String fingerprint, {String? project}) async {
+  /// Gets information on an image with [id].
+  Future<LxdImage> getImage(LxdId id) async {
     var image = await _requestSync(
       'GET',
-      '/1.0/images/$fingerprint',
+      '/1.0/images/${id.name}',
       queryParameters: {
-        if (project != null) 'project': project,
+        if (id.project != null) 'project': id.project!,
       },
     );
     return LxdImage.fromJson(image);
