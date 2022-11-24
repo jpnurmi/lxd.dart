@@ -23,14 +23,15 @@ class LxdInstanceId {
   }
 
   @override
-  int get hashCode => Object.hash(name, project);
+  int get hashCode => Object.hash(name, project ?? '');
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is LxdInstanceId &&
         other.name == name &&
-        other.project == project;
+        // null and empty are considered equal
+        (other.project ?? '') == (project ?? '');
   }
 
   @override
