@@ -167,7 +167,7 @@ class LxdClient {
   Stream<LxdEvent> getAllEvents({Set<LxdEventType> types = const {}}) {
     return _getEvents(
       types: types,
-      queryParameters: {'all-projects': 'true'},
+      queryParameters: {'all-projects': true},
     );
   }
 
@@ -234,13 +234,13 @@ class LxdClient {
     return _getInstances(
       queryParameters: {
         if (filter != null) 'filter': filter,
-        'all-projects': 'true',
+        'all-projects': true,
       },
     );
   }
 
   Future<List<LxdInstanceId>> _getInstances({
-    Map<String, String> queryParameters = const {},
+    Map<String, dynamic> queryParameters = const {},
   }) async {
     final instances = await _requestSync(
       'GET',
@@ -639,7 +639,7 @@ class LxdClient {
   Future<dynamic> _requestSync(
     String method,
     String path, {
-    Map<String, String> queryParameters = const {},
+    Map<String, dynamic> queryParameters = const {},
     Map<String, Object> headers = const {},
     dynamic body,
   }) async {
@@ -665,7 +665,7 @@ class LxdClient {
   Future<dynamic> _requestAsync(
     String method,
     String path, {
-    Map<String, String> queryParameters = const {},
+    Map<String, dynamic> queryParameters = const {},
     dynamic body,
   }) async {
     await _connect();
