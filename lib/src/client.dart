@@ -152,15 +152,35 @@ class LxdClient {
 
   /// Gets a stream of LXD events.
   Stream<LxdEvent> getEvents({
-    String project = '',
+    String? project,
     Set<LxdEventType> types = const {},
+  }) {
+    return _getEvents(
+      types: types,
+      queryParameters: {
+        if (project != null) 'project': project,
+      },
+    );
+  }
+
+  /// Gets a stream of LXD events.
+  Stream<LxdEvent> getAllEvents({Set<LxdEventType> types = const {}}) {
+    return _getEvents(
+      types: types,
+      queryParameters: {'all-projects': 'true'},
+    );
+  }
+
+  Stream<LxdEvent> _getEvents({
+    Set<LxdEventType> types = const {},
+    Map<String, dynamic> queryParameters = const {},
   }) async* {
     final url = Uri(
       scheme: 'ws',
       host: _url.host,
       path: '/1.0/events',
       queryParameters: {
-        if (project.isNotEmpty) 'project': project,
+        ...queryParameters,
         if (types.isNotEmpty) 'type': types.map((t) => t.name).join(','),
       },
     );
