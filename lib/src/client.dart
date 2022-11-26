@@ -220,30 +220,32 @@ class LxdClient {
   }
 
   /// Gets the names of the instances provided by the LXD server.
-  Future<List<LxdInstanceId>> getInstances({
-    String? project,
-    String? filter,
-  }) async {
-    final instances = await _requestSync(
-      'GET',
-      '/1.0/instances',
+  Future<List<LxdInstanceId>> getInstances({String? project, String? filter}) {
+    return _getInstances(
       queryParameters: {
         if (project != null) 'project': project,
         if (filter != null) 'filter': filter,
       },
-    ) as List;
-    return instances.cast<String>().map(LxdInstanceId.fromPath).toList();
+    );
   }
 
   /// Gets the names of the instances provided by the LXD server.
-  Future<List<LxdInstanceId>> getAllInstances({String? filter}) async {
-    final instances = await _requestSync(
-      'GET',
-      '/1.0/instances',
+  Future<List<LxdInstanceId>> getAllInstances({String? filter}) {
+    return _getInstances(
       queryParameters: {
         if (filter != null) 'filter': filter,
         'all-projects': 'true',
       },
+    );
+  }
+
+  Future<List<LxdInstanceId>> _getInstances({
+    Map<String, String> queryParameters = const {},
+  }) async {
+    final instances = await _requestSync(
+      'GET',
+      '/1.0/instances',
+      queryParameters: queryParameters,
     ) as List;
     return instances.cast<String>().map(LxdInstanceId.fromPath).toList();
   }
