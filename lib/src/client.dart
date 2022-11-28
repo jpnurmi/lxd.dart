@@ -167,7 +167,7 @@ class LxdClient {
   Stream<LxdEvent> getAllEvents({Set<LxdEventType> types = const {}}) {
     return _getEvents(
       types: types,
-      queryParameters: {'all-projects': true},
+      queryParameters: {'all-projects': 'true'},
     );
   }
 
@@ -234,7 +234,7 @@ class LxdClient {
     return _getInstances(
       queryParameters: {
         if (filter != null) 'filter': filter,
-        'all-projects': true,
+        'all-projects': 'true',
       },
     );
   }
