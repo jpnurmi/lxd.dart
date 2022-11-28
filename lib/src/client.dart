@@ -38,18 +38,18 @@ class LxdClient {
       : _client = client ?? _createClient(url),
         _url = url;
 
-  factory LxdClient({String? socketPath, HttpClient? client}) {
-    assert(socketPath == null || client == null);
-    final url = Uri(
-      scheme: 'unix',
-      host: 'localhost',
-      path: _resolveSocketPath(socketPath),
-    );
-    return LxdClient._(url, client);
-  }
+  LxdClient({String? socketPath, HttpClient? client})
+      : this._(
+          Uri(
+            scheme: 'unix',
+            host: 'localhost',
+            path: _resolveSocketPath(socketPath),
+          ),
+          client,
+        );
 
-  factory LxdClient.remote({required Uri url, HttpClient? client}) =>
-      LxdClient._(url, client);
+  LxdClient.remote({required Uri url, HttpClient? client})
+      : this._(url, client);
 
   static String _resolveSocketPath(String? socketPath) {
     final lxdDir = Platform.environment['LXD_DIR'];
