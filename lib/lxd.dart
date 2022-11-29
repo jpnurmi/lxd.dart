@@ -11,6 +11,7 @@ export 'src/api/project.dart';
 export 'src/api/resource.dart';
 export 'src/api/storage_pool.dart';
 export 'src/client.dart';
+export 'src/constants.dart';
 export 'src/enums.dart';
 export 'src/exception.dart';
 export 'src/instance_id.dart';
